@@ -1,192 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Juku - Microfinance Startup - Evolving Investment With Meaning">
-    <title>Juku - Microfinance Startup</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SwapDesk — Interest Rate Swaps for UK SMEs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link rel="stylesheet" href="swapdesk/css/style.css">
 </head>
 <body>
-    <!-- Header/Navigation -->
-    <header class="header">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <div class="logo-circle"></div>
-                <span class="logo-text">Juku</span>
-            </div>
-            <nav class="nav-menu">
-                <a href="#" class="nav-link">About</a>
-                <a href="#" class="nav-link">Services</a>
-                <a href="#" class="nav-link">Opportunities</a>
-            </nav>
-            <button class="btn btn-primary">Get in Touch</button>
-        </div>
-    </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-container">
-            <div class="hero-content">
-                <h1 class="hero-title">Evolving Investment With <span class="highlight">Meaning</span></h1>
-                <p class="hero-subtitle">Making change does not need to be charity. Here at Juku, you can make change, and find success.</p>
-                <div class="hero-actions">
-                    <button class="btn btn-primary">Sign Up</button>
-                    <button class="btn btn-primary">Login</button>
-                    <button class="btn btn-primary">Investments</button>
-                </div>
-            </div>
-            <div class="hero-graphic">
-                <div class="orange-circle">
-                    <div class="dotted-square square-1"></div>
-                    <div class="dotted-square square-2"></div>
-                </div>
-            </div>
-        </div>
-    </section>
+<nav>
+  <a class="nav-logo" href="#" onclick="show('home'); return false;"><span>swap</span>desk</a>
+  <div class="nav-links">
+    <button class="nav-btn active" onclick="show('home')">How it works</button>
+    <button class="nav-btn" onclick="show('form')">Get in touch</button>
+  </div>
+</nav>
 
-    <!-- The Process Section -->
-    <section class="process">
-        <div class="process-container">
-            <div class="section-header">
-                <h2>The Process</h2>
-                <p>We are a microfinance software that lets you invest soundly.</p>
-            </div>
-            <div class="process-grid">
-                <div class="process-step">
-                    <div class="step-number">1.</div>
-                    <h3>Appraise</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                </div>
-                <div class="process-step">
-                    <div class="step-number">2.</div>
-                    <h3>Invest</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                </div>
-                <div class="process-step">
-                    <div class="step-number">3.</div>
-                    <h3>Watch Them Grow</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                </div>
-                <div class="process-step">
-                    <div class="step-number">4.</div>
-                    <h3>Profit</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                </div>
-            </div>
-            <div class="process-cta">
-                <button class="btn btn-primary">Learn More</button>
-            </div>
-        </div>
-    </section>
+<!-- HOME PAGE -->
+<div class="page active" id="page-home">
 
-    <!-- About Juku Section -->
-    <section class="about">
-        <div class="about-container">
-            <div class="about-content">
-                <h2>About Juku</h2>
-                <p>Investing in entrepreneurs' dreams while growing your wealth. Our microloans empower individuals to build businesses, create jobs, and transform communities. By diversifying your portfolio with impact investments, you create a win-win scenario: attractive returns while making a meaningful difference in people's lives.</p>
-                <p>We believe that financial success and social impact can go hand in hand. Through our platform, you can support entrepreneurs around the world while building a sustainable investment portfolio that delivers both financial returns and positive change.</p>
-            </div>
-            <div class="about-image">
-                <div class="image-placeholder">
-                    <span>Woman working at laptop</span>
-                </div>
-            </div>
-        </div>
-    </section>
+  <div class="hero">
+    <div class="hero-tag">
+      <i class="ti ti-arrows-exchange" aria-hidden="true" style="font-size:13px;"></i>
+      Interest rate swaps for UK businesses
+    </div>
+    <h1>One party wants <em>fixed</em>.<br>One wants <em>variable</em>.<br>We connect them.</h1>
+    <p>An interest rate swap lets two businesses exchange their loan payment structures — without refinancing. It's one of the most common financial instruments in the world, now accessible to SMEs.</p>
+  </div>
 
-    <!-- Entrepreneurs Section -->
-    <section class="entrepreneurs">
-        <div class="entrepreneurs-container">
-            <div class="section-header">
-                <h2>Some of Our Entrepreneurs</h2>
-            </div>
-            <div class="entrepreneurs-grid">
-                <div class="entrepreneur-card">
-                    <div class="card-image">
-                        <div class="image-placeholder">
-                            <span>Marcus playing saxophone</span>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <h3>Marcus Areuilez</h3>
-                        <p class="location">Port-Au-Prince, Haiti</p>
-                        <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                        <div class="card-arrow">→</div>
-                    </div>
-                </div>
-                <div class="entrepreneur-card">
-                    <div class="card-image">
-                        <div class="image-placeholder">
-                            <span>Anu with eagle</span>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <h3>Anu Batbayer</h3>
-                        <p class="location">Ulaanbaatar, Mongolia</p>
-                        <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                        <div class="card-arrow">→</div>
-                    </div>
-                </div>
-                <div class="entrepreneur-card">
-                    <div class="card-image">
-                        <div class="image-placeholder">
-                            <span>Oladimeji portrait</span>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <h3>Oladimeji Ibrahim</h3>
-                        <p class="location">Lagos, Nigeria</p>
-                        <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                        <div class="card-arrow">→</div>
-                    </div>
-                </div>
-            </div>
-            <div class="entrepreneurs-cta">
-                <button class="btn btn-primary">View More Projects</button>
-            </div>
-        </div>
-    </section>
+  <div class="section">
+    <div class="section-label">The two parties</div>
+    <div class="parties">
+      <div class="party">
+        <div class="p-label">Party A</div>
+        <div class="p-name">The fixed-rate seeker</div>
+        <div class="p-desc">Has a variable-rate loan (e.g. linked to SONIA). Wants certainty — a predictable monthly payment for budgeting.</div>
+        <span class="p-badge fixed-badge">Pays fixed, receives float</span>
+      </div>
+      <div class="middle-arrow">
+        <span class="arrow-line">↑</span>
+        <span class="arrow-label">fixed<br>rate</span>
+        <span class="arrow-label">float<br>rate</span>
+        <span class="arrow-line">↓</span>
+      </div>
+      <div class="party">
+        <div class="p-label">Party B</div>
+        <div class="p-name">The float-rate seeker</div>
+        <div class="p-desc">Has a fixed-rate loan. Believes rates will fall and wants to benefit — willing to take on variability in exchange.</div>
+        <span class="p-badge float-badge">Pays float, receives fixed</span>
+      </div>
+    </div>
+    <p class="parties-note">Neither party changes their underlying loan. They simply exchange the interest payment streams — the net difference changes hands each period.</p>
+  </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Juku, Microfinance Startup</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <div class="social-links">
-                        <a href="#" class="social-link">𝕏</a>
-                        <a href="#" class="social-link">📘</a>
-                        <a href="#" class="social-link">📷</a>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h4>Juku</h4>
-                    <ul>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Features</a></li>
-                        <li><a href="#">Works</a></li>
-                        <li><a href="#">Career</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Help</h4>
-                    <ul>
-                        <li><a href="#">Customer Support</a></li>
-                        <li><a href="#">Delivery Details</a></li>
-                        <li><a href="#">Terms & Conditions</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                    </ul>
-                </div>
-            </div>
+  <div class="section">
+    <div class="section-label">How it works, step by step</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <h3>Both parties have existing loans</h3>
+          <p>Party A has a £500k variable-rate loan at SONIA + 2%. Party B has a £500k fixed-rate loan at 6.5%. Each is unhappy with their structure for their own reasons.</p>
         </div>
-    </footer>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <h3>They agree a notional and a swap rate</h3>
+          <p>The notional amount is the reference figure (e.g. £500k) — no principal is exchanged, ever. They agree a fixed swap rate (e.g. 5.5%) against a floating benchmark like SONIA.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <h3>Each period, only the net difference is paid</h3>
+          <p>If SONIA is 4.5%, the floating rate is 4.5%. The fixed payer owes 5.5%; the float payer owes 4.5%. The fixed payer pays the net 1% difference — not both full amounts.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div>
+          <h3>Each party effectively converts their loan</h3>
+          <p>Party A now has predictable costs — their variable loan plus the fixed swap nets out to approximately the fixed rate. Party B gains exposure to a falling rate environment.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <script src="js/script.js"></script>
+  <div class="section">
+    <div class="section-label">Live example — see the maths</div>
+    <div class="calc-box">
+      <h3>Adjust the rates and notional below</h3>
+      <div class="slider-row">
+        <label>Fixed swap rate (%)</label>
+        <input type="range" min="2" max="10" step="0.1" value="5.5" id="fixed-rate" oninput="calc()">
+        <span class="slider-val" id="fixed-out">5.5%</span>
+      </div>
+      <div class="slider-row">
+        <label>Current SONIA (%)</label>
+        <input type="range" min="0.5" max="9" step="0.1" value="4.5" id="sonia" oninput="calc()">
+        <span class="slider-val" id="sonia-out">4.5%</span>
+      </div>
+      <div class="slider-row">
+        <label>Notional (£k)</label>
+        <input type="range" min="100" max="2000" step="50" value="500" id="notional" oninput="calc()">
+        <span class="slider-val" id="notional-out">£500k</span>
+      </div>
+      <div class="calc-divider"></div>
+      <div class="results-grid">
+        <div class="res-card blue">
+          <div class="rc-label">Party A pays (fixed)</div>
+          <div class="rc-val" id="a-pays">£27,500</div>
+          <div class="rc-sub" id="a-pays-sub">5.5% × £500k / yr</div>
+        </div>
+        <div class="res-card amber">
+          <div class="rc-label">Party B pays (float)</div>
+          <div class="rc-val" id="b-pays">£22,500</div>
+          <div class="rc-sub" id="b-pays-sub">4.5% × £500k / yr</div>
+        </div>
+      </div>
+      <div class="net-row">
+        <span class="net-label" id="net-label">Party A pays Party B the net difference</span>
+        <span class="net-val" id="net-val">£5,000 / yr</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Common questions</div>
+    <div class="faq-item">
+      <div class="faq-q">Does principal ever change hands?</div>
+      <div class="faq-a">No. The notional is just a reference number used to calculate the interest payments. No principal is exchanged at any point in a standard interest rate swap.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What benchmark does the floating rate use?</div>
+      <div class="faq-a">In the UK, SONIA (Sterling Overnight Index Average) replaced LIBOR as the standard floating benchmark in 2021. It reflects the rate banks lend to each other overnight.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Who bears the risk?</div>
+      <div class="faq-a">Both parties take on rate risk in opposite directions. If rates rise above the swap rate, Party A benefits (their fixed payment is below market). If rates fall, Party B benefits.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Can an SME actually access this?</div>
+      <div class="faq-a">Traditionally, interest rate swaps have been confined to large corporates with bank relationships. We're building infrastructure to connect UK SMEs directly, with smaller notionals and no minimum deal size.</div>
+    </div>
+  </div>
+
+  <div class="cta">
+    <h2>Interested in accessing this?</h2>
+    <p>We're building a platform to match UK SMEs who want to swap their interest rate exposure. No investment bank required. Get in touch to learn more.</p>
+    <button class="cta-btn" onclick="show('form')">Get in touch →</button>
+  </div>
+
+</div>
+
+<!-- FORM PAGE -->
+<div class="page" id="page-form">
+
+  <div class="form-wrap" id="form-inner">
+    <h1>Get in touch</h1>
+    <p class="form-sub">Tell us about your loan and what you're trying to achieve. We'll be in touch within two business days.</p>
+
+    <div class="field-row">
+      <div class="field"><label>First name</label><input type="text" placeholder="James" id="fname"></div>
+      <div class="field"><label>Last name</label><input type="text" placeholder="Carter" id="lname"></div>
+    </div>
+    <div class="field"><label>Company name</label><input type="text" placeholder="Carter Builders Ltd" id="company"></div>
+    <div class="field"><label>Email address</label><input type="email" placeholder="james@carterbuilders.co.uk" id="email"></div>
+    <div class="field-row">
+      <div class="field">
+        <label>Current loan type</label>
+        <select id="loan-type">
+          <option value="">Select...</option>
+          <option>Variable rate (want fixed)</option>
+          <option>Fixed rate (want variable)</option>
+          <option>Not sure yet</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Approximate loan size</label>
+        <select id="loan-size">
+          <option value="">Select...</option>
+          <option>Under £100k</option>
+          <option>£100k – £500k</option>
+          <option>£500k – £2m</option>
+          <option>Over £2m</option>
+        </select>
+      </div>
+    </div>
+    <div class="field">
+      <label>Remaining loan term</label>
+      <select id="loan-term">
+        <option value="">Select...</option>
+        <option>Under 1 year</option>
+        <option>1–3 years</option>
+        <option>3–7 years</option>
+        <option>Over 7 years</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Anything else to add? (optional)</label>
+      <textarea placeholder="e.g. We have a commercial mortgage at 7.2% fixed and want to benefit if rates fall..."></textarea>
+    </div>
+    <div class="divider"></div>
+    <button class="submit-btn" onclick="submitForm()">Submit →</button>
+    <p class="form-note">No commitment. No fees at this stage. UK businesses only.</p>
+  </div>
+
+  <div class="success" id="success-msg">
+    <div class="success-icon"><i class="ti ti-check" aria-hidden="true"></i></div>
+    <h2>Message received</h2>
+    <p>Thanks for getting in touch. We'll review your details and reach out within two business days.</p>
+  </div>
+
+</div>
+
+<script src="swapdesk/js/main.js"></script>
 </body>
-</html> 
+</html>
