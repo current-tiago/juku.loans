@@ -6,18 +6,22 @@ function calc() {
 
   document.getElementById('fixed-out').textContent = fixed.toFixed(1) + '%';
   document.getElementById('sonia-out').textContent = sonia.toFixed(1) + '%';
-  document.getElementById('notional-out').textContent = '£' + (notional / 1000).toFixed(0) + 'k';
+  const fmtNotional = n => {
+    if (n >= 1000000) return '£' + (n / 1000000 % 1 === 0 ? (n / 1000000).toFixed(0) : (n / 1000000).toFixed(1)) + 'm';
+    return '£' + (n / 1000).toFixed(0) + 'k';
+  };
+  document.getElementById('notional-out').textContent = fmtNotional(notional);
 
   const aPays = Math.round((fixed / 100) * notional);
   const bPays = Math.round((sonia / 100) * notional);
   const net = Math.abs(aPays - bPays);
   const fmt = n => '£' + n.toLocaleString('en-GB');
-  const nk = (notional / 1000).toFixed(0);
+  const nLabel = fmtNotional(notional);
 
   document.getElementById('a-pays').textContent = fmt(aPays);
-  document.getElementById('a-pays-sub').textContent = fixed.toFixed(1) + '% × £' + nk + 'k / yr';
+  document.getElementById('a-pays-sub').textContent = fixed.toFixed(1) + '% × ' + nLabel + ' / yr';
   document.getElementById('b-pays').textContent = fmt(bPays);
-  document.getElementById('b-pays-sub').textContent = sonia.toFixed(1) + '% × £' + nk + 'k / yr';
+  document.getElementById('b-pays-sub').textContent = sonia.toFixed(1) + '% × ' + nLabel + ' / yr';
   document.getElementById('net-val').textContent = fmt(net) + ' / yr';
 
   if (fixed > sonia) {
@@ -39,14 +43,38 @@ function show(page) {
 }
 
 // ── Form submit ───────────────────────────────────────────────
-function submitForm() {
+async function submitForm() {
   const fname = document.getElementById('fname').value.trim();
+  const lname = document.getElementById('lname').value.trim();
+  const company = document.getElementById('company').value.trim();
   const email = document.getElementById('email').value.trim();
+  const loanType = document.getElementById('loan-type').value;
+  const loanSize = document.getElementById('loan-size').value;
+  const loanTerm = document.getElementById('loan-term').value;
+  const message = document.querySelector('textarea').value.trim();
+
   if (!fname || !email) {
     alert('Please fill in your name and email address.');
     return;
   }
-  document.getElementById('form-inner').style.display = 'none';
-  document.getElementById('success-msg').style.display = 'block';
+
+  const btn = document.querySelector('.submit-btn');
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+
+  const res = await fetch('https://formspree.io/f/xgoqjjgv', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify({ fname, lname, company, email, loanType, loanSize, loanTerm, message })
+  });
+
+  if (res.ok) {
+    document.getElementById('form-inner').style.display = 'none';
+    document.getElementById('success-msg').style.display = 'block';
+  } else {
+    btn.textContent = 'Submit →';
+    btn.disabled = false;
+    alert('Something went wrong. Please try again.');
+  }
 }
 
