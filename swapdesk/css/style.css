@@ -61,7 +61,10 @@ nav {
   color: var(--text-primary);
   letter-spacing: -0.3px;
   text-decoration: none;
+  transition: transform 0.15s, opacity 0.15s;
+  display: inline-block;
 }
+.nav-logo:hover { transform: scale(1.08); opacity: 0.85; }
 .nav-logo span { color: var(--accent); }
 .nav-links { display: flex; gap: 6px; }
 .nav-btn {
@@ -112,7 +115,24 @@ nav {
   border-radius: 50%;
   top: 50%;
   left: 50%;
-  transform: translate(-54%, -50%);
+  transform: translate(-54%, -50%) scale(1);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.hero-graphic:hover .hg-circle {
+  transform: translate(-54%, -50%) scale(1.12);
+}
+
+.hg-dots {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.hero-graphic:hover .hg-dots-tl {
+  transform: translate(-10px, -10px);
+}
+
+.hero-graphic:hover .hg-dots-br {
+  transform: translate(10px, 10px);
 }
 
 .hg-dots {
