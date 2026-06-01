@@ -27,6 +27,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+
 /* NAV */
 nav {
   display: flex;
@@ -90,6 +91,7 @@ nav {
   font-style: italic;
 }
 .hero h1 em { font-style: italic; color: var(--accent); }
+.dot { color: var(--accent); }
 .hero p {
   font-size: 15px; color: var(--text-secondary);
   line-height: 1.8; max-width: 100%;
