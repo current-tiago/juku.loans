@@ -48,12 +48,12 @@
         <span class="p-badge fixed-badge">Pays fixed, receives float</span>
       </div>
       <div class="middle-arrow">
-        <span class="arrow-line">↑</span>
-        <span class="arrow-label">fixed<br>rate</span>
-        <span class="arrow-label">float<br>rate</span>
-        <span class="arrow-line">↓</span>
+        <svg width="24" height="48" viewBox="0 0 24 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 4 L12 20 M12 4 L6 10 M12 4 L18 10" stroke="var(--text-tertiary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12 44 L12 28 M12 44 L6 38 M12 44 L18 38" stroke="var(--text-tertiary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </div>
-      <div class="party">
+      <div class="party party-b">
         <div class="p-label">Party B</div>
         <div class="p-name">The float-rate seeker</div>
         <div class="p-desc">Has a fixed-rate loan. Believes rates will fall and wants to benefit — willing to take on variability in exchange.</div>
@@ -139,33 +139,42 @@
   <div class="section">
     <div class="section-label">Common questions</div>
     <div class="faq-item">
-      <div class="faq-q">Does principal ever change hands?</div>
+      <button class="faq-q" onclick="toggleFaq(this)">Does principal ever change hands? <span class="faq-icon">+</span></button>
       <div class="faq-a">No. The notional is just a reference number used to calculate the interest payments. No principal is exchanged at any point in a standard interest rate swap.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">What benchmark does the floating rate use?</div>
+      <button class="faq-q" onclick="toggleFaq(this)">What benchmark does the floating rate use? <span class="faq-icon">+</span></button>
       <div class="faq-a">In the UK, SONIA (Sterling Overnight Index Average) replaced LIBOR as the standard floating benchmark in 2021. It reflects the rate banks lend to each other overnight.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">Who bears the risk?</div>
+      <button class="faq-q" onclick="toggleFaq(this)">Who bears the risk? <span class="faq-icon">+</span></button>
       <div class="faq-a">Both parties take on rate risk in opposite directions. If rates rise above the swap rate, Party A benefits (their fixed payment is below market). If rates fall, Party B benefits.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">Can an SME actually access this?</div>
+      <button class="faq-q" onclick="toggleFaq(this)">Can an SME actually access this? <span class="faq-icon">+</span></button>
       <div class="faq-a">Traditionally, interest rate swaps have been confined to large corporates with bank relationships. We're building infrastructure to connect UK SMEs directly, with smaller notionals and no minimum deal size.</div>
     </div>
   </div>
 
   <div class="cta">
-    <h2>Interested in accessing this?</h2>
-    <p>We're building a platform to match UK SMEs who want to swap their interest rate exposure. No investment bank required. Get in touch to learn more.</p>
-    <button class="cta-btn" onclick="show('form')">Get in touch →</button>
+    <div class="cta-inner">
+      <h2>Interested in accessing this?</h2>
+      <p>We're building a platform to match UK SMEs who want to swap their interest rate exposure. No investment bank required. Get in touch to learn more.</p>
+      <button class="cta-btn" onclick="show('form')">Get in touch →</button>
+    </div>
   </div>
 
 </div>
 
 <!-- FORM PAGE -->
 <div class="page" id="page-form">
+
+  <div class="form-layout">
+    <div class="form-graphic" aria-hidden="true">
+      <div class="hg-dots hg-dots-tl"></div>
+      <div class="hg-circle"></div>
+      <div class="hg-dots hg-dots-br"></div>
+    </div>
 
   <div class="form-wrap" id="form-inner">
     <h1>Get in touch</h1>
@@ -223,6 +232,7 @@
     <p>Thanks for getting in touch. We'll review your details and reach out within two business days.</p>
   </div>
 
+  </div><!-- end form-layout -->
 </div>
 
 <script src="juku/js/main.js"></script>
