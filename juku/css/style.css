@@ -273,12 +273,15 @@ nav {
 .res-card.blue { background: var(--accent-light); border: 1px solid var(--accent-border); }
 .res-card.amber { background: rgba(0,0,0,0.04); border: 1px solid var(--border); }
 .rc-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; }
-.res-card.blue .rc-label { color: var(--accent); }
+.res-card.blue .rc-label { color: var(--text-primary); }
 .res-card.amber .rc-label { color: var(--text-secondary); }
 .rc-val { font-size: 22px; font-weight: 700; font-style: italic; letter-spacing: -0.5px; font-variant-numeric: tabular-nums; }
-.res-card.blue .rc-val { color: var(--accent); }
+.res-card.blue .rc-val { color: var(--text-primary); }
 .res-card.amber .rc-val { color: var(--text-primary); }
 .rc-sub { font-size: 12px; margin-top: 4px; color: var(--text-tertiary); }
+.res-card.blue .rc-sub { color: var(--text-primary); }
+.rc-split { border: none; border-top: 1px solid var(--accent-border); margin: 1.25rem 0 1rem; }
+.rc-val-sm { font-size: 16px; }
 .net-row {
   display: flex; align-items: center; justify-content: space-between;
   margin-top: 14px;

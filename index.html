@@ -26,10 +26,10 @@
     <div class="hero-content">
     <div class="hero-tag">
       <i class="ti ti-arrows-exchange" aria-hidden="true" style="font-size:13px;"></i>
-      Interest rate swaps for UK businesses
+      Interest rate swaps for UK brokers &amp; their clients
     </div>
-    <h1>One party wants <em>fixed</em><span class="dot">.</span><br>One wants <em>variable</em><span class="dot">.</span><br>We connect them<span class="dot">.</span></h1>
-    <p>An interest rate swap lets two businesses exchange their loan payment structures — without refinancing. It's one of the most common financial instruments in the world, now accessible to SMEs.</p>
+    <h1><span style="color:var(--accent)">Cut</span> your clients' loan costs<span class="dot">.</span><br><em>Earn</em> on every deal<span class="dot">.</span></h1>
+    <p>When two business loans are cheaper at different rate types, a comparative advantage swap lets both get the loan they wanted for less. You bring the client, we handle the swap.</p>
     </div>
     <div class="hero-graphic" aria-hidden="true">
       <div class="hg-dots hg-dots-tl"></div>
@@ -43,9 +43,9 @@
     <div class="parties">
       <div class="party">
         <div class="p-label">Party A</div>
-        <div class="p-name">The fixed-rate seeker</div>
-        <div class="p-desc">Has a variable-rate loan (e.g. linked to SONIA). Wants certainty — a predictable monthly payment for budgeting.</div>
-        <span class="p-badge fixed-badge">Pays fixed, receives float</span>
+        <div class="p-name">Wants a fixed-rate loan</div>
+        <div class="p-desc">Prefers the certainty of a fixed rate — but can actually borrow more cheaply on a floating one. So it borrows floating and swaps into fixed.</div>
+        <span class="p-badge fixed-badge">Borrows floating, swaps to fixed</span>
       </div>
       <div class="middle-arrow">
         <svg width="24" height="48" viewBox="0 0 24 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -55,12 +55,12 @@
       </div>
       <div class="party party-b">
         <div class="p-label">Party B</div>
-        <div class="p-name">The float-rate seeker</div>
-        <div class="p-desc">Has a fixed-rate loan. Believes rates will fall and wants to benefit — willing to take on variability in exchange.</div>
-        <span class="p-badge float-badge">Pays float, receives fixed</span>
+        <div class="p-name">Wants a floating-rate loan</div>
+        <div class="p-desc">Prefers a floating rate — but can actually borrow more cheaply on a fixed one. So it borrows fixed and swaps into floating.</div>
+        <span class="p-badge float-badge">Borrows fixed, swaps to floating</span>
       </div>
     </div>
-    <p class="parties-note">Neither party changes their underlying loan. They simply exchange the interest payment streams — the net difference changes hands each period.</p>
+    <p class="parties-note">Each borrows the rate type it's cheaper at, then they swap payments — so both end up with the loan they actually wanted, paying less interest between them than if each had borrowed it directly. That gap is the saving.</p>
   </div>
 
   <div class="section">
@@ -69,69 +69,66 @@
       <div class="step">
         <div class="step-num">1</div>
         <div>
-          <h3>Both parties have existing loans</h3>
-          <p>Party A has a £500k variable-rate loan at SONIA + 2%. Party B has a £500k fixed-rate loan at 6.5%. Each is unhappy with their structure for their own reasons.</p>
+          <h3>Your client chooses a loan</h3>
+          <p>A business comes to you ready to borrow and knows what it wants — a fixed or a floating rate. You find it the cheapest fixed and floating quotes on the market.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">2</div>
         <div>
-          <h3>They agree a notional and a swap rate</h3>
-          <p>The notional amount is the reference figure (e.g. £500k) — no principal is exchanged, ever. They agree a fixed swap rate (e.g. 5.5%) against a floating benchmark like SONIA.</p>
+          <h3>You send us the details</h3>
+          <p>If your client is open to saving, you forward the loan size, term and both quotes. No principal is exchanged and your client commits to nothing at this stage.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">3</div>
         <div>
-          <h3>Each period, only the net difference is paid</h3>
-          <p>If SONIA is 4.5%, the floating rate is 4.5%. The fixed payer owes 5.5%; the float payer owes 4.5%. The fixed payer pays the net 1% difference — not both full amounts.</p>
+          <h3>We find the match</h3>
+          <p>We pair your client with a business whose cheapest rates mirror theirs — one cheaper at fixed, one cheaper at floating. Each borrows the type it's cheaper at, ready to swap.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">4</div>
         <div>
-          <h3>Each party effectively converts their loan</h3>
-          <p>Party A now has predictable costs — their variable loan plus the fixed swap nets out to approximately the fixed rate. Party B gains exposure to a falling rate environment.</p>
+          <h3>Both save — and so do you</h3>
+          <p>They swap payments and each ends up with the loan they wanted, now cheaper. The saving is shared: your client keeps most of it, and you earn a commission on the deal.</p>
         </div>
       </div>
     </div>
   </div>
 
   <div class="section">
-    <div class="section-label">Live example — see the maths</div>
+    <div class="section-label">Live example — see the saving</div>
     <div class="calc-box">
-      <h3>Adjust the rates and notional below</h3>
+      <h3>Adjust the loan below — figures are illustrative</h3>
       <div class="slider-row">
-        <label>Fixed swap rate (%)</label>
-        <input type="range" min="2" max="10" step="0.1" value="5.5" id="fixed-rate" oninput="calc()">
-        <span class="slider-val" id="fixed-out">5.5%</span>
-      </div>
-      <div class="slider-row">
-        <label>Current SONIA (%)</label>
-        <input type="range" min="0.5" max="9" step="0.1" value="4.5" id="sonia" oninput="calc()">
-        <span class="slider-val" id="sonia-out">4.5%</span>
-      </div>
-      <div class="slider-row">
-        <label>Notional (£k)</label>
+        <label>Loan size (£k)</label>
         <input type="range" min="10" max="1000" step="10" value="500" id="notional" oninput="calc()">
         <span class="slider-val" id="notional-out">£500k</span>
       </div>
-      <div class="calc-divider"></div>
-      <div class="results-grid">
-        <div class="res-card blue">
-          <div class="rc-label">Party A pays (fixed)</div>
-          <div class="rc-val" id="a-pays">£27,500</div>
-          <div class="rc-sub" id="a-pays-sub">5.5% × £500k / yr</div>
-        </div>
-        <div class="res-card amber">
-          <div class="rc-label">Party B pays (float)</div>
-          <div class="rc-val" id="b-pays">£22,500</div>
-          <div class="rc-sub" id="b-pays-sub">4.5% × £500k / yr</div>
-        </div>
+      <div class="slider-row">
+        <label>Loan term (years)</label>
+        <input type="range" min="1" max="30" step="1" value="10" id="term" oninput="calc()">
+        <span class="slider-val" id="term-out">10 yrs</span>
       </div>
-      <div class="net-row">
-        <span class="net-label" id="net-label">Party A pays Party B the net difference</span>
-        <span class="net-val" id="net-val">£5,000 / yr</span>
+      <div class="slider-row">
+        <label>Loan rate without the swap (%)</label>
+        <input type="range" min="3" max="12" step="0.1" value="6" id="loan-rate" oninput="calc()">
+        <span class="slider-val" id="loan-rate-out">6.0%</span>
+      </div>
+      <div class="slider-row">
+        <label>Rate saved via the swap (%)</label>
+        <input type="range" min="0.1" max="3" step="0.05" value="1" id="saving-rate" oninput="calc()">
+        <span class="slider-val" id="saving-rate-out">1.00%</span>
+      </div>
+      <div class="calc-divider"></div>
+      <div class="res-card blue">
+        <div class="rc-label">Total interest saved</div>
+        <div class="rc-val" id="total-saved">£29,730</div>
+        <div class="rc-sub" id="total-saved-sub">over the 10-year loan</div>
+        <div class="rc-split"></div>
+        <div class="rc-label">Your commission as the broker</div>
+        <div class="rc-val rc-val-sm" id="net-val">£4,460</div>
       </div>
     </div>
   </div>
@@ -139,27 +136,27 @@
   <div class="section">
     <div class="section-label">Common questions</div>
     <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">Does principal ever change hands? <span class="faq-icon">+</span></button>
-      <div class="faq-a">No. The notional is just a reference number used to calculate the interest payments. No principal is exchanged at any point in a standard interest rate swap.</div>
+      <button class="faq-q" onclick="toggleFaq(this)">Where does the saving come from? <span class="faq-icon">+</span></button>
+      <div class="faq-a">Each business can borrow more cheaply at a different rate type — one at fixed, one at floating. When each borrows where it's cheaper and they swap, the pair pays less interest in total than if each had borrowed its preferred type directly. That difference is the saving we share out.</div>
     </div>
     <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">What benchmark does the floating rate use? <span class="faq-icon">+</span></button>
-      <div class="faq-a">In the UK, SONIA (Sterling Overnight Index Average) replaced LIBOR as the standard floating benchmark in 2021. It reflects the rate banks lend to each other overnight.</div>
+      <button class="faq-q" onclick="toggleFaq(this)">Is my client exposed to the other business? <span class="faq-icon">+</span></button>
+      <div class="faq-a">No. Deals are structured through a partner bank that sits between the two parties, so neither business is exposed to the other defaulting. Your client simply ends up with the loan they wanted, at a lower rate.</div>
     </div>
     <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">Who bears the risk? <span class="faq-icon">+</span></button>
-      <div class="faq-a">Both parties take on rate risk in opposite directions. If rates rise above the swap rate, Party A benefits (their fixed payment is below market). If rates fall, Party B benefits.</div>
+      <button class="faq-q" onclick="toggleFaq(this)">What does it cost my client? <span class="faq-icon">+</span></button>
+      <div class="faq-a">Nothing up front. We're only paid out of the saving we create — if there's no saving to be had, there's no deal and no fee. Your client keeps the majority of whatever we save them.</div>
     </div>
     <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">Can an SME actually access this? <span class="faq-icon">+</span></button>
-      <div class="faq-a">Traditionally, interest rate swaps have been confined to large corporates with bank relationships. We're building infrastructure to connect UK SMEs directly, with smaller notionals and no minimum deal size.</div>
+      <button class="faq-q" onclick="toggleFaq(this)">What's in it for me as a broker? <span class="faq-icon">+</span></button>
+      <div class="faq-a">A new product to offer your clients and a commission on every completed swap — earned on details you already collect when arranging their loan. We handle the matching, structuring and paperwork.</div>
     </div>
   </div>
 
   <div class="cta">
     <div class="cta-inner">
-      <h2>Interested in accessing this?</h2>
-      <p>We're building a platform to match UK SMEs who want to swap their interest rate exposure. No investment bank required. Get in touch to learn more.</p>
+      <h2>Offer your clients cheaper loans</h2>
+      <p>We're partnering with UK brokers to bring interest rate swaps to everyday business loans. Register your interest and we'll be in touch as we launch — no commitment, no cost.</p>
       <button class="cta-btn" onclick="show('form')">Get in touch →</button>
     </div>
     <div class="cta-graphic" aria-hidden="true">
@@ -183,7 +180,7 @@
 
   <div class="form-wrap" id="form-inner">
     <h1>Get in touch</h1>
-    <p class="form-sub">Tell us about your loan and what you're trying to achieve. We'll be in touch within two business days.</p>
+    <p class="form-sub">Whether you're a broker or a business, tell us a little about you and we'll be in touch within two business days.</p>
 
     <div class="field-row">
       <div class="field"><label>First name</label><input type="text" placeholder="James" id="fname"></div>
@@ -191,6 +188,15 @@
     </div>
     <div class="field"><label>Company name</label><input type="text" placeholder="Carter Builders Ltd" id="company"></div>
     <div class="field"><label>Email address</label><input type="email" placeholder="james@carterbuilders.co.uk" id="email"></div>
+    <div class="field">
+      <label>You are</label>
+      <select id="role">
+        <option value="">Select...</option>
+        <option>A broker</option>
+        <option>A business</option>
+        <option>Other</option>
+      </select>
+    </div>
     <div class="field-row">
       <div class="field">
         <label>Current loan type</label>

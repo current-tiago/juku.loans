@@ -1,37 +1,45 @@
 // ── Calculator ──────────────────────────────────────────────
 function calc() {
-  const fixed = parseFloat(document.getElementById('fixed-rate').value);
-  const sonia = parseFloat(document.getElementById('sonia').value);
-  const notional = parseFloat(document.getElementById('notional').value) * 1000;
+  // Guard: only the rewritten juku.loans calculator has a #saving-rate slider.
+  if (!document.getElementById('saving-rate')) return;
 
-  document.getElementById('fixed-out').textContent = fixed.toFixed(1) + '%';
-  document.getElementById('sonia-out').textContent = sonia.toFixed(1) + '%';
+  const notional = parseFloat(document.getElementById('notional').value) * 1000;
+  const term = parseFloat(document.getElementById('term').value);
+  const loanRate = parseFloat(document.getElementById('loan-rate').value);
+  const rate = parseFloat(document.getElementById('saving-rate').value);
+
   const fmtNotional = n => {
     if (n >= 1000000) return '£' + (n / 1000000 % 1 === 0 ? (n / 1000000).toFixed(0) : (n / 1000000).toFixed(1)) + 'm';
     return '£' + (n / 1000).toFixed(0) + 'k';
   };
   document.getElementById('notional-out').textContent = fmtNotional(notional);
+  document.getElementById('term-out').textContent = term + (term === 1 ? ' yr' : ' yrs');
+  document.getElementById('loan-rate-out').textContent = loanRate.toFixed(1) + '%';
+  document.getElementById('saving-rate-out').textContent = rate.toFixed(2) + '%';
 
-  const aPays = Math.round((fixed / 100) * notional);
-  const bPays = Math.round((sonia / 100) * notional);
-  const net = Math.abs(aPays - bPays);
+  const newRate = Math.max(0, loanRate - rate);
+
+  // Amortising monthly payment: P · i(1+i)^n / ((1+i)^n − 1)
+  const monthly = (P, annualPct) => {
+    const i = annualPct / 100 / 12;
+    const n = term * 12;
+    if (i === 0) return P / n;
+    const g = Math.pow(1 + i, n);
+    return P * i * g / (g - 1);
+  };
+
+  // Total interest saved over the life of the loan = (old payment − new payment) × months.
+  const totalSaved = Math.round((monthly(notional, loanRate) - monthly(notional, newRate)) * term * 12);
+  const brokerCut = Math.round(totalSaved * 0.15);    // broker commission 15%
   const fmt = n => '£' + n.toLocaleString('en-GB');
-  const nLabel = fmtNotional(notional);
 
-  document.getElementById('a-pays').textContent = fmt(aPays);
-  document.getElementById('a-pays-sub').textContent = fixed.toFixed(1) + '% × ' + nLabel + ' / yr';
-  document.getElementById('b-pays').textContent = fmt(bPays);
-  document.getElementById('b-pays-sub').textContent = sonia.toFixed(1) + '% × ' + nLabel + ' / yr';
-  document.getElementById('net-val').textContent = fmt(net) + ' / yr';
-
-  if (fixed > sonia) {
-    document.getElementById('net-label').textContent = 'Party A pays Party B the net difference';
-  } else if (sonia > fixed) {
-    document.getElementById('net-label').textContent = 'Party B pays Party A the net difference';
-  } else {
-    document.getElementById('net-label').textContent = 'Rates are equal — no net payment';
-  }
+  document.getElementById('total-saved').textContent = fmt(totalSaved);
+  document.getElementById('total-saved-sub').textContent = 'over the ' + term + '-year loan';
+  document.getElementById('net-val').textContent = fmt(brokerCut);
 }
+
+// Initialise the calculator with correct figures on page load.
+calc();
 
 // ── FAQ accordion ────────────────────────────────────────────
 function toggleFaq(btn) {
@@ -56,6 +64,7 @@ async function submitForm() {
   const lname = document.getElementById('lname').value.trim();
   const company = document.getElementById('company').value.trim();
   const email = document.getElementById('email').value.trim();
+  const role = document.getElementById('role') ? document.getElementById('role').value : '';
   const loanType = document.getElementById('loan-type').value;
   const loanSize = document.getElementById('loan-size').value;
   const loanTerm = document.getElementById('loan-term').value;
@@ -73,7 +82,7 @@ async function submitForm() {
   const res = await fetch('https://formspree.io/f/xgoqjjgv', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-    body: JSON.stringify({ fname, lname, company, email, loanType, loanSize, loanTerm, message })
+    body: JSON.stringify({ fname, lname, company, email, role, loanType, loanSize, loanTerm, message })
   });
 
   if (res.ok) {
