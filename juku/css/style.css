@@ -80,6 +80,7 @@ nav {
 }
 .nav-btn:hover { background: var(--bg-card); color: var(--text-primary); }
 .nav-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+a.nav-btn { text-decoration: none; display: inline-block; }
 
 /* PAGES */
 .page { display: none; }

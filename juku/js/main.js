@@ -54,7 +54,7 @@ function show(page) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('page-' + page).classList.add('active');
-  document.querySelectorAll('.nav-btn')[page === 'home' ? 0 : 1].classList.add('active');
+  document.querySelectorAll('button.nav-btn')[page === 'home' ? 0 : 1].classList.add('active');
   window.scrollTo(0, 0);
 }
 
