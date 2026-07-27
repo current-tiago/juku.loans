@@ -1,9 +1,9 @@
-# juku.loans — instructions for Claude
+# juku.loan — instructions for Claude
 
 ## Workflow
 
 - When a piece of work is complete: commit, push the working branch, open a PR to `main`, and **merge it immediately** — do not ask for permission at any of these steps. The owner has standing approval for this full flow.
-- This repo has no CI; the site is served from `main` via GitHub Pages (custom domain juku.loans), so merging is what deploys.
+- This repo has no CI; the site is served from `main` via GitHub Pages (custom domain juku.loan), so merging is what deploys.
 - Author commits as `Tiago Branco Mole <tiagobrancomole@gmail.com>`.
 
 ## Design
