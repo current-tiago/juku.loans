@@ -1,10 +1,10 @@
-# juku.loans — design system
+# juku.loan — design system
 
-This document describes the visual language of juku.loans so new pages and components stay consistent with the existing site. The canonical implementation lives in `juku/css/style.css` (main site) and the inline styles of `portfolio.html` (risk model page).
+This document describes the visual language of juku.loan so new pages and components stay consistent with the existing site. The canonical implementation lives in `juku/css/style.css` (main site) and the inline styles of `portfolio.html` (risk model page).
 
 ## Brand
 
-- **Wordmark:** `juku.loans`, written lowercase, italic, with the dot rendered in the accent orange (`<span class="dot">.</span>`). Orange dots are also used as full stops at the end of headlines.
+- **Wordmark:** `juku.loan`, written lowercase, italic, with the dot rendered in the accent orange (`<span class="dot">.</span>`). Orange dots are also used as full stops at the end of headlines.
 - **Voice:** plain-English explanations of a financial product. Friendly but precise; British English; figures always labelled as illustrative. Every risk/number page carries a "not financial advice" note in the footer copy.
 - **Audience:** UK loan brokers first, their business clients second.
 
