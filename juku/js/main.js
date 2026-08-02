@@ -13,7 +13,12 @@ function show(page) {
   document.getElementById('page-' + page).classList.add('active');
   document.querySelectorAll('button.nav-btn')[page === 'home' ? 0 : 1].classList.add('active');
   window.scrollTo(0, 0);
+  // Remember the current page in the URL hash so a refresh restores it.
+  if (location.hash !== '#' + page) history.replaceState(null, '', '#' + page);
 }
+
+// Restore the page from the URL hash on load (defaults to home).
+show(location.hash === '#form' ? 'form' : 'home');
 
 // ── Form submit ───────────────────────────────────────────────
 async function submitForm() {
