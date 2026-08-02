@@ -421,6 +421,10 @@ a.nav-btn { text-decoration: none; display: inline-block; }
 .field textarea { height: 90px; resize: vertical; }
 .field select { cursor: pointer; }
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+/* Keep inputs aligned when one label wraps to more lines than the other. */
+.field-row .field { display: flex; flex-direction: column; }
+.field-row .field input,
+.field-row .field select { margin-top: auto; }
 @media (max-width: 480px) { .field-row { grid-template-columns: 1fr; } }
 .divider { border: none; border-top: 1px solid var(--border); margin: 1.75rem 0; }
 .submit-btn {
