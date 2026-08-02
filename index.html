@@ -99,42 +99,6 @@
   </div>
 
   <div class="section">
-    <div class="section-label">Live example — see the saving</div>
-    <div class="calc-box">
-      <h3>Adjust the loan below — figures are illustrative</h3>
-      <div class="slider-row">
-        <label>Loan size (£k)</label>
-        <input type="range" min="10" max="1000" step="10" value="500" id="notional" oninput="calc()">
-        <span class="slider-val" id="notional-out">£500k</span>
-      </div>
-      <div class="slider-row">
-        <label>Loan term (years)</label>
-        <input type="range" min="1" max="30" step="1" value="10" id="term" oninput="calc()">
-        <span class="slider-val" id="term-out">10 yrs</span>
-      </div>
-      <div class="slider-row">
-        <label>Loan rate without the swap (%)</label>
-        <input type="range" min="3" max="12" step="0.1" value="6" id="loan-rate" oninput="calc()">
-        <span class="slider-val" id="loan-rate-out">6.0%</span>
-      </div>
-      <div class="slider-row">
-        <label>Rate saved via the swap (%)</label>
-        <input type="range" min="0.1" max="3" step="0.05" value="1" id="saving-rate" oninput="calc()">
-        <span class="slider-val" id="saving-rate-out">1.00%</span>
-      </div>
-      <div class="calc-divider"></div>
-      <div class="res-card blue">
-        <div class="rc-label">Total interest saved</div>
-        <div class="rc-val" id="total-saved">£29,730</div>
-        <div class="rc-sub" id="total-saved-sub">over the 10-year loan</div>
-        <div class="rc-split"></div>
-        <div class="rc-label">Your commission as the broker</div>
-        <div class="rc-val rc-val-sm" id="net-val">£4,460</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="section">
     <div class="section-label">Common questions</div>
     <div class="faq-item">
       <button class="faq-q" onclick="toggleFaq(this)">Where does the saving come from? <span class="faq-icon">+</span></button>
