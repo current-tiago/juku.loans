@@ -63,7 +63,7 @@
       <div class="ctl"><label>Avg loan size <b id="o-not">£500k</b></label><input type="range" id="not" min="50" max="2000" step="50" value="500"></div>
       <div class="ctl"><label>Term <b id="o-ten">10 yrs</b></label><input type="range" id="ten" min="1" max="25" step="1" value="10"></div>
       <div class="ctl"><label>Fixed rate <b id="o-fix">5.0%</b></label><input type="range" id="fix" min="1" max="10" step="0.1" value="5"></div>
-      <div class="ctl"><label>Saving benefit <b id="o-ben">1.00%</b></label><input type="range" id="ben" min="0.1" max="1" step="0.05" value="1"></div>
+      <div class="ctl"><label>Saving benefit <b id="o-ben">0.25%</b></label><input type="range" id="ben" min="0.01" max="0.3" step="0.01" value="0.25"></div>
 
       <div class="divh">Rates</div>
       <div class="ctl"><label>Inception spread (fixed above floating) <b id="o-spr">1.0%</b></label><input type="range" id="spr" min="0" max="3" step="0.1" value="1"></div>
@@ -73,22 +73,25 @@
       <div class="divh">Default mix &amp; reserve</div>
       <div class="ctl"><label>% of defaults that are floating <b id="o-fpc">70%</b></label><input type="range" id="fpc" min="0" max="100" step="1" value="70"></div>
       <div class="ctl"><label>Offset capture <b id="o-off">100%</b></label><input type="range" id="off" min="0" max="100" step="5" value="100"></div>
-      <div class="ctl"><label>Reserve set-aside (of saving) <b id="o-res">15%</b></label><input type="range" id="res" min="0" max="30" step="0.5" value="15"></div>
-      <div class="ctl"><label>Collateral (% of received savings) <b id="o-col">50%</b></label><input type="range" id="col" min="0" max="100" step="5" value="50"></div>
+      <div class="ctl"><label>Reserve set-aside (of saving) <b id="o-res">22.5%</b></label><input type="range" id="res" min="0" max="40" step="0.5" value="22.5"></div>
     </div>
 
     <div class="panel">
       <h2>Net loss per default vs the buffer</h2>
       <div class="readout" id="readout"></div>
       <div class="stats">
-        <div class="stat"><div class="l">Exposure per underwater default</div><div class="v" id="v-exp">£0</div></div>
         <div class="stat"><div class="l">Net loss per default (after offset)</div><div class="v" id="v-net" style="color:#c0392b">£0</div></div>
-        <div class="stat"><div class="l">Reserve + Juku cut</div><div class="v" id="v-buf" style="color:var(--green)">£0</div></div>
+        <div class="stat"><div class="l">Reserve alone covers</div><div class="v" id="v-cres" style="color:var(--green)">0%</div></div>
+        <div class="stat"><div class="l">Reserve + Juku covers</div><div class="v" id="v-cbuf" style="color:var(--green)">0%</div></div>
+      </div>
+      <div class="stats" style="margin-top:-6px">
+        <div class="stat"><div class="l">Reserve at stake</div><div class="v" id="v-eat" style="color:var(--blue)">£0</div></div>
+        <div class="stat"><div class="l">Juku cut at stake (20%)</div><div class="v" id="v-juku" style="color:var(--blue)">£0</div></div>
       </div>
       <svg id="chart" viewBox="0 0 600 340" preserveAspectRatio="xMidYMid meet"></svg>
       <div class="legend">
         <span><i class="sw" style="background:var(--accent)"></i>Net loss per default</span>
-        <span><i class="sw" style="background:var(--green);height:0;border-top:2px dashed var(--green)"></i>Reserve + Juku cut (per deal)</span>
+        <span><i class="sw" style="background:var(--green);height:0;border-top:2px dashed var(--green)"></i>Reserve + Juku (per deal)</span>
         <span><i class="sw" style="background:#9b8e7d;height:0;border-top:2px dashed #9b8e7d"></i>Flip point (floating = fixed)</span>
       </div>
       <div class="foot" id="foot"></div>
@@ -106,35 +109,44 @@ function schedule(P,fPct,n){ const i=fPct/100/12,M=monthlyPayment(P,fPct,n); let
 
 function compute(){
   const N=+$('not').value*1000, T=+$('ten').value, fix=+$('fix').value, b=+$('ben').value,
-        s=+$('spr').value, dlt=+$('flt').value, f=+$('fpc').value/100, o=+$('off').value/100, r=+$('res').value/100, col=+$('col').value/100;
+        s=+$('spr').value, dlt=+$('flt').value, f=+$('fpc').value/100, o=+$('off').value/100, r=+$('res').value/100;
   $('yr').max=T; const y=Math.min(+$('yr').value,T);
 
   $('o-not').textContent=fmtN(N); $('o-ten').textContent=T+(T===1?' yr':' yrs');
   $('o-fix').textContent=fix.toFixed(1)+'%'; $('o-ben').textContent=b.toFixed(2)+'%';
   $('o-spr').textContent=s.toFixed(1)+'%'; $('o-flt').textContent=(dlt>0?'+':dlt<0?'−':'')+Math.abs(dlt).toFixed(1)+'%';
   $('o-yr').textContent=y.toFixed(2)+' yrs'; $('o-fpc').textContent=Math.round(f*100)+'%';
-  $('o-off').textContent=Math.round(o*100)+'%'; $('o-res').textContent=(r*100).toFixed(0)+'%'; $('o-col').textContent=Math.round(col*100)+'%';
+  $('o-off').textContent=Math.round(o*100)+'%'; $('o-res').textContent=(r*100).toFixed(1)+'%';
 
   const n=T*12, cumA=schedule(N,fix,n), A=cumA[n];
   // Saving uses the exact amortising payment-difference formula (matches the website / Python model).
-  const saving=(monthlyPayment(N,fix,n)-monthlyPayment(N,Math.max(0,fix-b),n))*n, earn=0.20*saving, reserve=r*saving, buffer=reserve+earn;
-  const C=col*0.45*saving;                          // collateral per company = % of its received (45%) saving
+  const saving=(monthlyPayment(N,fix,n)-monthlyPayment(N,Math.max(0,fix-b),n))*n;
+  const JUKU=0.20;                                   // cut share of the saving
+  const jukuCut=JUKU*saving, reserve=r*saving;
+  const buffer=reserve+jukuCut;                     // reserve + Juku absorb losses
   const g=dlt-s;                                   // floating minus fixed (pp)
   const Arem=A-cumA[Math.min(n,Math.round(y*12))];
   const L=Math.abs(g)/100*Arem;                    // per-deal exposure at gap g, default at year y
-  const Lc=Math.max(0,L-C);                        // underwater loss after seizing collateral
+  const C=0;                                        // no collateral in this model
 
   let side,uFrac,iFrac;
   if(Math.abs(g)<1e-9){ side='neither'; uFrac=0; iFrac=0; }
   else if(g>0){ side='floating'; uFrac=f; iFrac=1-f; }
   else { side='fixed'; uFrac=1-f; iFrac=f; }
-  const netPerDefault=uFrac*Lc-o*iFrac*L;          // losses net of collateral; offsetting gains not reduced
-  const sustain=netPerDefault>1e-6 ? buffer/netPerDefault : Infinity;
+  const netPerDefault=uFrac*L-o*iFrac*L;           // underwater losses less the offsetting gains captured
+  const lossPerDefault=Math.max(0,netPerDefault);  // only positive net counts as a loss to cover
 
-  $('v-exp').textContent=fmt(L);
+  // Given these conditions, what default rate does each layer cover?
+  const covRes  = lossPerDefault>1e-6 ? reserve/lossPerDefault : Infinity;   // reserve alone
+  const covBuf  = lossPerDefault>1e-6 ? buffer/lossPerDefault  : Infinity;   // reserve + Juku
+  const sustain = covBuf;
+
   $('v-net').textContent=(netPerDefault<0?'+':'−')+'£'+Math.round(Math.abs(netPerDefault)).toLocaleString('en-GB');
   $('v-net').style.color = netPerDefault>0 ? '#c0392b' : 'var(--green)';
-  $('v-buf').textContent=fmt(buffer);
+  $('v-cres').textContent=isFinite(covRes)?(covRes*100).toFixed(0)+'%':'∞';
+  $('v-cbuf').textContent=isFinite(covBuf)?(covBuf*100).toFixed(0)+'%':'∞';
+  $('v-juku').textContent=fmt(jukuCut);
+  $('v-eat').textContent = fmt(reserve);
 
   const pct=x=>isFinite(x)?(x*100).toFixed(0)+'%':'∞';
   let txt;
@@ -144,15 +156,17 @@ function compute(){
     const uPct=Math.round((g>0?f:1-f)*100), iPct=100-uPct;
     const dir=dlt>0?`up ${dlt.toFixed(1)}%`:dlt<0?`down ${Math.abs(dlt).toFixed(1)}%`:`unchanged`;
     txt=`Floating is <b>${dir}</b> from inception, against a <b>${s.toFixed(1)}%</b> spread → gap <b>${g>0?'+':''}${g.toFixed(1)}%</b>, so the <b>${side}-payers are underwater</b>. `
-      +`Each underwater default costs <b>${fmt(L)}</b>${C>0?`, less <b>${fmt(C)}</b> collateral = <b>${fmt(Lc)}</b>`:''}; with <b>${uPct}%</b> of defaults on that side and <b>${iPct}%</b> offsetting (at ${Math.round(o*100)}% capture), the <b>net per default</b> is `
-      +(netPerDefault>0?`<b>${fmt(netPerDefault)}</b>. The reserve + Juku cut (${fmt(buffer)}/deal) covers a default rate up to <b>${pct(sustain)}</b> before dipping into anyone else's share.`
-                       :`a <b>net gain of ${fmt(-netPerDefault)}</b> — the offsetting defaults more than cover the losses, so the pool never goes negative here.`);
+      +`Each underwater default costs <b>${fmt(L)}</b>; with <b>${uPct}%</b> of defaults on that side and <b>${iPct}%</b> offsetting (at ${Math.round(o*100)}% capture), the <b>net per default</b> is `
+      +(netPerDefault>0?`<b>${fmt(netPerDefault)}</b>. Under these conditions the <b>reserve alone covers a default rate up to ${pct(covRes)}</b>. Beyond that, defaults eat into the Juku cut (20%), extending coverage to <b>${pct(covBuf)}</b>. Only past <b>${pct(covBuf)}</b> are the business and broker shares touched.`
+                       :`a <b>net gain of ${fmt(-netPerDefault)}</b> — the offsetting defaults more than cover the losses, so the pool never goes negative and no cuts are touched.`);
   }
   $('readout').innerHTML=txt;
 
   $('foot').innerHTML='Wide/portfolio view. <b>Inception:</b> fixed sits the spread above floating (certainty/term premium), so fixed-payers start out paying floating-payers. As floating rises the gap shrinks, hits zero when the rise equals the spread, then <b>flips</b> — beyond that, floating-payers are the underwater side. '
    +'<b>Net loss per default</b> = (underwater-side share − offset-capture × in-the-money share) × per-deal exposure. <b>Offset capture</b> is how much of the in-the-money defaulters’ freed value you can actually use — 100% is your full-offset premise; lower is conservative. '
-   +'Exposure uses the amortising balance at the chosen default year. <b>Collateral</b> is posted upfront by each company as a % of the savings it receives (the 45% business share) and is seized to reduce that company’s loss if it defaults. Illustrative/nominal; assumes defaults spread across different pairs. Not financial advice.';
+   +'Exposure uses the amortising balance at the chosen default year. '
+   +'<b>Coverage layers:</b> the reserve absorbs losses first (covering defaults up to the “reserve alone” figure); beyond it, Juku’s own 20% cut covers the rest, extending coverage to the “reserve + Juku” figure. Only past that point are the business and broker shares touched. Both figures are driven purely by the economic conditions above — no assumed default rate. '
+   +'Illustrative/nominal; assumes defaults spread across different pairs. Not financial advice.';
 
   drawChart(n,cumA,A,s,dlt,y,f,o,buffer,C);
 }
@@ -191,7 +205,7 @@ function drawChart(n,cumA,A,s,dlt,y,f,o,buffer,C){
   `;
 }
 
-['not','ten','fix','ben','spr','flt','yr','fpc','off','res','col'].forEach(id=>$(id).addEventListener('input',compute));
+['not','ten','fix','ben','spr','flt','yr','fpc','off','res'].forEach(id=>$(id).addEventListener('input',compute));
 compute();
 </script>
 </body>
