@@ -21,10 +21,9 @@ async function submitForm() {
   const lname = document.getElementById('lname').value.trim();
   const company = document.getElementById('company').value.trim();
   const email = document.getElementById('email').value.trim();
-  const role = document.getElementById('role') ? document.getElementById('role').value : '';
-  const loanType = document.getElementById('loan-type').value;
-  const loanSize = document.getElementById('loan-size').value;
-  const loanTerm = document.getElementById('loan-term').value;
+  const clientVolume = document.getElementById('client-volume').value;
+  const fcaStatus = document.getElementById('fca-status').value;
+  const loanFocus = document.getElementById('loan-focus').value;
   const message = document.querySelector('textarea').value.trim();
 
   if (!fname || !email) {
@@ -39,7 +38,7 @@ async function submitForm() {
   const res = await fetch('https://formspree.io/f/xgoqjjgv', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-    body: JSON.stringify({ fname, lname, company, email, role, loanType, loanSize, loanTerm, message })
+    body: JSON.stringify({ fname, lname, company, email, clientVolume, fcaStatus, loanFocus, message })
   });
 
   if (res.ok) {

@@ -145,61 +145,52 @@
 
   <div class="form-wrap" id="form-inner">
     <h1>Get in touch</h1>
-    <p class="form-sub">Whether you're a broker or a business, tell us a little about you and we'll be in touch within two business days.</p>
+    <p class="form-sub">Tell us a little about your brokerage and we'll be in touch within two business days.</p>
 
     <div class="field-row">
       <div class="field"><label>First name</label><input type="text" placeholder="James" id="fname"></div>
       <div class="field"><label>Last name</label><input type="text" placeholder="Carter" id="lname"></div>
     </div>
-    <div class="field"><label>Company name</label><input type="text" placeholder="Carter Builders Ltd" id="company"></div>
-    <div class="field"><label>Email address</label><input type="email" placeholder="james@carterbuilders.co.uk" id="email"></div>
-    <div class="field">
-      <label>You are</label>
-      <select id="role">
-        <option value="">Select...</option>
-        <option>A broker</option>
-        <option>A business</option>
-        <option>Other</option>
-      </select>
-    </div>
+    <div class="field"><label>Brokerage name</label><input type="text" placeholder="Carter Finance Partners" id="company"></div>
+    <div class="field"><label>Email address</label><input type="email" placeholder="james@carterfinance.co.uk" id="email"></div>
     <div class="field-row">
       <div class="field">
-        <label>Current loan type</label>
-        <select id="loan-type">
+        <label>Business loan clients you place a year</label>
+        <select id="client-volume">
           <option value="">Select...</option>
-          <option>Variable rate (want fixed)</option>
-          <option>Fixed rate (want variable)</option>
-          <option>Not sure yet</option>
+          <option>Under 10</option>
+          <option>10–50</option>
+          <option>50–200</option>
+          <option>Over 200</option>
         </select>
       </div>
       <div class="field">
-        <label>Approximate loan size</label>
-        <select id="loan-size">
+        <label>Are you FCA authorised?</label>
+        <select id="fca-status">
           <option value="">Select...</option>
-          <option>Under £100k</option>
-          <option>£100k – £500k</option>
-          <option>£500k – £2m</option>
-          <option>Over £2m</option>
+          <option>Directly authorised</option>
+          <option>Appointed representative</option>
+          <option>Not authorised</option>
         </select>
       </div>
     </div>
     <div class="field">
-      <label>Remaining loan term</label>
-      <select id="loan-term">
+      <label>What business loans do you typically arrange?</label>
+      <select id="loan-focus">
         <option value="">Select...</option>
-        <option>Under 1 year</option>
-        <option>1–3 years</option>
-        <option>3–7 years</option>
-        <option>Over 7 years</option>
+        <option>Commercial mortgages</option>
+        <option>Asset &amp; equipment finance</option>
+        <option>Working capital / term loans</option>
+        <option>A mix across types</option>
       </select>
     </div>
     <div class="field">
       <label>Anything else to add? (optional)</label>
-      <textarea placeholder="e.g. We have a commercial mortgage at 7.2% fixed and want to benefit if rates fall..."></textarea>
+      <textarea placeholder="e.g. Most of my clients take commercial mortgages and often ask about switching between fixed and variable rates..."></textarea>
     </div>
     <div class="divider"></div>
     <button class="submit-btn" onclick="submitForm()">Submit →</button>
-    <p class="form-note">No commitment. No fees at this stage. UK businesses only.</p>
+    <p class="form-note">No commitment. No fees at this stage. UK brokers only.</p>
   </div>
 
   <div class="success" id="success-msg">
