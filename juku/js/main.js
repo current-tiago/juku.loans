@@ -96,6 +96,25 @@ if (walk) {
   updateWalk();
 }
 
+// ── Done by the book ─────────────────────────────────────────
+// Tick the LEIs, sign and stamp the agreement the first time it scrolls into view.
+// Clicking the agreement plays it again.
+const legit = document.getElementById('legit');
+if (legit && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  legit.classList.add('is-live');
+  const seen = new IntersectionObserver(([e]) => {
+    if (!e.isIntersecting) return;
+    legit.classList.add('play');
+    seen.disconnect();
+  }, { threshold: 0.5 });
+  seen.observe(legit);
+  legit.querySelector('.legit-fig').addEventListener('click', () => {
+    legit.classList.remove('play');
+    void legit.offsetWidth;
+    legit.classList.add('play');
+  });
+}
+
 // ── Swap diagram ─────────────────────────────────────────────
 // Four states across three listed steps: step 2 has a SOFR rises / falls switch.
 // Per state: which step it belongs to (li), which payment lines are live (on)

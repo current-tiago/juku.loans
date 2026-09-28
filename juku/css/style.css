@@ -268,6 +268,67 @@ a.nav-btn { text-decoration: none; display: inline-block; }
 .step h3 { font-size: 14px; font-weight: 700; font-style: italic; color: var(--text-primary); margin-bottom: 5px; }
 .step p { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
 
+/* DONE BY THE BOOK */
+/* A Master Agreement that gets its LEIs ticked, both signatures drawn, then an ECP stamp,
+   when it scrolls into view (JS adds .is-live, then .play). Click it to replay. */
+.legit { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 3rem; align-items: center; }
+.legit-fig { margin: 0; cursor: pointer; }
+.legit-fig svg { display: block; width: 100%; height: auto; overflow: visible; font-family: var(--font); }
+.lg-back rect { fill: var(--bg-card); stroke: var(--border-strong); }
+.lg-paper > rect { fill: #fffdf9; stroke: var(--border-strong); }
+.lg-title { font-size: 18px; font-weight: 700; font-style: italic; fill: var(--text-primary); }
+.lg-sub { font-size: 11px; font-style: italic; fill: var(--text-tertiary); }
+.lg-rule { stroke: var(--border-strong); }
+.lg-bar { fill: #ece4d8; }
+.lg-label { font-size: 10.5px; font-weight: 700; fill: var(--text-secondary); }
+.lg-lei { font-size: 11px; letter-spacing: 0.5px; fill: var(--text-tertiary); }
+.lg-check circle { fill: rgba(31,138,76,0.12); }
+.lg-check path { fill: none; stroke: #1f8a4c; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.lg-line { stroke: var(--text-tertiary); stroke-width: 1; }
+.lg-sig { fill: none; stroke: var(--text-primary); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.lg-stamp circle { fill: none; stroke: #a95ee6; stroke-width: 2; }
+.lg-stamp circle + circle + circle { stroke-width: 1; }
+.lg-stamp .lg-stamp-fill { fill: rgba(199,116,255,0.12); stroke: none; }
+.lg-ring-text { font-size: 7.6px; font-weight: 700; letter-spacing: 1.3px; fill: #a95ee6; }
+.lg-stamp-big { font-size: 17px; font-weight: 700; letter-spacing: 1px; fill: #a95ee6; }
+.lg-stamp-tick { fill: none; stroke: #a95ee6; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+.legit.is-live .lg-check, .legit.is-live .lg-stamp-in { opacity: 0; }
+.legit.is-live .lg-sig { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.legit.is-live .lg-stamp-in { transform: scale(1.6); transform-box: fill-box; transform-origin: center; }
+.legit.play .lg-check { animation: lg-fade 0.4s ease forwards; }
+.legit.play .lg-check-a { animation-delay: 0.2s; }
+.legit.play .lg-check-b { animation-delay: 0.45s; }
+.legit.play .lg-sig-a { animation: lg-draw 1s ease-in-out 0.8s forwards; }
+.legit.play .lg-sig-b { animation: lg-draw 1s ease-in-out 1.8s forwards; }
+.legit.play .lg-stamp-in { animation: lg-stamp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 2.9s forwards; }
+@keyframes lg-fade { to { opacity: 1; } }
+@keyframes lg-draw { to { stroke-dashoffset: 0; } }
+@keyframes lg-stamp { 0% { opacity: 0; transform: scale(1.6); } 40% { opacity: 1; } 100% { opacity: 1; transform: scale(1); } }
+
+.legit-intro { font-size: 15px; color: var(--text-secondary); line-height: 1.75; max-width: 52ch; margin-bottom: 1.5rem; }
+.legit-list { list-style: none; }
+.legit-list li {
+  display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 1.25rem;
+  padding: 1.25rem 0; border-top: 1px solid var(--border);
+}
+.legit-list li:last-child { border-bottom: 1px solid var(--border); }
+.legit-tag {
+  align-self: start; justify-self: start; margin-top: 1px;
+  font-size: 11px; font-weight: 700; letter-spacing: 1px; color: var(--text-primary);
+  padding: 4px 8px; border-radius: 6px; border: 1px solid var(--border-strong);
+}
+.legit-tag.fix { background: var(--accent-light); border-color: var(--accent-border); }
+.legit-tag.flt { background: var(--purple-light); border-color: var(--purple-border); }
+.legit-list h3 { font-size: 15px; font-weight: 700; font-style: italic; color: var(--text-primary); margin-bottom: 4px; }
+.legit-list p { font-size: 13.5px; color: var(--text-secondary); line-height: 1.7; max-width: 62ch; }
+.legit-foot { margin-top: 1rem; font-size: 11px; font-style: italic; color: var(--text-tertiary); }
+
+@media (max-width: 820px) {
+  .legit { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+  .legit-fig { width: 100%; max-width: 320px; justify-self: center; }
+}
+
 /* SCROLL WALKTHROUGH */
 /* A purple line fills down the rail as the reader scrolls; each step lights up
    when its number crosses the reading line (JS adds .is-live, .is-done, .is-current). */
