@@ -503,25 +503,22 @@ a.nav-btn { text-decoration: none; display: inline-block; }
 .sw-status { font-size: 12px; font-style: italic; fill: var(--text-secondary); }
 .sw-status.good { fill: #1f8a4c; font-weight: 700; }
 .sw-rate { font-size: 12px; font-weight: 700; fill: var(--text-primary); font-variant-numeric: tabular-nums; }
-.flow { opacity: 0; transition: opacity 0.4s ease; }
-.flow path { fill: none; stroke-width: 2; stroke-linecap: round; }
-.flow.on { opacity: 1; }
-.flow.ctx { opacity: 0.3; }
+/* Every line is always visible: grey until its step is reached, then lit in its own colour,
+   and lit lines stay lit on later steps. Moving dots only run on the current step's lines (.on). */
+.flow path { fill: none; stroke-width: 2; stroke-linecap: round; stroke: #cbc2b6; marker-end: url(#ah-grey); transition: stroke 0.3s; }
+.flow.lit.ink path { stroke: var(--text-primary); marker-end: url(#ah-ink); }
+.flow.lit.fix path { stroke: var(--accent); marker-end: url(#ah-fix); }
+.flow.lit.flt path { stroke: var(--purple); marker-end: url(#ah-flt); }
 .flow .coins { opacity: 0; transition: opacity 0.3s; }
 .flow.on .coins { opacity: 1; }
-.ah { fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-.ink path, .ah-ink { stroke: var(--text-primary); }
-.fix path, .ah-fix { stroke: var(--accent); }
-.flt path, .ah-flt { stroke: var(--purple); }
 .ink .coins { fill: var(--text-primary); }
-/* The two SOFR lines: always visible in grey, lit in their own colour when their option is on */
-.flow.pay { opacity: 1; }
-.flow.pay path { stroke: #cbc2b6; marker-end: url(#ah-grey); transition: stroke 0.3s; }
-.flow.pay.on.fix path { stroke: var(--accent); marker-end: url(#ah-fix); }
-.flow.pay.on.flt path { stroke: var(--purple); marker-end: url(#ah-flt); }
-.ah-grey { stroke: #cbc2b6; }
 .fix .coins { fill: var(--accent); }
 .flt .coins { fill: var(--purple); }
+.ah { fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.ah-grey { stroke: #cbc2b6; }
+.ah-ink { stroke: var(--text-primary); }
+.ah-fix { stroke: var(--accent); }
+.ah-flt { stroke: var(--purple); }
 .swap-foot { margin-top: 1rem; text-align: center; font-size: 11px; font-style: italic; color: var(--text-tertiary); }
 
 @media (max-width: 820px) {
@@ -529,7 +526,7 @@ a.nav-btn { text-decoration: none; display: inline-block; }
   .swap-fig { order: -1; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .ss-btn, .ss-body, .sw-node text, .sw-node rect, .flow, .flow.pay path { transition: none; }
+  .ss-btn, .ss-body, .sw-node text, .sw-node rect, .flow path, .flow .coins { transition: none; }
 }
 
 /* CALCULATOR */

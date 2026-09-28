@@ -145,17 +145,18 @@ if (legit) {
 
 // ── Swap diagram ─────────────────────────────────────────────
 // Four states across three listed steps: step 2 has a SOFR rises / falls switch.
-// Per state: which step it belongs to (li), which payment lines are live (on)
-// or faded context (ctx), which boxes are dimmed or highlighted, and the two
-// lines of status text under your client and under the other business.
+// Per state: which step it belongs to (li); which lines are lit (they build up step
+// by step, and step 3 lights everything); which lines carry moving dots (on); which
+// boxes are dimmed or highlighted; and the two lines of status text under your
+// client and under the other business.
 const SWAP_STATES = [
-  { li: 0, on: ['loanA', 'loanB'], dim: ['juku', 'broker'],
+  { li: 0, lit: ['loanA', 'loanB'], on: ['loanA', 'loanB'], dim: ['juku', 'broker'],
     status: ['borrows floating', 'borrows fixed'], sub: ['', ''] },
-  { li: 1, move: 'up', on: ['payBA'], ctx: ['loanA', 'loanB'], dim: ['broker'],
+  { li: 1, move: 'up', lit: ['loanA', 'loanB', 'payBA'], on: ['payBA'], dim: ['broker'],
     status: ['loan costs more', 'pays the difference'], sub: ['gets the difference', ''] },
-  { li: 1, move: 'down', on: ['payAB'], ctx: ['loanA', 'loanB'], dim: ['broker'],
+  { li: 1, move: 'down', lit: ['loanA', 'loanB', 'payAB'], on: ['payAB'], dim: ['broker'],
     status: ['loan costs less', 'gets the difference'], sub: ['pays the difference', ''] },
-  { li: 2, on: ['commission'], ctx: ['loanA', 'loanB'], hi: ['broker'],
+  { li: 2, lit: ['loanA', 'loanB', 'payBA', 'payAB', 'commission'], on: ['commission'], hi: ['broker'],
     status: ['pays 7.00% fixed', 'pays SOFR + 1.40%'], sub: ['instead of 7.20%', 'instead of SOFR + 1.60%'], good: true },
 ];
 
@@ -189,7 +190,7 @@ if (swap) {
     swap.querySelectorAll('.sofr-text').forEach(t => { t.hidden = t.dataset.move !== move; });
     svg.querySelectorAll('.flow').forEach(f => {
       f.classList.toggle('on', has(s.on, f.dataset.flow));
-      f.classList.toggle('ctx', has(s.ctx, f.dataset.flow));
+      f.classList.toggle('lit', has(s.lit, f.dataset.flow));
     });
     svg.querySelectorAll('.sw-node').forEach(n => {
       n.classList.toggle('dim', has(s.dim, n.dataset.node));

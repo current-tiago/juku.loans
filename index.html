@@ -72,13 +72,12 @@
             <marker id="ah-fix" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="ah ah-fix" d="M2 1.5 8 5 2 8.5"/></marker>
           </defs>
 
-          <!-- Payment lines, drawn in the direction the money moves. The two SOFR lines run behind juku,
-               stay visible in grey, and light up (rises orange, falls purple) on step 2. -->
-          <g class="flow ink on" data-flow="loanA"><path d="M174 52H209" marker-end="url(#ah-ink)"/></g>
-          <g class="flow ink on" data-flow="loanB"><path d="M174 260H209" marker-end="url(#ah-ink)"/></g>
-          <g class="flow pay fix" data-flow="payBA"><path d="M78 214V99" marker-end="url(#ah-fix)"/></g>
-          <g class="flow pay flt" data-flow="payAB"><path d="M102 98V213" marker-end="url(#ah-flt)"/></g>
-          <g class="flow fix" data-flow="commission"><path d="M142 156H209" marker-end="url(#ah-fix)"/></g>
+          <!-- Payment lines, drawn in the direction the money moves. The two SOFR lines run behind juku. -->
+          <g class="flow ink lit on" data-flow="loanA"><path d="M174 52H209"/></g>
+          <g class="flow ink lit on" data-flow="loanB"><path d="M174 260H209"/></g>
+          <g class="flow fix" data-flow="payBA"><path d="M78 214V99"/></g>
+          <g class="flow flt" data-flow="payAB"><path d="M102 98V213"/></g>
+          <g class="flow fix" data-flow="commission"><path d="M142 156H209"/></g>
 
           <g class="sw-node" data-node="a">
             <rect x="8" y="8" width="164" height="88" rx="10"/>
@@ -98,9 +97,8 @@
             <text x="90" y="156" class="sw-name" text-anchor="middle">juku</text>
           </g>
           <g class="sw-node dim" data-node="broker">
-            <rect x="212" y="122" width="124" height="68" rx="10"/>
-            <text x="224" y="146" class="sw-cap">Broker</text>
-            <text x="224" y="166" class="sw-name sw-name-sm">You</text>
+            <rect x="212" y="132" width="100" height="48" rx="10"/>
+            <text x="262" y="156" class="sw-name" text-anchor="middle">Broker</text>
           </g>
           <g class="sw-node" data-node="b">
             <rect x="8" y="216" width="164" height="88" rx="10"/>
