@@ -345,63 +345,84 @@ a.nav-btn { text-decoration: none; display: inline-block; }
 }
 
 /* WORKS WITH YOUR TOOLS */
-/* A monitor showing juku in the middle of a ring of tools; each tool lights up and connects
-   in turn (JS moves .is-on round the ring every couple of seconds while it's on screen). */
-.intg { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 560px); gap: 4rem; align-items: center; }
+/* A monitor showing an app window: tools circle juku on a slow oval orbit (drawn by JS). JS connects
+   them one at a time (.is-on: an orange deal dot runs in, a green savings dot runs back out), each
+   then keeps a tick and a green line (.is-done); once all six are connected it resets and loops. */
+.intg { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 580px); gap: 4rem; align-items: center; }
 .intg-copy h3 { font-size: clamp(22px, 2.4vw, 30px); font-weight: 700; font-style: italic; letter-spacing: -0.5px; line-height: 1.2; color: var(--text-primary); margin-bottom: 1rem; }
-.intg-copy p { font-size: 15px; color: var(--text-secondary); line-height: 1.75; max-width: 48ch; margin-bottom: 1.5rem; }
-.intg-points { list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 14px; color: var(--text-primary); }
-.intg-points li { display: flex; align-items: center; gap: 8px; }
-.intg-points i { color: #1f8a4c; font-size: 16px; }
+.intg-copy p { font-size: 15px; color: var(--text-secondary); line-height: 1.75; max-width: 48ch; }
 
 .intg-device { display: flex; flex-direction: column; align-items: center; }
 .intg-screen {
-  position: relative; width: 100%; aspect-ratio: 16 / 10;
+  position: relative; width: 100%; aspect-ratio: 16 / 10; overflow: hidden;
   background: var(--bg-card); border: 10px solid var(--text-primary); border-radius: 16px;
   background-image: radial-gradient(circle, rgba(0,0,0,0.08) 1px, transparent 1px); background-size: 18px 18px;
 }
 .intg-stand { width: 18%; height: 26px; background: var(--text-primary); clip-path: polygon(22% 0, 78% 0, 100% 100%, 0 100%); }
-.intg-lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.intg-link path { fill: none; stroke: var(--border-strong); stroke-width: 1.5; stroke-dasharray: 4 6; transition: stroke 0.3s; }
-.intg-link.is-on path { stroke: var(--accent); stroke-width: 2.5; stroke-dasharray: 3 9; animation: intg-flow 0.7s linear infinite; }
-@keyframes intg-flow { to { stroke-dashoffset: -12; } }
-
-.intg-tile {
-  position: absolute; transform: translate(-50%, -50%);
-  display: flex; align-items: center; gap: 7px;
-  padding: 7px 12px; border-radius: 10px;
-  background: var(--bg); border: 1px solid var(--border-strong);
-  font-size: 12.5px; font-weight: 700; color: var(--text-primary); white-space: nowrap;
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.3s, background 0.3s, box-shadow 0.3s;
+.intg-bar {
+  position: absolute; left: 0; right: 0; top: 0; height: 32px;
+  display: flex; align-items: center; gap: 6px; padding: 0 12px;
+  background: var(--bg); border-bottom: 1px solid var(--border);
+  font-size: 11px; color: var(--text-secondary);
 }
-.intg-tile i { font-size: 16px; color: var(--text-tertiary); }
-.intg-tile.is-on { transform: translate(-50%, -50%) scale(1.1); border-color: var(--accent); background: #fff; box-shadow: 0 6px 18px rgba(255,136,0,0.18); }
-.intg-tile.is-on i { color: var(--accent); }
-.intg-top { left: 50%; top: 19%; } .intg-tr { left: 79%; top: 33%; } .intg-br { left: 79%; top: 67%; }
-.intg-bottom { left: 50%; top: 81%; } .intg-bl { left: 21%; top: 67%; } .intg-tl { left: 21%; top: 33%; }
+.intg-bar i { width: 9px; height: 9px; border-radius: 50%; background: #d8d0c4; }
+.intg-bar span { margin-left: 8px; font-style: italic; }
+.intg-count { margin-left: auto; font-weight: 700; color: #1f8a4c; font-variant-numeric: tabular-nums; }
+
+.intg-stage { position: absolute; left: 0; right: 0; top: 32px; bottom: 0; }
+.intg-lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.intg-lines line { stroke: var(--border-strong); stroke-width: 1.5; stroke-dasharray: 4 5; transition: stroke 0.3s; }
+.intg-lines line.is-done { stroke: rgba(31,138,76,0.5); stroke-dasharray: none; }
+.intg-lines line.is-on { stroke: var(--accent); stroke-width: 2; stroke-dasharray: 4 5; }
+.intg-lines .deal { fill: var(--accent); }
+.intg-lines .saving { fill: #1f8a4c; }
+
+/* JS places each tool on an oval orbit: nearer the front it's larger, brighter and drawn over juku */
+.intg-node { position: absolute; left: 0; top: 0; will-change: transform; }
+.intg-tile {
+  position: relative;
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px 11px; border-radius: 10px;
+  background: var(--bg); border: 1px solid var(--border-strong);
+  font-size: 12px; font-weight: 700; color: var(--text-primary); white-space: nowrap;
+  transition: border-color 0.3s, background 0.3s, box-shadow 0.3s;
+}
+.intg-tile > i { font-size: 15px; color: var(--text-tertiary); transition: color 0.3s; }
+.intg-node.is-on .intg-tile { border-color: var(--accent); background: #fff; box-shadow: 0 6px 18px rgba(255,136,0,0.2); }
+.intg-node.is-on .intg-tile > i { color: var(--accent); }
+.intg-node.is-done .intg-tile { border-color: rgba(31,138,76,0.45); }
+.intg-ok {
+  position: absolute; right: -7px; top: -7px; width: 17px; height: 17px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: #1f8a4c; color: #fff; font-size: 11px; font-style: normal;
+  transform: scale(0); transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.intg-node.is-done .intg-ok { transform: scale(1); }
 
 .intg-hub {
   position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
-  width: 84px; height: 84px; border-radius: 50%;
+  width: 68px; height: 68px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  background: var(--accent); color: #fff; font-size: 20px; font-weight: 700; font-style: italic;
+  background: var(--accent); color: #fff; font-size: 18px; font-weight: 700; font-style: italic;
   box-shadow: 0 0 0 8px rgba(255,136,0,0.14);
-  animation: intg-pulse 2.2s ease-in-out infinite;
+  z-index: 6;   /* tools at the front of the orbit pass over juku, those at the back behind it */
 }
-@keyframes intg-pulse { 50% { box-shadow: 0 0 0 14px rgba(255,136,0,0.08); } }
+.intg-hub.is-hit { animation: intg-hit 0.5s ease-out; }
+@keyframes intg-hit { 40% { transform: translate(-50%, -50%) scale(1.12); box-shadow: 0 0 0 16px rgba(255,136,0,0.1); } }
 
 @media (max-width: 900px) {
   .intg { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; }
 }
 @media (max-width: 560px) {
   .intg-screen { border-width: 7px; }
-  .intg-tile { padding: 4px 7px; font-size: 10px; gap: 4px; }
-  .intg-tile i { font-size: 12px; }
-  .intg-hub { width: 56px; height: 56px; font-size: 15px; }
+  .intg-bar span { display: none; }
+  .intg-tile { padding: 4px 7px; font-size: 9.5px; gap: 4px; }
+  .intg-tile > i { font-size: 11px; }
+  .intg-hub { width: 46px; height: 46px; font-size: 13px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .intg-link.is-on path, .intg-hub { animation: none; }
-  .intg-tile { transition: none; }
+  .intg-hub.is-hit { animation: none; }
+  .intg-lines line { transition: none; }
 }
 
 /* SCROLL WALKTHROUGH */
