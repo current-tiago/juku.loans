@@ -176,6 +176,24 @@ if (legit) {
   update();
 }
 
+// ── Works with your tools (draft) ───────────────────────────
+// Light up each tool in turn and connect it to juku, while the section is on screen.
+const intg = document.getElementById('intg');
+if (intg) {
+  const tiles = [...intg.querySelectorAll('.intg-tile')];
+  const links = [...intg.querySelectorAll('.intg-link')];
+  let at = 0, inView = false;
+  const light = i => {
+    tiles.forEach((t, k) => t.classList.toggle('is-on', k === i));
+    links.forEach((l, k) => l.classList.toggle('is-on', k === i));
+  };
+  light(0);
+  new IntersectionObserver(([e]) => { inView = e.isIntersecting; }, { threshold: 0.3 }).observe(intg);
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    setInterval(() => { if (inView) light(at = (at + 1) % tiles.length); }, 1800);
+  }
+}
+
 // ── Swap diagram ─────────────────────────────────────────────
 // Four states across three listed steps: step 2 has a SOFR rises / falls switch.
 // Per state: which step it belongs to (li); which lines are lit (they build up step
