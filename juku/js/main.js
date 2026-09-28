@@ -251,14 +251,17 @@ if (swap) {
     // Coins that travel along each payment line at an even speed.
     svg.querySelectorAll('.flow path').forEach(path => {
       const len = path.getTotalLength();
-      const dur = Math.max(1.2, len / 60);
+      // Each dot stops with its front edge on the back of the arrowhead: the head reaches
+      // 4.8 units back from the line's end and the dot's radius is 3.5.
+      const stop = Math.max(0, (len - 8.3) / len);
+      const dur = Math.max(1.2, len * stop / 60);
       const n = Math.max(2, Math.round(len / 70));
       const coins = document.createElementNS('http://www.w3.org/2000/svg', 'g');
       coins.setAttribute('class', 'coins');
       for (let k = 0; k < n; k++) {
         const begin = -(k * dur / n);
         coins.innerHTML +=
-          `<circle r="3.5"><animateMotion path="${path.getAttribute('d')}" dur="${dur}s" begin="${begin}s" repeatCount="indefinite"/>` +
+          `<circle r="3.5"><animateMotion path="${path.getAttribute('d')}" keyPoints="0;${stop.toFixed(4)}" keyTimes="0;1" calcMode="linear" dur="${dur}s" begin="${begin}s" repeatCount="indefinite"/>` +
           `<animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.15;0.85;1" dur="${dur}s" begin="${begin}s" repeatCount="indefinite"/></circle>`;
       }
       path.after(coins);

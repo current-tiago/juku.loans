@@ -291,8 +291,6 @@ a.nav-btn { text-decoration: none; display: inline-block; }
   transition: background 0.25s, border-color 0.25s;
 }
 .term.is-on .term-tag { background: var(--accent-light); border-color: var(--accent-border); }
-.legit-hint { margin-top: 1.5rem; font-size: 12px; font-style: italic; color: var(--text-tertiary); }
-.legit-foot { margin-top: 1.25rem; font-size: 11px; font-style: italic; color: var(--text-tertiary); }
 
 .docs { display: flex; flex-direction: column; gap: 1rem; }
 .doc {
@@ -331,7 +329,7 @@ a.nav-btn { text-decoration: none; display: inline-block; }
 
 @media (max-width: 820px) {
   .legit-pin { grid-template-columns: minmax(0, 1fr); gap: 1.25rem; }
-  .legit-intro, .legit-hint, .term-name { display: none; }
+  .legit-intro, .term-name { display: none; }
   .terms { flex-direction: row; flex-wrap: wrap; gap: 6px; }
   .term { width: auto; padding: 0; }
   .doc { padding: 22px 24px; }
