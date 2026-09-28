@@ -97,22 +97,54 @@ if (walk) {
 }
 
 // ── Done by the book ─────────────────────────────────────────
-// Tick the LEIs, sign and stamp the agreement the first time it scrolls into view.
-// Clicking the agreement plays it again.
+// A stack of five documents, one per point in the list. Every few seconds (while
+// the section is on screen and not hovered) the top one flips away to reveal the
+// next. Clicking a point shows its document; clicking the stack flips to the next.
+// Either click stops the automatic flipping.
 const legit = document.getElementById('legit');
-if (legit && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  legit.classList.add('is-live');
-  const seen = new IntersectionObserver(([e]) => {
-    if (!e.isIntersecting) return;
-    legit.classList.add('play');
-    seen.disconnect();
-  }, { threshold: 0.5 });
-  seen.observe(legit);
-  legit.querySelector('.legit-fig').addEventListener('click', () => {
-    legit.classList.remove('play');
-    void legit.offsetWidth;
-    legit.classList.add('play');
-  });
+if (legit) {
+  const docs = [...legit.querySelectorAll('.doc')];
+  const items = [...legit.querySelectorAll('.legit-list li')];
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let order = docs.map((_, i) => i);   // order[0] is the document on top
+  let auto = !calm, inView = false, hovered = false;
+
+  const layout = () => {
+    order.forEach((d, pos) => {
+      docs[d].dataset.pos = pos;
+      docs[d].classList.toggle('is-top', pos === 0);
+    });
+    items.forEach((li, i) => li.classList.toggle('is-on', i === order[0]));
+  };
+  const show = i => {
+    if (order[0] === i) return;
+    const old = docs[order[0]];
+    old.classList.add('leaving');
+    const done = e => {   // ignore animations finishing inside the document
+      if (e.target !== old) return;
+      old.classList.remove('leaving');
+      old.removeEventListener('animationend', done);
+    };
+    old.addEventListener('animationend', done);
+    order = [i, ...order.filter(d => d !== i && d !== order[0]), order[0]];
+    layout();
+  };
+  const takeOver = () => { auto = false; };
+
+  items.forEach((li, i) => li.addEventListener('click', () => { takeOver(); show(i); }));
+  legit.querySelector('.docs').addEventListener('click', () => { takeOver(); show(order[1]); });
+  legit.addEventListener('mouseenter', () => { hovered = true; });
+  legit.addEventListener('mouseleave', () => { hovered = false; });
+  layout();
+
+  if (!calm) {
+    legit.classList.add('is-live');
+    new IntersectionObserver(([e]) => {
+      inView = e.isIntersecting;
+      if (inView) legit.classList.add('play');   // the first document plays when first seen
+    }, { threshold: 0.4 }).observe(legit);
+    setInterval(() => { if (auto && inView && !hovered) show(order[1]); }, 4500);
+  }
 }
 
 // ── Swap diagram ─────────────────────────────────────────────
