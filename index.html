@@ -45,7 +45,6 @@
         <li class="swap-stage is-active">
           <button class="ss-btn" type="button" aria-pressed="true"><span class="step-num">1</span>Each borrows where it's cheaper</button>
           <div class="ss-body"><div><p>Your client wants a fixed rate, but its best deal is floating at SOFR + 1.20%, so it borrows floating. The other business is the opposite: it wants floating but borrows fixed at 6.80%.</p></div></div>
-          <span class="ss-bar" aria-hidden="true"></span>
         </li>
         <li class="swap-stage">
           <button class="ss-btn" type="button" aria-pressed="false"><span class="step-num">2</span>When SOFR moves</button>
@@ -57,12 +56,10 @@
             <p class="sofr-text" data-move="up">Your client's floating loan costs more, so the other business pays it the difference through juku. Your client stays at 7.00% fixed.</p>
             <p class="sofr-text" data-move="down" hidden>Your client's floating loan costs less, so it pays the other business the difference through juku. Your client still pays 7.00% fixed, and the other business's rate falls with SOFR.</p>
           </div></div>
-          <span class="ss-bar" aria-hidden="true"></span>
         </li>
         <li class="swap-stage">
           <button class="ss-btn" type="button" aria-pressed="false"><span class="step-num">3</span>Both pay less, and you earn</button>
           <div class="ss-body"><div><p>Your client ends up paying 7.00% fixed instead of the 7.20% it was quoted, and the other business saves the same 0.20% a year. You earn a commission from juku on the deal.</p></div></div>
-          <span class="ss-bar" aria-hidden="true"></span>
         </li>
       </ol>
 

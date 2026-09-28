@@ -119,7 +119,6 @@ const swap = document.getElementById('swap');
 if (swap) {
   const stages = swap.querySelectorAll('.swap-stage');
   const svg = swap.querySelector('svg');
-  let current = 0;
 
   function centreText() {
     svg.querySelectorAll('.sw-node').forEach(n => {
@@ -138,13 +137,6 @@ if (swap) {
       li.classList.toggle('is-active', k === s.li);
       li.querySelector('.ss-btn').setAttribute('aria-pressed', k === s.li);
     });
-    // Moving between SOFR rises and falls keeps step 2 open, so restart its progress bar by hand.
-    if (i !== current && s.li === SWAP_STATES[current].li) {
-      const bar = stages[s.li].querySelector('.ss-bar');
-      bar.style.animation = 'none';
-      void bar.offsetWidth;
-      bar.style.animation = '';
-    }
     const move = s.move || 'up';
     swap.querySelectorAll('.sofr-btn').forEach(b => b.setAttribute('aria-pressed', b.dataset.move === move));
     swap.querySelectorAll('.sofr-text').forEach(t => { t.hidden = t.dataset.move !== move; });
@@ -162,20 +154,12 @@ if (swap) {
     });
     svg.querySelectorAll('.sw-more').forEach((t, k) => { t.textContent = s.sub[k]; });
     centreText();
-    current = i;
   }
   centreText();
 
-  // Clicking a step or the SOFR switch takes over from the autoplay for good.
   const FIRST_STATE = [0, 1, 3];   // the state each listed step opens on
-  stages.forEach((li, k) => li.querySelector('.ss-btn').addEventListener('click', () => {
-    swap.classList.remove('autoplay');
-    setStage(FIRST_STATE[k]);
-  }));
-  swap.querySelectorAll('.sofr-btn').forEach(b => b.addEventListener('click', () => {
-    swap.classList.remove('autoplay');
-    setStage(b.dataset.move === 'up' ? 1 : 2);
-  }));
+  stages.forEach((li, k) => li.querySelector('.ss-btn').addEventListener('click', () => setStage(FIRST_STATE[k])));
+  swap.querySelectorAll('.sofr-btn').forEach(b => b.addEventListener('click', () => setStage(b.dataset.move === 'up' ? 1 : 2)));
 
   if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
     // Coins that travel along each payment line at an even speed.
@@ -193,17 +177,6 @@ if (swap) {
       }
       path.after(coins);
     });
-
-    // Autoplay: the active stage's progress bar fills (CSS), then we move on.
-    // CSS pauses it on hover and while the diagram is off screen.
-    swap.classList.add('autoplay');
-    swap.addEventListener('animationend', e => {
-      if (e.target.classList.contains('ss-bar') && swap.classList.contains('autoplay')) {
-        setStage((current + 1) % SWAP_STATES.length);
-      }
-    });
-    new IntersectionObserver(([entry]) => swap.classList.toggle('in-view', entry.isIntersecting), { threshold: 0.4 })
-      .observe(swap);
   }
 }
 
