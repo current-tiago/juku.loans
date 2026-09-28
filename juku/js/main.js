@@ -96,82 +96,17 @@ if (walk) {
   updateWalk();
 }
 
-// ── Swap example options (draft) ─────────────────────────────
-// Option A: flip between borrowing directly and swapping.
-const exa = document.getElementById('exa');
-if (exa) {
-  let touched = false;
-  const setMode = mode => {
-    exa.dataset.mode = mode;
-    exa.querySelectorAll('.seg-btn').forEach(b => b.setAttribute('aria-pressed', b.dataset.mode === mode));
-  };
-  exa.querySelectorAll('.seg-btn').forEach(b => b.addEventListener('click', () => {
-    touched = true;
-    setMode(b.dataset.mode);
-  }));
-  // The first time it scrolls into view, flip to the swap once to show what changes.
-  const seen = new IntersectionObserver(([e]) => {
-    if (!e.isIntersecting) return;
-    seen.disconnect();
-    setTimeout(() => { if (!touched) setMode('swap'); }, 1400);
-  }, { threshold: 0.6 });
-  seen.observe(exa);
-}
-
-// Option B: your client's saving for a chosen loan size and term.
-const exb = document.getElementById('exb');
-if (exb) {
-  const SAVING = 0.002;   // the example's 0.20% a year
-  const usd = n => '$' + Math.round(n).toLocaleString('en-US');
-  const slider = exb.querySelector('input[type=range]');
-  let term = 5;
-  const render = () => {
-    const size = +slider.value;
-    exb.querySelectorAll('[data-out="size"]').forEach(el => { el.textContent = usd(size); });
-    exb.querySelector('[data-out="year"]').textContent = usd(size * SAVING);
-    exb.querySelector('[data-out="total"]').textContent = usd(size * SAVING * term);
-    exb.querySelector('[data-out="term"]').textContent = term + ' years';
-    exb.querySelectorAll('.seg-btn').forEach(b => b.setAttribute('aria-pressed', +b.dataset.term === term));
-  };
-  slider.addEventListener('input', render);
-  exb.querySelectorAll('.seg-btn').forEach(b => b.addEventListener('click', () => {
-    term = +b.dataset.term;
-    render();
-  }));
-  render();
-}
-
-// Option C: three steps that play on their own until one is clicked.
-const exc = document.getElementById('exc');
-if (exc) {
-  const tabs = exc.querySelectorAll('.exc-tab');
-  const go = i => {
-    exc.dataset.step = i;
-    tabs.forEach((t, k) => t.setAttribute('aria-pressed', k === i));
-  };
-  let inView = false;
-  const timer = setInterval(() => { if (inView) go((+exc.dataset.step + 1) % tabs.length); }, 4500);
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) clearInterval(timer);
-  tabs.forEach((t, k) => t.addEventListener('click', () => {
-    clearInterval(timer);
-    go(k);
-  }));
-  new IntersectionObserver(([e]) => { inView = e.isIntersecting; }, { threshold: 0.5 }).observe(exc);
-}
-
 // ── Swap diagram ─────────────────────────────────────────────
-// Per stage: which payment lines are live (on), faded context (ctx) or
-// offsetting each other (cancel); which boxes are dimmed or highlighted;
-// and the status line under Business A and Business B.
+// Per stage: which payment lines are live (on) or faded context (ctx);
+// which boxes are dimmed, highlighted or hidden; and the two lines of
+// status text under your client and under the other business.
 const SWAP_STAGES = [
-  { on: ['loanA', 'loanB'], dim: ['bank', 'broker'],
-    status: ['borrows floating', 'borrows fixed'] },
-  { on: ['swapAfix', 'swapAflt', 'swapBflt', 'swapBfix'], ctx: ['loanA', 'loanB'], dim: ['broker'],
-    status: ['swaps into fixed', 'swaps into floating'] },
-  { on: ['swapAfix', 'swapBflt'], cancel: ['loanA', 'swapAflt', 'loanB', 'swapBfix'], dim: ['broker'],
-    status: ['now on fixed', 'now on floating'] },
-  { on: ['commission'], ctx: ['loanA', 'loanB', 'swapAfix', 'swapAflt', 'swapBflt', 'swapBfix'], hi: ['broker'],
-    status: ['pays less interest', 'pays less interest'], good: true },
+  { on: ['loanA', 'loanB'], dim: ['bank'], gone: ['broker'],
+    status: ['borrows floating', 'borrows fixed'], sub: ['', ''] },
+  { on: ['swapFix', 'swapFlt'], ctx: ['loanA', 'loanB'], gone: ['broker'],
+    status: ['swaps into fixed', 'swaps into floating'], sub: ['', ''] },
+  { ctx: ['loanA', 'loanB', 'swapFix', 'swapFlt'], hi: ['broker'],
+    status: ['pays 7.00% fixed', 'pays SOFR + 1.40%'], sub: ['instead of 7.20%', 'instead of SOFR + 1.60%'], good: true },
 ];
 
 const swap = document.getElementById('swap');
@@ -190,16 +125,17 @@ if (swap) {
     svg.querySelectorAll('.flow').forEach(f => {
       f.classList.toggle('on', has(s.on, f.dataset.flow));
       f.classList.toggle('ctx', has(s.ctx, f.dataset.flow));
-      f.classList.toggle('cancel', has(s.cancel, f.dataset.flow));
     });
     svg.querySelectorAll('.sw-node').forEach(n => {
       n.classList.toggle('dim', has(s.dim, n.dataset.node));
       n.classList.toggle('hi', has(s.hi, n.dataset.node));
+      n.classList.toggle('gone', has(s.gone, n.dataset.node));
     });
     svg.querySelectorAll('.sw-status').forEach((t, k) => {
       t.textContent = s.status[k];
       t.classList.toggle('good', !!s.good);
     });
+    svg.querySelectorAll('.sw-more').forEach((t, k) => { t.textContent = s.sub[k]; });
     current = i;
   }
 
@@ -213,7 +149,7 @@ if (swap) {
     // Coins that travel along each payment line at an even speed.
     svg.querySelectorAll('.flow path').forEach(path => {
       const len = path.getTotalLength();
-      const dur = len / 60;
+      const dur = Math.max(1.2, len / 60);
       const n = Math.max(2, Math.round(len / 70));
       const coins = document.createElementNS('http://www.w3.org/2000/svg', 'g');
       coins.setAttribute('class', 'coins');
