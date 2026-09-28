@@ -126,35 +126,69 @@
 
   <div class="section">
     <div class="section-label">How it works, step by step</div>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">1</div>
-        <div>
+    <div class="walk" id="walk">
+      <span class="walk-rail" aria-hidden="true"><span class="walk-fill"></span></span>
+      <ol class="walk-list">
+
+      <li class="walk-step">
+        <span class="walk-num">1</span>
+        <div class="walk-text">
           <h3>Your client chooses a loan</h3>
           <p>A business comes to you ready to borrow and knows what it wants: a fixed or a floating rate. You find it the cheapest fixed and floating quotes on the market.</p>
         </div>
-      </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <div>
+        <div class="walk-pic" aria-hidden="true">
+          <div class="wp-head"><span class="wp-cap">Your client</span><span class="wp-pill fix">Wants fixed</span></div>
+          <div class="wp-row"><i class="ti ti-building-bank"></i><span>Cheapest fixed quote</span><b>7.40%</b></div>
+          <div class="wp-row"><i class="ti ti-building-bank"></i><span>Cheapest floating quote</span><b>SOFR + 1.50%</b></div>
+          <div class="wp-foot">Example figures</div>
+        </div>
+      </li>
+
+      <li class="walk-step">
+        <span class="walk-num">2</span>
+        <div class="walk-text">
           <h3>You send us the details</h3>
           <p>If your client is open to saving, you forward the loan size, term and both quotes. No principal is exchanged and your client commits to nothing at this stage.</p>
         </div>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <div>
+        <div class="walk-pic" aria-hidden="true">
+          <div class="wp-head"><span class="wp-cap"><i class="ti ti-send"></i>Sent to juku</span><span class="wp-pill ok"><i class="ti ti-check"></i>Received</span></div>
+          <div class="wp-row"><span>Loan size</span><b>$500,000</b></div>
+          <div class="wp-row"><span>Term</span><b>5 years</b></div>
+          <div class="wp-row"><span>Fixed quote</span><b>7.40%</b></div>
+          <div class="wp-row"><span>Floating quote</span><b>SOFR + 1.50%</b></div>
+          <div class="wp-foot">No principal exchanged, no commitment yet</div>
+        </div>
+      </li>
+
+      <li class="walk-step">
+        <span class="walk-num">3</span>
+        <div class="walk-text">
           <h3>We find the match</h3>
           <p>We pair your client with a business whose cheapest rates mirror theirs: one cheaper at fixed, one cheaper at floating. Each borrows the type it's cheaper at, ready to swap.</p>
         </div>
-      </div>
-      <div class="step">
-        <div class="step-num">4</div>
-        <div>
+        <div class="walk-pic" aria-hidden="true">
+          <div class="wp-match">
+            <div class="wp-biz"><span class="wp-cap">Your client</span><span class="wp-pill fix">Wants fixed</span><span class="wp-note">borrows floating</span></div>
+            <span class="wp-link"><i class="ti ti-arrows-exchange"></i></span>
+            <div class="wp-biz"><span class="wp-cap">Other business</span><span class="wp-pill flt">Wants floating</span><span class="wp-note">borrows fixed</span></div>
+          </div>
+          <div class="wp-foot">Each borrows the type it's cheaper at</div>
+        </div>
+      </li>
+
+      <li class="walk-step">
+        <span class="walk-num">4</span>
+        <div class="walk-text">
           <h3>Both save, and so do you</h3>
           <p>They swap payments and each ends up with the loan they wanted, now cheaper. The saving is shared: your client keeps most of it, and you earn a commission on the deal.</p>
         </div>
-      </div>
+        <div class="walk-pic" aria-hidden="true">
+          <div class="wp-row"><i class="ti ti-circle-check good"></i><span>Your client</span><b>on fixed, paying less</b></div>
+          <div class="wp-row"><i class="ti ti-circle-check good"></i><span>Other business</span><b>on floating, paying less</b></div>
+          <div class="wp-row"><i class="ti ti-coins good"></i><span>You</span><b>a commission</b></div>
+        </div>
+      </li>
+      </ol>
     </div>
   </div>
 

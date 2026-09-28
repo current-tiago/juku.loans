@@ -56,6 +56,46 @@ async function submitForm() {
   }
 }
 
+// ── Scroll walkthrough ───────────────────────────────────────
+// The purple line fills down to a reading line 55% of the way down the
+// screen; the last step whose number has crossed it is the current one.
+const walk = document.getElementById('walk');
+if (walk) {
+  const steps = [...walk.querySelectorAll('.walk-step')];
+  const rail = walk.querySelector('.walk-rail');
+  const fill = walk.querySelector('.walk-fill');
+  walk.classList.add('is-live');
+
+  function updateWalk() {
+    const top = walk.getBoundingClientRect().top;
+    const centres = steps.map(s => {
+      const r = s.querySelector('.walk-num').getBoundingClientRect();
+      return r.top + r.height / 2 - top;
+    });
+    const first = centres[0], last = centres[centres.length - 1];
+    const line = innerHeight * 0.55 - top;
+    rail.style.top = first + 'px';
+    rail.style.height = (last - first) + 'px';
+    fill.style.height = Math.min(Math.max(line - first, 0), last - first) + 'px';
+    const current = centres.filter(c => c <= line).length - 1;
+    steps.forEach((s, i) => {
+      s.classList.toggle('is-done', i < current);
+      s.classList.toggle('is-current', i === current);
+    });
+  }
+
+  let queued = false;
+  const queueWalk = () => {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(() => { queued = false; updateWalk(); });
+  };
+  addEventListener('scroll', queueWalk, { passive: true });
+  addEventListener('resize', queueWalk);
+  new ResizeObserver(queueWalk).observe(walk);   // also catches the home page being shown again
+  updateWalk();
+}
+
 // ── Swap diagram ─────────────────────────────────────────────
 // Per stage: which payment lines are live (on), faded context (ctx) or
 // offsetting each other (cancel); which boxes are dimmed or highlighted;
