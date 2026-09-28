@@ -39,28 +39,89 @@
   </div>
 
   <div class="section">
-    <div class="section-label">The two parties</div>
-    <div class="parties">
-      <div class="party">
-        <div class="p-label">Party A</div>
-        <div class="p-name">Wants a fixed-rate loan</div>
-        <div class="p-desc">Prefers the certainty of a fixed rate, but can actually borrow more cheaply on a floating one. So it borrows floating and swaps into fixed.</div>
-        <span class="p-badge fixed-badge">Borrows floating, swaps to fixed</span>
-      </div>
-      <div class="middle-arrow">
-        <svg width="24" height="48" viewBox="0 0 24 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 4 L12 20 M12 4 L6 10 M12 4 L18 10" stroke="var(--text-tertiary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M12 44 L12 28 M12 44 L6 38 M12 44 L18 38" stroke="var(--text-tertiary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <div class="section-label">Inside a swap</div>
+    <div class="swap" id="swap">
+      <ol class="swap-stages">
+        <li class="swap-stage is-active">
+          <button class="ss-btn" type="button" aria-pressed="true"><span class="step-num">1</span>Each borrows where it's cheaper</button>
+          <div class="ss-body"><div><p>Business A wants a fixed rate but is offered a better deal on floating, so it borrows floating. Business B is the mirror image: it wants floating but borrows fixed.</p></div></div>
+          <span class="ss-bar" aria-hidden="true"></span>
+        </li>
+        <li class="swap-stage">
+          <button class="ss-btn" type="button" aria-pressed="false"><span class="step-num">2</span>They swap payments</button>
+          <div class="ss-body"><div><p>Through our partner bank, A pays a fixed rate and receives floating, while B pays floating and receives fixed. Neither business is exposed to the other.</p></div></div>
+          <span class="ss-bar" aria-hidden="true"></span>
+        </li>
+        <li class="swap-stage">
+          <button class="ss-btn" type="button" aria-pressed="false"><span class="step-num">3</span>Each gets the rate it wanted</button>
+          <div class="ss-body"><div><p>The floating payments A receives offset the floating interest on its loan, so A is effectively on a fixed rate. The same happens in reverse for B, which ends up on floating.</p></div></div>
+          <span class="ss-bar" aria-hidden="true"></span>
+        </li>
+        <li class="swap-stage">
+          <button class="ss-btn" type="button" aria-pressed="false"><span class="step-num">4</span>Both save, and you earn</button>
+          <div class="ss-body"><div><p>Together they pay less interest than if each had borrowed its preferred type directly. A share of that saving goes to each business, and you earn a commission on the deal.</p></div></div>
+          <span class="ss-bar" aria-hidden="true"></span>
+        </li>
+      </ol>
+
+      <figure class="swap-fig">
+        <svg viewBox="0 0 420 364" role="img" aria-labelledby="swap-title">
+          <title id="swap-title">Two businesses, each with its own lender, swap fixed and floating interest payments through a partner bank, and the broker earns a commission.</title>
+          <defs>
+            <marker id="ah-fix" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="ah ah-fix" d="M2 1.5 8 5 2 8.5"/></marker>
+            <marker id="ah-flt" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="ah ah-flt" d="M2 1.5 8 5 2 8.5"/></marker>
+            <marker id="ah-com" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="ah ah-com" d="M2 1.5 8 5 2 8.5"/></marker>
+          </defs>
+
+          <!-- Payment lines, drawn in the direction the money moves -->
+          <g class="flow flt on" data-flow="loanA"><path d="M86 90V289" marker-end="url(#ah-flt)"/></g>
+          <g class="flow fix on" data-flow="loanB"><path d="M334 90V289" marker-end="url(#ah-fix)"/></g>
+          <g class="flow fix" data-flow="swapAfix"><path d="M122 90 170 146" marker-end="url(#ah-fix)"/></g>
+          <g class="flow flt" data-flow="swapAflt"><path d="M186 146 138 90" marker-end="url(#ah-flt)"/></g>
+          <g class="flow flt" data-flow="swapBflt"><path d="M298 90 250 146" marker-end="url(#ah-flt)"/></g>
+          <g class="flow fix" data-flow="swapBfix"><path d="M234 146 282 90" marker-end="url(#ah-fix)"/></g>
+          <g class="flow com" data-flow="commission"><path d="M210 214V295" marker-end="url(#ah-com)"/></g>
+
+          <g class="sw-node" data-node="a">
+            <rect x="8" y="10" width="156" height="76" rx="10"/>
+            <text x="20" y="32" class="sw-cap">BUSINESS A</text>
+            <text x="20" y="54" class="sw-name">Wants fixed</text>
+            <text x="20" y="74" class="sw-status">borrows floating</text>
+          </g>
+          <g class="sw-node" data-node="b">
+            <rect x="256" y="10" width="156" height="76" rx="10"/>
+            <text x="268" y="32" class="sw-cap">BUSINESS B</text>
+            <text x="268" y="54" class="sw-name">Wants floating</text>
+            <text x="268" y="74" class="sw-status">borrows fixed</text>
+          </g>
+          <g class="sw-node dim" data-node="bank">
+            <rect x="148" y="150" width="124" height="60" rx="10"/>
+            <text x="210" y="176" class="sw-name sw-name-sm" text-anchor="middle">Partner bank</text>
+            <text x="210" y="196" class="sw-sub" text-anchor="middle">matched by juku</text>
+          </g>
+          <g class="sw-node" data-node="lenderA">
+            <rect x="8" y="294" width="156" height="62" rx="10"/>
+            <text x="20" y="316" class="sw-cap">A'S LENDER</text>
+            <text x="20" y="340" class="sw-name sw-name-sm">Floating loan</text>
+          </g>
+          <g class="sw-node" data-node="lenderB">
+            <rect x="256" y="294" width="156" height="62" rx="10"/>
+            <text x="268" y="316" class="sw-cap">B'S LENDER</text>
+            <text x="268" y="340" class="sw-name sw-name-sm">Fixed loan</text>
+          </g>
+          <g class="sw-node dim" data-node="broker">
+            <rect x="172" y="300" width="76" height="56" rx="10"/>
+            <text x="210" y="322" class="sw-cap" text-anchor="middle">YOU</text>
+            <text x="210" y="344" class="sw-name sw-name-sm" text-anchor="middle">Broker</text>
+          </g>
         </svg>
-      </div>
-      <div class="party party-b">
-        <div class="p-label">Party B</div>
-        <div class="p-name">Wants a floating-rate loan</div>
-        <div class="p-desc">Prefers a floating rate, but can actually borrow more cheaply on a fixed one. So it borrows fixed and swaps into floating.</div>
-        <span class="p-badge float-badge">Borrows fixed, swaps to floating</span>
-      </div>
+        <ul class="swap-legend">
+          <li><span class="sw-key sw-key-fix"></span>Fixed-rate payments</li>
+          <li><span class="sw-key sw-key-flt"></span>Floating-rate payments</li>
+          <li><span class="sw-key sw-key-com"></span>Your commission</li>
+        </ul>
+      </figure>
     </div>
-    <p class="parties-note">Each borrows the rate type it's cheaper at, then they swap payments. So both end up with the loan they actually wanted, paying less interest between them than if each had borrowed it directly. That gap is the saving.</p>
   </div>
 
   <div class="section">
