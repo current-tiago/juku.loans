@@ -12,8 +12,8 @@
   --purple-light: rgba(199,116,255,0.16);
   --purple-border: rgba(199,116,255,0.5);
   --text-primary: #1e1a16;
-  --text-secondary: #3d352d;
-  --text-tertiary: #6b5f52;
+  --text-secondary: #000000;
+  --text-tertiary: #000000;
   --border: rgba(0,0,0,0.08);
   --border-strong: rgba(0,0,0,0.14);
   --radius-sm: 5px;
@@ -30,6 +30,18 @@ body {
   color: var(--text-primary);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+}
+
+/* DOT TEXTURE */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  pointer-events: none;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.1) 1px, transparent 1px);
+  background-size: 24px 24px;
+  opacity: 0.5;
 }
 
 
@@ -681,7 +693,7 @@ a.nav-btn { text-decoration: none; display: inline-block; }
   appearance: none;
 }
 .field input::placeholder,
-.field textarea::placeholder { color: var(--text-tertiary); }
+.field textarea::placeholder { color: #8f8a84; }   /* stays grey so empty fields don't look filled in */
 .field input:focus,
 .field select:focus,
 .field textarea:focus {
