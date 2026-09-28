@@ -134,17 +134,21 @@ a.nav-btn { text-decoration: none; display: inline-block; }
 }
 
 .hero-graphic:hover .hg-dots-tl {
-  transform: translate(-10px, -10px);
+  transform: translate(calc(-50% - 10px), calc(-50% - 10px));
 }
 
 .hero-graphic:hover .hg-dots-br {
-  transform: translate(10px, 10px);
+  transform: translate(calc(-50% + 10px), calc(-50% + 10px));
 }
 
+/* Whole 18px dot cells: one row and column fewer than would fill 48% of the box.
+   Positioned by its centre (the translate), so the size can change without moving it. */
 .hg-dots {
   position: absolute;
-  width: 48%;
+  width: calc(48% - 18px);
+  width: round(down, calc(48% - 18px), 18px);
   aspect-ratio: 1;
+  transform: translate(-50%, -50%);
   background-image: radial-gradient(circle, #1e1a16 1.5px, transparent 1.5px);
   background-size: 18px 18px;
 }
@@ -152,13 +156,13 @@ a.nav-btn { text-decoration: none; display: inline-block; }
 /* Each dot grid is centred on the circle's edge: top left at 135°, bottom right at 315°.
    (Circle: 82% of the box's width across, centred 46.7% from the left and halfway down a 3:4 box.) */
 .hg-dots-tl {
-  top: 10.26%;
-  left: -6.27%;
+  top: 28.26%;
+  left: 17.73%;
 }
 
 .hg-dots-br {
-  bottom: 10.26%;
-  right: 0.29%;
+  top: 71.74%;
+  left: 75.71%;
 }
 
 @media (max-width: 700px) {
