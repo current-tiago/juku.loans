@@ -291,71 +291,143 @@
 
 <!-- FORM PAGE -->
 <div class="page" id="page-form">
-
-  <div class="form-layout">
-    <div class="form-graphic" aria-hidden="true">
-      <div class="hg-dots hg-dots-tl"></div>
-      <div class="hg-circle"></div>
-      <div class="hg-dots hg-dots-br"></div>
+  <div class="contact">
+    <div class="contact-pitch">
+      <span class="hero-tag"><i class="ti ti-briefcase" aria-hidden="true" style="font-size:13px;"></i>For US commercial loan brokers</span>
+      <h1>Bring swaps to your clients<span class="dot">.</span></h1>
+      <p class="contact-sub">Tell us about your brokerage and we'll get back to you within two business days to set up a short intro call.</p>
+      <ol class="contact-steps">
+        <li><span class="step-num">1</span><div><h3>We get back to you</h3><p>Within two business days of you sending this form.</p></div></li>
+        <li><span class="step-num">2</span><div><h3>A short intro call</h3><p>How swaps fit the loans you already arrange, and how you earn on each one.</p></div></li>
+        <li><span class="step-num">3</span><div><h3>Try it on a live deal</h3><p>Send us a current deal and we'll check whether there's a match for it.</p></div></li>
+      </ol>
+      <ul class="contact-points">
+        <li><i class="ti ti-check" aria-hidden="true"></i>No cost to join</li>
+        <li><i class="ti ti-check" aria-hidden="true"></i>No commitment</li>
+        <li><i class="ti ti-check" aria-hidden="true"></i>Brokers only</li>
+      </ul>
     </div>
 
-  <div class="form-wrap" id="form-inner">
-    <h1>Get in touch</h1>
-    <p class="form-sub">Tell us a little about your brokerage and we'll be in touch within two business days.</p>
+    <div class="contact-card">
+      <form id="contact-form" novalidate>
+        <h2>Tell us about your brokerage</h2>
+        <div class="field-row">
+          <div class="field"><label for="c-fname">First name</label><input type="text" id="c-fname" name="fname" placeholder="James" autocomplete="given-name" required></div>
+          <div class="field"><label for="c-lname">Last name</label><input type="text" id="c-lname" name="lname" placeholder="Carter" autocomplete="family-name"></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="c-email">Work email</label><input type="email" id="c-email" name="email" placeholder="james@cartercapital.com" autocomplete="email" required></div>
+          <div class="field"><label for="c-phone">Phone <span class="opt">optional</span></label><input type="tel" id="c-phone" name="phone" placeholder="(555) 123-4567" autocomplete="tel"></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="c-company">Brokerage</label><input type="text" id="c-company" name="company" placeholder="Carter Capital Advisors" autocomplete="organization"></div>
+          <div class="field">
+            <label for="c-state">State</label>
+            <select id="c-state" name="state">
+              <option value="">Select...</option>
+                <option>Alabama</option>
+                <option>Alaska</option>
+                <option>Arizona</option>
+                <option>Arkansas</option>
+                <option>California</option>
+                <option>Colorado</option>
+                <option>Connecticut</option>
+                <option>Delaware</option>
+                <option>District of Columbia</option>
+                <option>Florida</option>
+                <option>Georgia</option>
+                <option>Hawaii</option>
+                <option>Idaho</option>
+                <option>Illinois</option>
+                <option>Indiana</option>
+                <option>Iowa</option>
+                <option>Kansas</option>
+                <option>Kentucky</option>
+                <option>Louisiana</option>
+                <option>Maine</option>
+                <option>Maryland</option>
+                <option>Massachusetts</option>
+                <option>Michigan</option>
+                <option>Minnesota</option>
+                <option>Mississippi</option>
+                <option>Missouri</option>
+                <option>Montana</option>
+                <option>Nebraska</option>
+                <option>Nevada</option>
+                <option>New Hampshire</option>
+                <option>New Jersey</option>
+                <option>New Mexico</option>
+                <option>New York</option>
+                <option>North Carolina</option>
+                <option>North Dakota</option>
+                <option>Ohio</option>
+                <option>Oklahoma</option>
+                <option>Oregon</option>
+                <option>Pennsylvania</option>
+                <option>Rhode Island</option>
+                <option>South Carolina</option>
+                <option>South Dakota</option>
+                <option>Tennessee</option>
+                <option>Texas</option>
+                <option>Utah</option>
+                <option>Vermont</option>
+                <option>Virginia</option>
+                <option>Washington</option>
+                <option>West Virginia</option>
+                <option>Wisconsin</option>
+                <option>Wyoming</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="c-loans">Loans you mostly arrange</label>
+            <select id="c-loans" name="loanFocus">
+              <option value="">Select...</option>
+                <option>SBA 7(a) or 504</option>
+                <option>Commercial real estate</option>
+                <option>Equipment finance</option>
+                <option>Term loans and credit lines</option>
+                <option>A mix</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="c-size">Typical loan size</label>
+            <select id="c-size" name="loanSize">
+              <option value="">Select...</option>
+                <option>Under $250k</option>
+                <option>$250k to $1m</option>
+                <option>$1m to $5m</option>
+                <option>Over $5m</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="c-volume">Business loans you close a year</label>
+          <select id="c-volume" name="clientVolume">
+            <option value="">Select...</option>
+                <option>Under 10</option>
+                <option>10 to 50</option>
+                <option>50 to 200</option>
+                <option>Over 200</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="c-message">Anything else? <span class="opt">optional</span></label>
+          <textarea id="c-message" name="message" placeholder="e.g. Most of my clients take SBA 7(a) loans and keep asking whether they should lock in a fixed rate..."></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Request an intro call →</button>
+        <p class="form-status" role="status" aria-live="polite"></p>
+        <p class="form-note">No commitment. No fees at this stage. Brokers only.</p>
+      </form>
 
-    <div class="field-row">
-      <div class="field"><label>First name</label><input type="text" placeholder="James" id="fname"></div>
-      <div class="field"><label>Last name</label><input type="text" placeholder="Carter" id="lname"></div>
-    </div>
-    <div class="field"><label>Brokerage name</label><input type="text" placeholder="Carter Finance Partners" id="company"></div>
-    <div class="field"><label>Email address</label><input type="email" placeholder="james@carterfinance.com" id="email"></div>
-    <div class="field-row">
-      <div class="field">
-        <label>Business loan clients you place a year</label>
-        <select id="client-volume">
-          <option value="">Select...</option>
-          <option>Under 10</option>
-          <option>10–50</option>
-          <option>50–200</option>
-          <option>Over 200</option>
-        </select>
+      <div class="contact-success" id="contact-success" hidden>
+        <div class="success-icon"><i class="ti ti-check" aria-hidden="true"></i></div>
+        <h2>Message received</h2>
+        <p>Thanks for getting in touch. We'll review your details and reach out within two business days.</p>
       </div>
-      <div class="field">
-        <label>Are you FCA authorised?</label>
-        <select id="fca-status">
-          <option value="">Select...</option>
-          <option>Directly authorised</option>
-          <option>Appointed representative</option>
-          <option>Not authorised</option>
-        </select>
-      </div>
     </div>
-    <div class="field">
-      <label>What business loans do you typically arrange?</label>
-      <select id="loan-focus">
-        <option value="">Select...</option>
-        <option>Commercial mortgages</option>
-        <option>Asset &amp; equipment finance</option>
-        <option>Working capital / term loans</option>
-        <option>A mix across types</option>
-      </select>
-    </div>
-    <div class="field">
-      <label>Anything else to add? (optional)</label>
-      <textarea placeholder="e.g. Most of my clients take commercial mortgages and often ask about switching between fixed and variable rates..."></textarea>
-    </div>
-    <div class="divider"></div>
-    <button class="submit-btn" onclick="submitForm()">Submit →</button>
-    <p class="form-note">No commitment. No fees at this stage. Brokers only.</p>
   </div>
-
-  <div class="success" id="success-msg">
-    <div class="success-icon"><i class="ti ti-check" aria-hidden="true"></i></div>
-    <h2>Message received</h2>
-    <p>Thanks for getting in touch. We'll review your details and reach out within two business days.</p>
-  </div>
-
-  </div><!-- end form-layout -->
 </div>
 
 <script src="juku/js/main.js"></script>

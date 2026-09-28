@@ -56,6 +56,39 @@ async function submitForm() {
   }
 }
 
+// ── Get in touch form ────────────────────────────────────────
+const contactForm = document.getElementById('contact-form');
+if (contactForm) {
+  contactForm.addEventListener('submit', async e => {
+    e.preventDefault();
+    const status = contactForm.querySelector('.form-status');
+    const btn = contactForm.querySelector('.submit-btn');
+    const data = Object.fromEntries(new FormData(contactForm));
+    const fail = msg => { status.textContent = msg; status.classList.add('is-error'); };
+    if (!data.fname.trim() || !/^\S+@\S+\.\S+$/.test(data.email.trim())) {
+      fail('Please add your first name and a valid work email.');
+      return;
+    }
+    status.textContent = '';
+    status.classList.remove('is-error');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    const res = await fetch('https://formspree.io/f/xgoqjjgv', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(data),
+    }).catch(() => null);
+    if (res && res.ok) {
+      contactForm.hidden = true;
+      document.getElementById('contact-success').hidden = false;
+    } else {
+      btn.disabled = false;
+      btn.textContent = 'Request an intro call →';
+      fail('Something went wrong sending that. Please try again.');
+    }
+  });
+}
+
 // ── Scroll walkthrough ───────────────────────────────────────
 // The purple line fills down to a reading line 55% of the way down the
 // screen; the last step whose number has crossed it is the current one.
@@ -78,6 +111,11 @@ if (walk) {
     rail.style.height = (last - first) + 'px';
     fill.style.height = Math.min(Math.max(line - first, 0), last - first) + 'px';
     const current = centres.filter(c => c <= line).length - 1;
+    // How far the reader is through each step (0 to 1), for pictures that react to it.
+    steps.forEach((s, i) => {
+      const span = ((centres[i + 1] ?? centres[i] + 400) - centres[i]) * 0.7;
+      s.style.setProperty('--p', Math.min(1, Math.max(0, (line - centres[i]) / span)).toFixed(3));
+    });
     steps.forEach((s, i) => {
       s.classList.toggle('is-done', i < current);
       s.classList.toggle('is-current', i === current);
