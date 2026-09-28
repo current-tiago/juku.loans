@@ -344,7 +344,7 @@ a.nav-btn { text-decoration: none; display: inline-block; }
   .legit.is-live .doc, .legit.is-live .doc > *, .term, .term-tag { transition: none; }
 }
 
-/* WORKS WITH YOUR TOOLS (draft) */
+/* WORKS WITH YOUR TOOLS */
 /* A monitor showing juku in the middle of a ring of tools; each tool lights up and connects
    in turn (JS moves .is-on round the ring every couple of seconds while it's on screen). */
 .intg { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 560px); gap: 4rem; align-items: center; }

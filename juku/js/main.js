@@ -176,7 +176,7 @@ if (legit) {
   update();
 }
 
-// ── Works with your tools (draft) ───────────────────────────
+// ── Works with your tools ────────────────────────────────────
 // Light up each tool in turn and connect it to juku, while the section is on screen.
 const intg = document.getElementById('intg');
 if (intg) {
