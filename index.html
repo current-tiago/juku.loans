@@ -178,32 +178,10 @@
           <h3>Your client saves. You earn.</h3>
           <p>They swap payments and each ends up with the loan it wanted, for less. You earn a commission from juku on every swap we complete, on top of your fee for arranging the loan.</p>
         </div>
-        <div class="walk-pic walk-pic-pool" aria-hidden="true">
-          <svg viewBox="0 0 400 250">
-            <defs>
-              <clipPath id="pool-in"><rect x="112" y="14" width="176" height="62" rx="31"/></clipPath>
-              <clipPath id="cup-client"><circle cx="104" cy="180" r="38"/></clipPath>
-              <clipPath id="cup-you"><circle cx="298" cy="188" r="28"/></clipPath>
-              <linearGradient id="pool-fade" gradientUnits="userSpaceOnUse" x1="0" y1="78" x2="0" y2="132"><stop offset="0" stop-color="#b0a494"/><stop offset="1" stop-color="#b0a494" stop-opacity="0"/></linearGradient>
-            </defs>
-            <!-- Streams out of the pool: to your client, to you, and a faint one that drains off (the other business and juku) -->
-            <path class="pool-stream rest" d="M200 78V132"/>
-            <path class="pool-stream client" d="M168 74C168 118 104 104 104 140"/>
-            <path class="pool-stream you" d="M232 74C232 122 298 112 298 158"/>
-            <!-- The pool of savings -->
-            <rect class="pool-shell" x="112" y="14" width="176" height="62" rx="31"/>
-            <path class="pool-water" clip-path="url(#pool-in)" d="M100 40q25-8 50 0t50 0 50 0 50 0 50 0V90H100Z"/>
-            <text x="200" y="50" class="pool-label" text-anchor="middle">Savings</text>
-            <!-- Your client's share and yours; each fills when the step is reached -->
-            <circle class="cup" cx="104" cy="180" r="38"/>
-            <rect class="cup-fill client" clip-path="url(#cup-client)" x="60" y="160" width="88" height="62"/>
-            <circle class="cup cup-edge" cx="104" cy="180" r="38"/>
-            <circle class="cup" cx="298" cy="188" r="28"/>
-            <rect class="cup-fill you" clip-path="url(#cup-you)" x="266" y="174" width="64" height="46"/>
-            <circle class="cup cup-edge" cx="298" cy="188" r="28"/>
-            <text x="104" y="238" class="cup-label" text-anchor="middle">Your client</text>
-            <text x="298" y="238" class="cup-label you" text-anchor="middle">You</text>
-          </svg>
+        <div class="walk-pic" aria-hidden="true">
+          <div class="wp-row"><i class="ti ti-circle-check good"></i><span>Your client</span><b>the fixed rate it wanted, for less</b></div>
+          <div class="wp-row"><i class="ti ti-circle-check good"></i><span>Other business</span><b>the floating rate it wanted, for less</b></div>
+          <div class="wp-row wp-you"><i class="ti ti-coins good"></i><span>You</span><b>a commission on the deal</b></div>
         </div>
       </li>
       </ol>
