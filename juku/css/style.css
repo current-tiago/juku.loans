@@ -2,7 +2,7 @@
 
 :root {
   --font: 'Libre Baskerville', Georgia, serif;
-  --bg: #f7f3ee;
+  --bg: #ffffff;
   --bg-card: #efe9e0;
   --bg-hover: #e8e0d4;
   --accent: #ff8800;
@@ -32,17 +32,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* DOT TEXTURE */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  pointer-events: none;
-  background-image: radial-gradient(circle, rgba(0,0,0,0.1) 1px, transparent 1px);
-  background-size: 24px 24px;
-  opacity: 0.5;
-}
 
 
 /* NAV */
@@ -54,7 +43,7 @@ nav {
   border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
-  background: rgba(247,243,238,0.92);
+  background: rgba(255,255,255,0.92);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   z-index: 100;
