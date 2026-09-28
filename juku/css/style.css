@@ -306,13 +306,7 @@ a.nav-btn { text-decoration: none; display: inline-block; }
 .walk.is-live .walk-step:is(.is-done, .is-current) .walk-pic { opacity: 1; transform: none; }
 
 /* The little pictures beside each step */
-.walk-pic {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 14px 16px;
-  font-size: 13px; color: var(--text-secondary);
-}
+.walk-pic { font-size: 13px; color: var(--text-secondary); }
 .wp-head {
   display: flex; justify-content: space-between; align-items: center; gap: 10px;
   padding-bottom: 10px; border-bottom: 1px solid var(--border);
