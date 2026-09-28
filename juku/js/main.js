@@ -97,17 +97,23 @@ if (walk) {
 }
 
 // ── Swap diagram ─────────────────────────────────────────────
-// Per stage: which payment lines are live (on) or faded context (ctx);
-// which boxes are dimmed, highlighted or hidden; and the two lines of
-// status text under your client and under the other business.
-const SWAP_STAGES = [
-  { on: ['loanA', 'loanB'], dim: ['bank'], gone: ['broker'],
+// Four states across three listed steps: step 2 has a SOFR rises / falls switch.
+// Per state: which step it belongs to (li), which payment lines are live (on)
+// or faded context (ctx), which boxes are dimmed or highlighted, and the two
+// lines of status text under your client and under the other business.
+const SWAP_STATES = [
+  { li: 0, on: ['loanA', 'loanB'], dim: ['juku', 'broker'],
     status: ['borrows floating', 'borrows fixed'], sub: ['', ''] },
-  { on: ['swapFix', 'swapFlt'], ctx: ['loanA', 'loanB'], gone: ['broker'],
-    status: ['swaps into fixed', 'swaps into floating'], sub: ['', ''] },
-  { ctx: ['loanA', 'loanB', 'swapFix', 'swapFlt'], hi: ['broker'],
+  { li: 1, move: 'up', on: ['payBA'], ctx: ['loanA', 'loanB'], dim: ['broker'],
+    status: ['loan costs more', 'pays the difference'], sub: ['gets the difference', ''] },
+  { li: 1, move: 'down', on: ['payAB'], ctx: ['loanA', 'loanB'], dim: ['broker'],
+    status: ['loan costs less', 'gets the difference'], sub: ['pays the difference', ''] },
+  { li: 2, on: ['commission'], ctx: ['loanA', 'loanB'], hi: ['broker'],
     status: ['pays 7.00% fixed', 'pays SOFR + 1.40%'], sub: ['instead of 7.20%', 'instead of SOFR + 1.60%'], good: true },
 ];
+
+// Height given to each kind of text line; a box's lines are stacked and centred in it.
+const SW_LINE = { 'sw-cap': 18, 'sw-name': 22, 'sw-status': 18, 'sw-sub': 16, 'sw-rate': 18 };
 
 const swap = document.getElementById('swap');
 if (swap) {
@@ -115,13 +121,33 @@ if (swap) {
   const svg = swap.querySelector('svg');
   let current = 0;
 
+  function centreText() {
+    svg.querySelectorAll('.sw-node').forEach(n => {
+      const r = n.querySelector('rect');
+      const lines = [...n.querySelectorAll('text')].filter(t => t.textContent.trim());
+      const heights = lines.map(t => SW_LINE[[...t.classList].find(c => c in SW_LINE)] || 18);
+      let y = +r.getAttribute('y') + (+r.getAttribute('height') - heights.reduce((x, h) => x + h, 0)) / 2;
+      lines.forEach((t, k) => { t.setAttribute('y', y + heights[k] / 2); y += heights[k]; });
+    });
+  }
+
   function setStage(i) {
-    const s = SWAP_STAGES[i];
+    const s = SWAP_STATES[i];
     const has = (list, key) => (list || []).includes(key);
     stages.forEach((li, k) => {
-      li.classList.toggle('is-active', k === i);
-      li.querySelector('.ss-btn').setAttribute('aria-pressed', k === i);
+      li.classList.toggle('is-active', k === s.li);
+      li.querySelector('.ss-btn').setAttribute('aria-pressed', k === s.li);
     });
+    // Moving between SOFR rises and falls keeps step 2 open, so restart its progress bar by hand.
+    if (i !== current && s.li === SWAP_STATES[current].li) {
+      const bar = stages[s.li].querySelector('.ss-bar');
+      bar.style.animation = 'none';
+      void bar.offsetWidth;
+      bar.style.animation = '';
+    }
+    const move = s.move || 'up';
+    swap.querySelectorAll('.sofr-btn').forEach(b => b.setAttribute('aria-pressed', b.dataset.move === move));
+    swap.querySelectorAll('.sofr-text').forEach(t => { t.hidden = t.dataset.move !== move; });
     svg.querySelectorAll('.flow').forEach(f => {
       f.classList.toggle('on', has(s.on, f.dataset.flow));
       f.classList.toggle('ctx', has(s.ctx, f.dataset.flow));
@@ -129,20 +155,26 @@ if (swap) {
     svg.querySelectorAll('.sw-node').forEach(n => {
       n.classList.toggle('dim', has(s.dim, n.dataset.node));
       n.classList.toggle('hi', has(s.hi, n.dataset.node));
-      n.classList.toggle('gone', has(s.gone, n.dataset.node));
     });
     svg.querySelectorAll('.sw-status').forEach((t, k) => {
       t.textContent = s.status[k];
       t.classList.toggle('good', !!s.good);
     });
     svg.querySelectorAll('.sw-more').forEach((t, k) => { t.textContent = s.sub[k]; });
+    centreText();
     current = i;
   }
+  centreText();
 
-  // Clicking a stage takes over from the autoplay for good.
+  // Clicking a step or the SOFR switch takes over from the autoplay for good.
+  const FIRST_STATE = [0, 1, 3];   // the state each listed step opens on
   stages.forEach((li, k) => li.querySelector('.ss-btn').addEventListener('click', () => {
     swap.classList.remove('autoplay');
-    setStage(k);
+    setStage(FIRST_STATE[k]);
+  }));
+  swap.querySelectorAll('.sofr-btn').forEach(b => b.addEventListener('click', () => {
+    swap.classList.remove('autoplay');
+    setStage(b.dataset.move === 'up' ? 1 : 2);
   }));
 
   if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -167,7 +199,7 @@ if (swap) {
     swap.classList.add('autoplay');
     swap.addEventListener('animationend', e => {
       if (e.target.classList.contains('ss-bar') && swap.classList.contains('autoplay')) {
-        setStage((current + 1) % SWAP_STAGES.length);
+        setStage((current + 1) % SWAP_STATES.length);
       }
     });
     new IntersectionObserver(([entry]) => swap.classList.toggle('in-view', entry.isIntersecting), { threshold: 0.4 })

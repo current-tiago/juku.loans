@@ -48,32 +48,38 @@
           <span class="ss-bar" aria-hidden="true"></span>
         </li>
         <li class="swap-stage">
-          <button class="ss-btn" type="button" aria-pressed="false"><span class="step-num">2</span>They swap payments</button>
-          <div class="ss-body"><div><p>Through our partner bank, your client pays a fixed rate and receives floating, which offsets its floating loan. The other business does the reverse.</p></div></div>
+          <button class="ss-btn" type="button" aria-pressed="false"><span class="step-num">2</span>When SOFR moves</button>
+          <div class="ss-body"><div>
+            <div class="sofr-switch" role="group" aria-label="SOFR">
+              <button type="button" class="sofr-btn" data-move="up" aria-pressed="true">SOFR rises</button>
+              <button type="button" class="sofr-btn" data-move="down" aria-pressed="false">SOFR falls</button>
+            </div>
+            <p class="sofr-text" data-move="up">Your client's floating loan costs more, so the other business pays it the difference through juku. Your client stays at 7.00% fixed.</p>
+            <p class="sofr-text" data-move="down" hidden>Your client's floating loan costs less, so it pays the other business the difference through juku. Your client still pays 7.00% fixed, and the other business's rate falls with SOFR.</p>
+          </div></div>
           <span class="ss-bar" aria-hidden="true"></span>
         </li>
         <li class="swap-stage">
           <button class="ss-btn" type="button" aria-pressed="false"><span class="step-num">3</span>Both pay less, and you earn</button>
-          <div class="ss-body"><div><p>Your client ends up paying 7.00% fixed instead of the 7.20% it was quoted, and the other business saves the same 0.20% a year. You earn a commission on the deal.</p></div></div>
+          <div class="ss-body"><div><p>Your client ends up paying 7.00% fixed instead of the 7.20% it was quoted, and the other business saves the same 0.20% a year. You earn a commission from juku on the deal.</p></div></div>
           <span class="ss-bar" aria-hidden="true"></span>
         </li>
       </ol>
 
       <figure class="swap-fig">
-        <svg viewBox="0 0 360 400" role="img" aria-labelledby="swap-title">
-          <title id="swap-title">Your client borrows floating and the other business borrows fixed; through a partner bank your client pays fixed and the other business pays floating, so both end up with the rate they wanted for less.</title>
+        <svg viewBox="0 0 360 400" role="img" aria-label="Your client and another business each borrow from their own lender. When SOFR moves, one pays the other the difference through juku, and juku pays you, the broker, a commission.">
           <defs>
-            <marker id="ah-fix" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="ah ah-fix" d="M2 1.5 8 5 2 8.5"/></marker>
+            <marker id="ah-ink" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="ah ah-ink" d="M2 1.5 8 5 2 8.5"/></marker>
             <marker id="ah-flt" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="ah ah-flt" d="M2 1.5 8 5 2 8.5"/></marker>
+            <marker id="ah-fix" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="ah ah-fix" d="M2 1.5 8 5 2 8.5"/></marker>
           </defs>
 
-          <!-- Payment lines, drawn in the direction the money moves. The swap lines run behind the bank. -->
-          <g class="flow flt on" data-flow="loanA"><path d="M186 57H225" marker-end="url(#ah-flt)"/></g>
-          <g class="flow fix on" data-flow="loanB"><path d="M186 343H225" marker-end="url(#ah-fix)"/></g>
-          <g class="flow fix" data-flow="swapFix"><path d="M80 108V289" marker-end="url(#ah-fix)"/></g>
-          <g class="flow flt" data-flow="swapFlt"><path d="M112 292V111" marker-end="url(#ah-flt)"/></g>
-          <text x="72" y="146" class="sw-line-lbl" text-anchor="end">fixed</text>
-          <text x="120" y="146" class="sw-line-lbl">floating</text>
+          <!-- Payment lines, drawn in the direction the money moves. The difference lines run behind juku. -->
+          <g class="flow ink on" data-flow="loanA"><path d="M186 57H225" marker-end="url(#ah-ink)"/></g>
+          <g class="flow ink on" data-flow="loanB"><path d="M186 343H225" marker-end="url(#ah-ink)"/></g>
+          <g class="flow flt" data-flow="payBA"><path d="M96 292V111" marker-end="url(#ah-flt)"/></g>
+          <g class="flow flt" data-flow="payAB"><path d="M96 108V289" marker-end="url(#ah-flt)"/></g>
+          <g class="flow fix" data-flow="commission"><path d="M154 200H225" marker-end="url(#ah-fix)"/></g>
 
           <g class="sw-node" data-node="a">
             <rect x="8" y="8" width="176" height="98" rx="10"/>
@@ -84,18 +90,18 @@
           </g>
           <g class="sw-node" data-node="lenderA">
             <rect x="228" y="21" width="124" height="72" rx="10"/>
-            <text x="240" y="42" class="sw-cap">Lender</text>
-            <text x="240" y="62" class="sw-name sw-name-sm">Floating loan</text>
-            <text x="240" y="81" class="sw-rate">SOFR + 1.20%</text>
+            <text x="240" y="39" class="sw-cap">Lender</text>
+            <text x="240" y="59" class="sw-name sw-name-sm">Floating loan</text>
+            <text x="240" y="78" class="sw-rate">SOFR + 1.20%</text>
           </g>
-          <g class="sw-node dim" data-node="bank">
+          <g class="sw-node dim" data-node="juku">
             <rect x="40" y="172" width="112" height="56" rx="10"/>
-            <text x="96" y="197" class="sw-name sw-name-sm" text-anchor="middle">Partner bank</text>
-            <text x="96" y="215" class="sw-sub" text-anchor="middle">matched by juku</text>
+            <text x="96" y="200" class="sw-name" text-anchor="middle">juku</text>
           </g>
-          <g class="sw-node gone" data-node="broker">
-            <rect x="166" y="184" width="176" height="32" rx="16"/>
-            <text x="254" y="205" class="sw-callout" text-anchor="middle">You earn a commission</text>
+          <g class="sw-node dim" data-node="broker">
+            <rect x="228" y="164" width="124" height="72" rx="10"/>
+            <text x="240" y="191" class="sw-cap">Broker</text>
+            <text x="240" y="211" class="sw-name sw-name-sm">You</text>
           </g>
           <g class="sw-node" data-node="b">
             <rect x="8" y="294" width="176" height="98" rx="10"/>
@@ -106,15 +112,11 @@
           </g>
           <g class="sw-node" data-node="lenderB">
             <rect x="228" y="307" width="124" height="72" rx="10"/>
-            <text x="240" y="328" class="sw-cap">Lender</text>
-            <text x="240" y="348" class="sw-name sw-name-sm">Fixed loan</text>
-            <text x="240" y="367" class="sw-rate">6.80%</text>
+            <text x="240" y="325" class="sw-cap">Lender</text>
+            <text x="240" y="345" class="sw-name sw-name-sm">Fixed loan</text>
+            <text x="240" y="364" class="sw-rate">6.80%</text>
           </g>
         </svg>
-        <ul class="swap-legend">
-          <li><span class="sw-key sw-key-fix"></span>Fixed-rate payments</li>
-          <li><span class="sw-key sw-key-flt"></span>Floating-rate payments</li>
-        </ul>
         <p class="swap-foot">Example figures. Actual rates depend on the match.</p>
       </figure>
     </div>
