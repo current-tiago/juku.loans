@@ -139,7 +139,7 @@ a.nav-btn { text-decoration: none; display: inline-block; }
 .hg-dots {
   position: absolute;
   width: 48%;
-  height: 42%;
+  aspect-ratio: 1;
   background-image: radial-gradient(circle, #1e1a16 1.5px, transparent 1.5px);
   background-size: 18px 18px;
 }
