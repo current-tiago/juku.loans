@@ -379,7 +379,7 @@ a.nav-btn { text-decoration: none; display: inline-block; }
 
 .intg-hub {
   position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
-  width: 104px; aspect-ratio: 16 / 10; border-radius: 12px;   /* a little screen, same shape as the monitor */
+  width: 84px; height: 84px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   background: var(--accent); color: #fff; font-size: 20px; font-weight: 700; font-style: italic;
   box-shadow: 0 0 0 8px rgba(255,136,0,0.14);
@@ -394,7 +394,7 @@ a.nav-btn { text-decoration: none; display: inline-block; }
   .intg-screen { border-width: 7px; }
   .intg-tile { padding: 4px 7px; font-size: 10px; gap: 4px; }
   .intg-tile i { font-size: 12px; }
-  .intg-hub { width: 70px; border-radius: 8px; font-size: 15px; }
+  .intg-hub { width: 56px; height: 56px; font-size: 15px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .intg-link.is-on path, .intg-hub { animation: none; }
