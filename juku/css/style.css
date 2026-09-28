@@ -159,6 +159,7 @@ a.nav-btn { text-decoration: none; display: inline-block; }
 .hg-dots-tl {
   top: 28.26%;
   left: 17.73%;
+  z-index: 1;   /* in front of the circle, like the bottom-right grid */
 }
 
 .hg-dots-br {
