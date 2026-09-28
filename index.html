@@ -40,87 +40,99 @@
 
   <div class="section">
     <div class="section-label">Inside a swap</div>
-    <div class="swap" id="swap">
-      <ol class="swap-stages">
-        <li class="swap-stage is-active">
-          <button class="ss-btn" type="button" aria-pressed="true"><span class="step-num">1</span>Each borrows where it's cheaper</button>
-          <div class="ss-body"><div><p>Business A wants a fixed rate but is offered a better deal on floating, so it borrows floating. Business B is the mirror image: it wants floating but borrows fixed.</p></div></div>
-          <span class="ss-bar" aria-hidden="true"></span>
-        </li>
-        <li class="swap-stage">
-          <button class="ss-btn" type="button" aria-pressed="false"><span class="step-num">2</span>They swap payments</button>
-          <div class="ss-body"><div><p>Through our partner bank, A pays a fixed rate and receives floating, while B pays floating and receives fixed. Neither business is exposed to the other.</p></div></div>
-          <span class="ss-bar" aria-hidden="true"></span>
-        </li>
-        <li class="swap-stage">
-          <button class="ss-btn" type="button" aria-pressed="false"><span class="step-num">3</span>Each gets the rate it wanted</button>
-          <div class="ss-body"><div><p>The floating payments A receives offset the floating interest on its loan, so A is effectively on a fixed rate. The same happens in reverse for B, which ends up on floating.</p></div></div>
-          <span class="ss-bar" aria-hidden="true"></span>
-        </li>
-        <li class="swap-stage">
-          <button class="ss-btn" type="button" aria-pressed="false"><span class="step-num">4</span>Both save, and you earn</button>
-          <div class="ss-body"><div><p>Together they pay less interest than if each had borrowed its preferred type directly. A share of that saving goes to each business, and you earn a commission on the deal.</p></div></div>
-          <span class="ss-bar" aria-hidden="true"></span>
-        </li>
-      </ol>
+    <p class="opt-note">Draft: three ways to show this section. Pick a favourite and the other two go.</p>
 
-      <figure class="swap-fig">
-        <svg viewBox="0 0 420 364" role="img" aria-labelledby="swap-title">
-          <title id="swap-title">Two businesses, each with its own lender, swap fixed and floating interest payments through a partner bank, and the broker earns a commission.</title>
-          <defs>
-            <marker id="ah-fix" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="ah ah-fix" d="M2 1.5 8 5 2 8.5"/></marker>
-            <marker id="ah-flt" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="ah ah-flt" d="M2 1.5 8 5 2 8.5"/></marker>
-            <marker id="ah-com" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="ah ah-com" d="M2 1.5 8 5 2 8.5"/></marker>
-          </defs>
+    <!-- OPTION A -->
+    <div class="opt-label">Option A · Flip between with and without a swap</div>
+    <div class="ex-card exa" id="exa" data-mode="direct">
+      <div class="exa-top">
+        <span class="wp-cap">Example: two businesses, each borrowing $500,000</span>
+        <div class="seg" role="group" aria-label="Compare">
+          <button type="button" class="seg-btn" data-mode="direct" aria-pressed="true">Borrow directly</button>
+          <button type="button" class="seg-btn" data-mode="swap" aria-pressed="false">With a juku swap</button>
+        </div>
+      </div>
+      <div class="exa-grid">
+        <div class="exa-biz">
+          <div class="exa-head"><span class="exa-name">Business A <em>your client</em></span><span class="wp-pill fix">Wants fixed</span></div>
+          <div class="exa-q fix" data-use="direct"><span>Fixed quote</span><em class="exa-tag">borrows this</em><b>7.20%</b></div>
+          <div class="exa-q flt" data-use="swap"><span>Floating quote</span><em class="exa-tag">borrows this</em><b>SOFR + 1.20%</b></div>
+          <div class="exa-pays"><span>Ends up paying</span><b><span class="on-direct">7.20% fixed</span><span class="on-swap"><s>7.20%</s>7.00% fixed</span></b></div>
+          <div class="exa-save"><i class="ti ti-circle-check"></i>Saves 0.20% a year</div>
+        </div>
+        <div class="exa-mid" aria-hidden="true"><i class="ti ti-arrows-exchange"></i></div>
+        <div class="exa-biz">
+          <div class="exa-head"><span class="exa-name">Business B</span><span class="wp-pill flt">Wants floating</span></div>
+          <div class="exa-q fix" data-use="swap"><span>Fixed quote</span><em class="exa-tag">borrows this</em><b>6.80%</b></div>
+          <div class="exa-q flt" data-use="direct"><span>Floating quote</span><em class="exa-tag">borrows this</em><b>SOFR + 1.60%</b></div>
+          <div class="exa-pays"><span>Ends up paying</span><b><span class="on-direct">SOFR + 1.60%</span><span class="on-swap"><s>SOFR + 1.60%</s>SOFR + 1.40%</span></b></div>
+          <div class="exa-save"><i class="ti ti-circle-check"></i>Saves 0.20% a year</div>
+        </div>
+      </div>
+      <p class="exa-cap">
+        <span class="on-direct">Each business takes the loan it wants at its own quote. Nobody saves anything.</span>
+        <span class="on-swap">Each borrows the type it's quoted better on, then they swap payments through our partner bank. Both keep the rate type they wanted, and both pay less.</span>
+      </p>
+      <p class="ex-foot">Example figures. Actual rates depend on the match.</p>
+    </div>
 
-          <!-- Payment lines, drawn in the direction the money moves -->
-          <g class="flow flt on" data-flow="loanA"><path d="M86 90V289" marker-end="url(#ah-flt)"/></g>
-          <g class="flow fix on" data-flow="loanB"><path d="M334 90V289" marker-end="url(#ah-fix)"/></g>
-          <g class="flow fix" data-flow="swapAfix"><path d="M122 90 170 146" marker-end="url(#ah-fix)"/></g>
-          <g class="flow flt" data-flow="swapAflt"><path d="M186 146 138 90" marker-end="url(#ah-flt)"/></g>
-          <g class="flow flt" data-flow="swapBflt"><path d="M298 90 250 146" marker-end="url(#ah-flt)"/></g>
-          <g class="flow fix" data-flow="swapBfix"><path d="M234 146 282 90" marker-end="url(#ah-fix)"/></g>
-          <g class="flow com" data-flow="commission"><path d="M210 214V295" marker-end="url(#ah-com)"/></g>
+    <!-- OPTION B -->
+    <div class="opt-label">Option B · Just your client's saving</div>
+    <div class="ex-card exb" id="exb">
+      <div class="exb-story">
+        <span class="wp-cap">Your client</span>
+        <h3 class="exb-h">Wants a fixed rate on a <span data-out="size">$500,000</span> loan</h3>
+        <div class="exb-row"><span>Best fixed quote from a lender</span><b class="exb-old">7.20%</b></div>
+        <div class="exb-row is-new"><span>Fixed rate through a juku swap</span><b>7.00%</b></div>
+        <p class="exb-how">How: your client borrows floating, where it's quoted better. We match it with a business that wants the opposite, and a swap turns your client's loan into fixed.</p>
+      </div>
+      <div class="exb-result">
+        <span class="wp-cap">Your client saves</span>
+        <div class="exb-big"><span data-out="year">$1,000</span><small> a year</small></div>
+        <div class="exb-total">Up to <b data-out="total">$5,000</b> over <span data-out="term">5 years</span></div>
+        <label class="exb-slider"><span>Loan size</span><b data-out="size">$500,000</b></label>
+        <input type="range" min="100000" max="1000000" step="50000" value="500000" aria-label="Loan size">
+        <div class="seg" role="group" aria-label="Loan term">
+          <button type="button" class="seg-btn" data-term="3" aria-pressed="false">3 years</button>
+          <button type="button" class="seg-btn" data-term="5" aria-pressed="true">5 years</button>
+          <button type="button" class="seg-btn" data-term="7" aria-pressed="false">7 years</button>
+        </div>
+      </div>
+      <p class="ex-foot">Example figures: a 0.20% a year saving on the amount still owed, so less as the loan is repaid. Actual rates depend on the match.</p>
+    </div>
 
-          <g class="sw-node" data-node="a">
-            <rect x="8" y="10" width="156" height="76" rx="10"/>
-            <text x="20" y="32" class="sw-cap">BUSINESS A</text>
-            <text x="20" y="54" class="sw-name">Wants fixed</text>
-            <text x="20" y="74" class="sw-status">borrows floating</text>
-          </g>
-          <g class="sw-node" data-node="b">
-            <rect x="256" y="10" width="156" height="76" rx="10"/>
-            <text x="268" y="32" class="sw-cap">BUSINESS B</text>
-            <text x="268" y="54" class="sw-name">Wants floating</text>
-            <text x="268" y="74" class="sw-status">borrows fixed</text>
-          </g>
-          <g class="sw-node dim" data-node="bank">
-            <rect x="148" y="150" width="124" height="60" rx="10"/>
-            <text x="210" y="176" class="sw-name sw-name-sm" text-anchor="middle">Partner bank</text>
-            <text x="210" y="196" class="sw-sub" text-anchor="middle">matched by juku</text>
-          </g>
-          <g class="sw-node" data-node="lenderA">
-            <rect x="8" y="294" width="156" height="62" rx="10"/>
-            <text x="20" y="316" class="sw-cap">A'S LENDER</text>
-            <text x="20" y="340" class="sw-name sw-name-sm">Floating loan</text>
-          </g>
-          <g class="sw-node" data-node="lenderB">
-            <rect x="256" y="294" width="156" height="62" rx="10"/>
-            <text x="268" y="316" class="sw-cap">B'S LENDER</text>
-            <text x="268" y="340" class="sw-name sw-name-sm">Fixed loan</text>
-          </g>
-          <g class="sw-node dim" data-node="broker">
-            <rect x="172" y="300" width="76" height="56" rx="10"/>
-            <text x="210" y="322" class="sw-cap" text-anchor="middle">YOU</text>
-            <text x="210" y="344" class="sw-name sw-name-sm" text-anchor="middle">Broker</text>
-          </g>
-        </svg>
-        <ul class="swap-legend">
-          <li><span class="sw-key sw-key-fix"></span>Fixed-rate payments</li>
-          <li><span class="sw-key sw-key-flt"></span>Floating-rate payments</li>
-          <li><span class="sw-key sw-key-com"></span>Your commission</li>
-        </ul>
-      </figure>
+    <!-- OPTION C -->
+    <div class="opt-label">Option C · Three simple steps</div>
+    <div class="ex-card exc" id="exc" data-step="0">
+      <div class="exc-tabs">
+        <button type="button" class="exc-tab" aria-pressed="true"><span class="step-num">1</span>Each borrows where it's cheaper</button>
+        <button type="button" class="exc-tab" aria-pressed="false"><span class="step-num">2</span>They swap payments</button>
+        <button type="button" class="exc-tab" aria-pressed="false"><span class="step-num">3</span>Both pay less</button>
+      </div>
+      <div class="exc-stage">
+        <div class="exc-biz">
+          <span class="wp-cap">Business A · your client</span>
+          <b class="exc-want">Wants fixed</b>
+          <div class="exc-tag flt exc-borrow">Borrows floating at <b>SOFR + 1.20%</b></div>
+          <div class="exc-tag good exc-result">Pays <b>7.00% fixed</b> <span class="exc-was">instead of 7.20%</span></div>
+        </div>
+        <div class="exc-links" aria-hidden="true">
+          <div class="exc-link fix"><span class="exc-lbl">A pays fixed</span><span class="exc-line"><i></i></span></div>
+          <div class="exc-link flt rev"><span class="exc-line"><i></i></span><span class="exc-lbl">B pays floating</span></div>
+        </div>
+        <div class="exc-biz">
+          <span class="wp-cap">Business B</span>
+          <b class="exc-want">Wants floating</b>
+          <div class="exc-tag fix exc-borrow">Borrows fixed at <b>6.80%</b></div>
+          <div class="exc-tag good exc-result">Pays <b>SOFR + 1.40%</b> <span class="exc-was">instead of SOFR + 1.60%</span></div>
+        </div>
+      </div>
+      <p class="exc-cap">
+        <span data-s="0">Your client wants fixed but gets the better floating quote, so it borrows floating. Business B is the opposite: it wants floating but borrows fixed.</span>
+        <span data-s="1">Through our partner bank, your client pays a fixed rate and Business B pays floating, each covering the other's loan.</span>
+        <span data-s="2">Each ends up with the rate type it wanted, for less than its own quote. You earn a commission on the deal.</span>
+      </p>
+      <p class="ex-foot">Example figures. Actual rates depend on the match.</p>
     </div>
   </div>
 

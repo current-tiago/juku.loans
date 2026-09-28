@@ -96,6 +96,69 @@ if (walk) {
   updateWalk();
 }
 
+// ── Swap example options (draft) ─────────────────────────────
+// Option A: flip between borrowing directly and swapping.
+const exa = document.getElementById('exa');
+if (exa) {
+  let touched = false;
+  const setMode = mode => {
+    exa.dataset.mode = mode;
+    exa.querySelectorAll('.seg-btn').forEach(b => b.setAttribute('aria-pressed', b.dataset.mode === mode));
+  };
+  exa.querySelectorAll('.seg-btn').forEach(b => b.addEventListener('click', () => {
+    touched = true;
+    setMode(b.dataset.mode);
+  }));
+  // The first time it scrolls into view, flip to the swap once to show what changes.
+  const seen = new IntersectionObserver(([e]) => {
+    if (!e.isIntersecting) return;
+    seen.disconnect();
+    setTimeout(() => { if (!touched) setMode('swap'); }, 1400);
+  }, { threshold: 0.6 });
+  seen.observe(exa);
+}
+
+// Option B: your client's saving for a chosen loan size and term.
+const exb = document.getElementById('exb');
+if (exb) {
+  const SAVING = 0.002;   // the example's 0.20% a year
+  const usd = n => '$' + Math.round(n).toLocaleString('en-US');
+  const slider = exb.querySelector('input[type=range]');
+  let term = 5;
+  const render = () => {
+    const size = +slider.value;
+    exb.querySelectorAll('[data-out="size"]').forEach(el => { el.textContent = usd(size); });
+    exb.querySelector('[data-out="year"]').textContent = usd(size * SAVING);
+    exb.querySelector('[data-out="total"]').textContent = usd(size * SAVING * term);
+    exb.querySelector('[data-out="term"]').textContent = term + ' years';
+    exb.querySelectorAll('.seg-btn').forEach(b => b.setAttribute('aria-pressed', +b.dataset.term === term));
+  };
+  slider.addEventListener('input', render);
+  exb.querySelectorAll('.seg-btn').forEach(b => b.addEventListener('click', () => {
+    term = +b.dataset.term;
+    render();
+  }));
+  render();
+}
+
+// Option C: three steps that play on their own until one is clicked.
+const exc = document.getElementById('exc');
+if (exc) {
+  const tabs = exc.querySelectorAll('.exc-tab');
+  const go = i => {
+    exc.dataset.step = i;
+    tabs.forEach((t, k) => t.setAttribute('aria-pressed', k === i));
+  };
+  let inView = false;
+  const timer = setInterval(() => { if (inView) go((+exc.dataset.step + 1) % tabs.length); }, 4500);
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) clearInterval(timer);
+  tabs.forEach((t, k) => t.addEventListener('click', () => {
+    clearInterval(timer);
+    go(k);
+  }));
+  new IntersectionObserver(([e]) => { inView = e.isIntersecting; }, { threshold: 0.5 }).observe(exc);
+}
+
 // ── Swap diagram ─────────────────────────────────────────────
 // Per stage: which payment lines are live (on), faded context (ctx) or
 // offsetting each other (cancel); which boxes are dimmed or highlighted;
