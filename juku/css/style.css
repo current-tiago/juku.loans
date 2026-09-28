@@ -141,16 +141,17 @@ a.nav-btn { text-decoration: none; display: inline-block; }
   transform: translate(calc(-50% + 10px), calc(-50% + 10px));
 }
 
-/* Whole 18px dot cells: one row and column fewer than would fill 48% of the box.
+/* The dot count is set on an 18px grid (one row and column fewer than would fill 48%
+   of the box), then the dots are spaced 22px apart, so the square is 22/18 = 11/9 as wide.
    Positioned by its centre (the translate), so the size can change without moving it. */
 .hg-dots {
   position: absolute;
-  width: calc(48% - 18px);
-  width: round(down, calc(48% - 18px), 18px);
+  width: calc((48% - 18px) * 11 / 9);
+  width: calc(round(down, calc(48% - 18px), 18px) * 11 / 9);
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
   background-image: radial-gradient(circle, #1e1a16 1.5px, transparent 1.5px);
-  background-size: 18px 18px;
+  background-size: 22px 22px;
 }
 
 /* Each dot grid is centred on the circle's edge: top left at 135°, bottom right at 315°.
