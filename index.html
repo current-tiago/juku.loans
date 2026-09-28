@@ -70,6 +70,7 @@
             <marker id="ah-grey" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="ah ah-grey" d="M2 1.5 8 5 2 8.5"/></marker>
             <marker id="ah-flt" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="ah ah-flt" d="M2 1.5 8 5 2 8.5"/></marker>
             <marker id="ah-fix" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="ah ah-fix" d="M2 1.5 8 5 2 8.5"/></marker>
+            <marker id="ah-com" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="ah ah-com" d="M2 1.5 8 5 2 8.5"/></marker>
           </defs>
 
           <!-- Payment lines, drawn in the direction the money moves. The two SOFR lines run behind juku. -->
@@ -77,7 +78,7 @@
           <g class="flow ink lit on" data-flow="loanB"><path d="M174 260H209"/></g>
           <g class="flow fix" data-flow="payBA"><path d="M78 214V99"/></g>
           <g class="flow flt" data-flow="payAB"><path d="M102 98V213"/></g>
-          <g class="flow fix" data-flow="commission"><path d="M142 156H209"/></g>
+          <g class="flow com" data-flow="commission"><path d="M142 156H209"/></g>
 
           <g class="sw-node" data-node="a">
             <rect x="8" y="8" width="164" height="88" rx="10"/>
@@ -162,12 +163,14 @@
           <p>We pair your client with a business whose cheapest rates mirror theirs: one cheaper at fixed, one cheaper at floating. Each borrows the type it's cheaper at, ready to swap.</p>
         </div>
         <div class="walk-pic" aria-hidden="true">
-          <div class="wp-match">
-            <div class="wp-biz"><span class="wp-cap">Your client</span><span class="wp-pill fix">Wants fixed</span><span class="wp-note">borrows floating</span></div>
-            <span class="wp-link"><i class="ti ti-arrows-exchange"></i></span>
-            <div class="wp-biz"><span class="wp-cap">Other business</span><span class="wp-pill flt">Wants floating</span><span class="wp-note">borrows fixed</span></div>
+          <div class="wp-head"><span class="wp-cap"><i class="ti ti-search"></i>Matching pool</span><span class="wp-pill ok"><i class="ti ti-check"></i>1 match</span></div>
+          <div class="wp-pool">
+            <div class="wp-cand"><span class="wp-pill fix">Wants fixed</span><span>$750k · 5 yrs</span><em>Same side</em></div>
+            <div class="wp-cand is-match"><span class="wp-pill flt">Wants floating</span><span>$500k · 5 yrs</span><em><i class="ti ti-check"></i>Match</em></div>
+            <div class="wp-cand"><span class="wp-pill flt">Wants floating</span><span>$2m · 10 yrs</span><em>Too different</em></div>
+            <div class="wp-cand"><span class="wp-pill fix">Wants fixed</span><span>$250k · 3 yrs</span><em>Same side</em></div>
           </div>
-          <div class="wp-foot">Each borrows the type it's cheaper at</div>
+          <div class="wp-foot">Your client: wants fixed, $500,000 over 5 years</div>
         </div>
       </li>
 

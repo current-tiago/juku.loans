@@ -146,7 +146,8 @@ if (legit) {
 // ── Swap diagram ─────────────────────────────────────────────
 // Four states across three listed steps: step 2 has a SOFR rises / falls switch.
 // Per state: which step it belongs to (li); which lines are lit (they build up step
-// by step, and step 3 lights everything); which lines carry moving dots (on); which
+// by step, and step 3 adds whichever SOFR line was last picked); which lines carry
+// moving dots (on); which
 // boxes are dimmed or highlighted; and the two lines of status text under your
 // client and under the other business.
 const SWAP_STATES = [
@@ -156,7 +157,7 @@ const SWAP_STATES = [
     status: ['loan costs more', 'pays the difference'], sub: ['gets the difference', ''] },
   { li: 1, move: 'down', lit: ['loanA', 'loanB', 'payAB'], on: ['payAB'], dim: ['broker'],
     status: ['loan costs less', 'gets the difference'], sub: ['pays the difference', ''] },
-  { li: 2, lit: ['loanA', 'loanB', 'payBA', 'payAB', 'commission'], on: ['commission'], hi: ['broker'],
+  { li: 2, lit: ['loanA', 'loanB', 'commission'], on: ['commission'], hi: ['broker'],
     status: ['pays 7.00% fixed', 'pays SOFR + 1.40%'], sub: ['instead of 7.20%', 'instead of SOFR + 1.60%'], good: true },
 ];
 
@@ -178,19 +179,22 @@ if (swap) {
     });
   }
 
+  let sofr = 'up';   // the SOFR option last picked; step 3 keeps its line lit
+
   function setStage(i) {
     const s = SWAP_STATES[i];
+    if (s.move) sofr = s.move;
+    const lit = [...s.lit, ...(s.li === 2 ? [sofr === 'up' ? 'payBA' : 'payAB'] : [])];
     const has = (list, key) => (list || []).includes(key);
     stages.forEach((li, k) => {
       li.classList.toggle('is-active', k === s.li);
       li.querySelector('.ss-btn').setAttribute('aria-pressed', k === s.li);
     });
-    const move = s.move || 'up';
-    swap.querySelectorAll('.sofr-btn').forEach(b => b.setAttribute('aria-pressed', b.dataset.move === move));
-    swap.querySelectorAll('.sofr-text').forEach(t => { t.hidden = t.dataset.move !== move; });
+    swap.querySelectorAll('.sofr-btn').forEach(b => b.setAttribute('aria-pressed', b.dataset.move === sofr));
+    swap.querySelectorAll('.sofr-text').forEach(t => { t.hidden = t.dataset.move !== sofr; });
     svg.querySelectorAll('.flow').forEach(f => {
       f.classList.toggle('on', has(s.on, f.dataset.flow));
-      f.classList.toggle('lit', has(s.lit, f.dataset.flow));
+      f.classList.toggle('lit', has(lit, f.dataset.flow));
     });
     svg.querySelectorAll('.sw-node').forEach(n => {
       n.classList.toggle('dim', has(s.dim, n.dataset.node));
@@ -205,8 +209,9 @@ if (swap) {
   }
   centreText();
 
-  const FIRST_STATE = [0, 1, 3];   // the state each listed step opens on
-  stages.forEach((li, k) => li.querySelector('.ss-btn').addEventListener('click', () => setStage(FIRST_STATE[k])));
+  // Step 2 reopens on whichever SOFR option was last picked.
+  const firstState = k => [0, sofr === 'up' ? 1 : 2, 3][k];
+  stages.forEach((li, k) => li.querySelector('.ss-btn').addEventListener('click', () => setStage(firstState(k))));
   swap.querySelectorAll('.sofr-btn').forEach(b => b.addEventListener('click', () => setStage(b.dataset.move === 'up' ? 1 : 2)));
 
   if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
