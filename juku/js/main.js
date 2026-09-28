@@ -111,11 +111,6 @@ if (walk) {
     rail.style.height = (last - first) + 'px';
     fill.style.height = Math.min(Math.max(line - first, 0), last - first) + 'px';
     const current = centres.filter(c => c <= line).length - 1;
-    // How far the reader is through each step (0 to 1), for pictures that react to it.
-    steps.forEach((s, i) => {
-      const span = ((centres[i + 1] ?? centres[i] + 400) - centres[i]) * 0.7;
-      s.style.setProperty('--p', Math.min(1, Math.max(0, (line - centres[i]) / span)).toFixed(3));
-    });
     steps.forEach((s, i) => {
       s.classList.toggle('is-done', i < current);
       s.classList.toggle('is-current', i === current);

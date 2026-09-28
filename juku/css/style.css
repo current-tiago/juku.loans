@@ -5,6 +5,8 @@
   --bg: #fbf9f6;
   --bg-card: #efe9e0;
   --bg-hover: #e8e0d4;
+  --panel: rgba(100,116,139,0.07);
+  --panel-border: rgba(100,116,139,0.35);
   --accent: #ff8800;
   --accent-light: rgba(255,136,0,0.1);
   --accent-border: rgba(255,136,0,0.25);
@@ -391,8 +393,8 @@ a.nav-btn { text-decoration: none; display: inline-block; }
 
 /* The little pictures beside each step */
 .walk-pic {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
   border-radius: var(--radius-lg);
   padding: 14px 16px;
   font-size: 13px; color: var(--text-secondary);
@@ -427,22 +429,30 @@ a.nav-btn { text-decoration: none; display: inline-block; }
 .wp-cand {
   display: grid; grid-template-columns: 112px minmax(0, 1fr) auto; align-items: center; gap: 10px;
   padding: 7px 8px; border: 1px solid transparent; border-radius: var(--radius-md);
+  transition: opacity 0.4s ease 0.5s, background 0.4s ease 0.8s, border-color 0.4s ease 0.8s;
 }
 .wp-cand .wp-pill { justify-self: start; }
 .wp-cand > span:nth-child(2) { color: var(--text-primary); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .wp-cand em { font-size: 12px; color: var(--text-tertiary); white-space: nowrap; }
 .wp-cand.is-match em { display: inline-flex; align-items: center; gap: 4px; font-style: normal; font-weight: 700; color: #1f8a4c; }
-/* As the reader scrolls through step 3, --p (set by JS) runs from 0 to 1: the match slides out
-   of the list, grows and lifts off the card while the other candidates fade back. */
-.wp-cand:not(.is-match) { opacity: calc(1 - var(--p, 0) * 0.6); }
-.wp-cand.is-match {
-  position: relative; z-index: 1;
-  transform: translateX(calc(var(--p, 0) * var(--pop-x, 18px))) scale(calc(1 + var(--p, 0) * 0.05));
-  background: rgba(255,255,255, var(--p, 0));
-  border-color: rgba(199,116,255, calc(var(--p, 0) * 0.7));
-  box-shadow: 0 calc(var(--p, 0) * 10px) calc(var(--p, 0) * 26px) rgba(30,26,22, calc(var(--p, 0) * 0.14));
-}
-.wp-cand.is-match em { opacity: calc(0.3 + var(--p, 0) * 0.7); }
+.walk.is-live .walk-step:is(.is-done, .is-current) .wp-cand:not(.is-match) { opacity: 0.45; }
+.walk.is-live .walk-step:is(.is-done, .is-current) .wp-cand.is-match { background: var(--purple-light); border-color: var(--purple-border); }
+
+/* Step 4's revenue bars: the same deal without and with juku; the green commission grows in once the step is reached */
+.wp-earn { display: flex; flex-direction: column; gap: 10px; margin: 14px 0 12px; }
+.wp-earn-row { display: grid; grid-template-columns: 96px minmax(0, 1fr); align-items: center; gap: 12px; }
+.wp-earn-lbl { font-size: 12px; color: var(--text-secondary); }
+.wp-bar { display: flex; height: 14px; border-radius: 7px; background: rgba(100,116,139,0.12); overflow: hidden; }
+.wp-bar i { display: block; height: 100%; }
+.wp-bar i.fee { width: 58%; background: #94a3b8; }
+.wp-bar i.com { width: 24%; background: #1f8a4c; transition: width 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.4s; }
+.walk.is-live .walk-step:not(.is-done, .is-current) .wp-bar i.com { width: 0; }
+.wp-earn-key { display: flex; flex-wrap: wrap; gap: 4px 16px; padding-left: 108px; font-size: 11px; color: var(--text-secondary); }
+.wp-earn-key span { display: inline-flex; align-items: center; gap: 6px; }
+.wp-earn-key i { width: 10px; height: 10px; border-radius: 3px; }
+.wp-earn-key i.fee { background: #94a3b8; }
+.wp-earn-key i.com { background: #1f8a4c; }
+.walk-pic-earn .wp-row { border-top: 1px solid var(--border); }
 
 @media (max-width: 820px) {
   .walk-step { grid-template-columns: 28px minmax(0, 1fr); }
@@ -451,12 +461,12 @@ a.nav-btn { text-decoration: none; display: inline-block; }
 }
 @media (max-width: 560px) {
   .wp-cand { grid-template-columns: 104px minmax(0, 1fr) auto; gap: 6px; padding: 6px; }
-  .walk-pic { --pop-x: 6px; }   /* less room to stick out on a phone */
+  .wp-earn-row { grid-template-columns: 84px minmax(0, 1fr); }
+  .wp-earn-key { padding-left: 0; }
   .wp-cand:not(.is-match) em { display: none; }   /* no room: keep only the Match label */
 }
 @media (prefers-reduced-motion: reduce) {
-  .walk-num, .walk-text, .walk-pic { transition: none; }
-  .wp-cand.is-match { transform: none; }
+  .walk-num, .walk-text, .walk-pic, .wp-cand, .wp-bar i.com { transition: none; }
   .walk.is-live .walk-step .walk-pic { transform: none; }
 }
 
@@ -466,8 +476,8 @@ a.nav-btn { text-decoration: none; display: inline-block; }
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
   gap: 2.5rem;
   align-items: center;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
   border-radius: var(--radius-xl);
   padding: 2rem;
 }
