@@ -411,14 +411,16 @@ a.nav-btn { text-decoration: none; display: inline-block; }
   transition: background 0.2s, color 0.2s;
 }
 .sofr-btn[aria-pressed="true"] { background: var(--purple); color: var(--text-primary); }
+.sofr-btn[data-move="up"][aria-pressed="true"] { background: var(--accent); color: #fff; }   /* matches the orange rises line */
 .sofr-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 .swap-fig { margin: 0; }
 .swap-fig svg { display: block; width: 100%; max-width: 400px; height: auto; margin: 0 auto; font-family: var(--font); }
-.sw-node { transition: opacity 0.4s ease; }
-.sw-node text { dominant-baseline: central; }
+.sw-node text { dominant-baseline: central; transition: opacity 0.4s ease; }
 .sw-node rect { fill: var(--bg); stroke: var(--border-strong); transition: fill 0.4s, stroke 0.4s; }
-.sw-node.dim { opacity: 0.35; }
+/* Faded boxes keep a solid fill so the lines behind them stay hidden */
+.sw-node.dim text { opacity: 0.35; }
+.sw-node.dim rect { stroke: var(--border); }
 .sw-node.hi rect { fill: var(--accent-light); stroke: var(--accent); }
 .sw-cap { font-size: 11.5px; font-weight: 700; letter-spacing: 0.2px; fill: var(--text-tertiary); }
 .sw-name { font-size: 15px; font-weight: 700; font-style: italic; fill: var(--text-primary); }
@@ -438,6 +440,12 @@ a.nav-btn { text-decoration: none; display: inline-block; }
 .fix path, .ah-fix { stroke: var(--accent); }
 .flt path, .ah-flt { stroke: var(--purple); }
 .ink .coins { fill: var(--text-primary); }
+/* The two SOFR lines: always visible in grey, lit in their own colour when their option is on */
+.flow.pay { opacity: 1; }
+.flow.pay path { stroke: #cbc2b6; marker-end: url(#ah-grey); transition: stroke 0.3s; }
+.flow.pay.on.fix path { stroke: var(--accent); marker-end: url(#ah-fix); }
+.flow.pay.on.flt path { stroke: var(--purple); marker-end: url(#ah-flt); }
+.ah-grey { stroke: #cbc2b6; }
 .fix .coins { fill: var(--accent); }
 .flt .coins { fill: var(--purple); }
 .swap-foot { margin-top: 1rem; text-align: center; font-size: 11px; font-style: italic; color: var(--text-tertiary); }
@@ -447,7 +455,7 @@ a.nav-btn { text-decoration: none; display: inline-block; }
   .swap-fig { order: -1; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .ss-btn, .ss-body, .sw-node, .sw-node rect, .flow { transition: none; }
+  .ss-btn, .ss-body, .sw-node text, .sw-node rect, .flow, .flow.pay path { transition: none; }
 }
 
 /* CALCULATOR */
