@@ -177,114 +177,21 @@ if (legit) {
 }
 
 // ── Works with your tools ────────────────────────────────────
-// Six tools circle juku on a slow oval orbit, drawn each frame while the section is
-// on screen: tools at the front are larger and pass over juku, those at the back are
-// smaller and behind. Every couple of seconds the next tool connects: its line lights,
-// an orange deal dot runs in (juku pulses as it lands), a green savings dot runs back
-// out, and the tool keeps a tick and a green line. After all six, it resets.
+// Light up each tool in turn and connect it to juku, while the section is on screen.
 const intg = document.getElementById('intg');
 if (intg) {
-  const NS = 'http://www.w3.org/2000/svg';
-  const stage = intg.querySelector('.intg-stage');
-  const svg = intg.querySelector('.intg-lines');
-  const nodes = [...intg.querySelectorAll('.intg-node')];
-  const hub = intg.querySelector('.intg-hub');
-  const count = intg.querySelector('.intg-count');
-  const lines = nodes.map(() => svg.appendChild(document.createElementNS(NS, 'line')));
-  const dot = cls => {
-    const c = svg.appendChild(document.createElementNS(NS, 'circle'));
-    c.setAttribute('r', 4.5);
-    c.setAttribute('class', cls);
-    c.style.display = 'none';
-    return c;
+  const tiles = [...intg.querySelectorAll('.intg-tile')];
+  const links = [...intg.querySelectorAll('.intg-link')];
+  let at = 0, inView = false;
+  const light = i => {
+    tiles.forEach((t, k) => t.classList.toggle('is-on', k === i));
+    links.forEach((l, k) => l.classList.toggle('is-on', k === i));
   };
-  const deal = dot('deal'), saving = dot('saving');
-  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const TURN = 2 * Math.PI / 60;   // one lap a minute
-  let w = 0, h = 0, spin = 0, last = 0, raf = 0, inView = false;
-  let active = -1, activeAt = 0, next = 0;
-
-  const measure = () => {
-    const r = stage.getBoundingClientRect();
-    w = r.width; h = r.height;
-    svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
-  };
-  const along = (c, x1, y1, x2, y2, t) => {   // put a dot t of the way from (x1,y1) to (x2,y2)
-    const show = t >= 0 && t <= 1;
-    c.style.display = show ? '' : 'none';
-    if (show) { c.setAttribute('cx', x1 + (x2 - x1) * t); c.setAttribute('cy', y1 + (y2 - y1) * t); }
-  };
-  const draw = now => {
-    const cx = w / 2, cy = h / 2, rx = w * 0.37, ry = h * 0.36, hubR = hub.offsetWidth / 2;
-    const ends = nodes.map((n, i) => {
-      const a = spin + i * Math.PI / 3 - Math.PI / 2;
-      const x = cx + rx * Math.cos(a), y = cy + ry * Math.sin(a);
-      const depth = (Math.sin(a) + 1) / 2;   // 0 at the back (top), 1 at the front (bottom)
-      n.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%) scale(${0.84 + depth * 0.16})`;
-      n.style.zIndex = 1 + Math.round(depth * 10);
-      n.style.opacity = 0.7 + depth * 0.3;
-      const d = Math.hypot(x - cx, y - cy), ux = (x - cx) / d, uy = (y - cy) / d;
-      const s = hubR + 6, e = Math.max(s, d - 24);
-      const end = { sx: cx + ux * s, sy: cy + uy * s, ex: cx + ux * e, ey: cy + uy * e };
-      lines[i].setAttribute('x1', end.sx); lines[i].setAttribute('y1', end.sy);
-      lines[i].setAttribute('x2', end.ex); lines[i].setAttribute('y2', end.ey);
-      return end;
-    });
-    const p = active < 0 || calm ? -1 : (now - activeAt) / 1600, L = ends[active];
-    if (L) {
-      along(deal, L.ex, L.ey, L.sx, L.sy, p < 0 ? -1 : p / 0.45);
-      along(saving, L.sx, L.sy, L.ex, L.ey, p < 0.5 ? -1 : (p - 0.5) / 0.42);
-    } else {
-      along(deal, 0, 0, 0, 0, -1); along(saving, 0, 0, 0, 0, -1);
-    }
-  };
-  const frame = t => {
-    if (last) spin += (t - last) / 1000 * TURN;
-    last = t;
-    draw(t);
-    raf = inView && !calm ? requestAnimationFrame(frame) : 0;
-    if (!raf) last = 0;
-  };
-
-  const setCount = n => { count.textContent = n + ' of ' + nodes.length + ' connected'; };
-  const connect = i => {
-    active = i; activeAt = performance.now();
-    nodes.forEach((n, k) => n.classList.toggle('is-on', k === i));
-    lines.forEach((l, k) => l.classList.toggle('is-on', k === i));
-    setTimeout(() => {   // the deal dot reaches juku
-      hub.classList.remove('is-hit');
-      void hub.offsetWidth;
-      hub.classList.add('is-hit');
-    }, 720);
-    setTimeout(() => {   // the savings dot is back: this tool is connected
-      nodes[i].classList.add('is-done');
-      lines[i].classList.add('is-done');
-      setCount(i + 1);
-    }, 1500);
-  };
-  const tick = () => {
-    if (!inView) return;
-    if (next < nodes.length) return connect(next++);
-    next = 0; active = -1;   // all connected: clear and start again
-    nodes.forEach(n => n.classList.remove('is-on', 'is-done'));
-    lines.forEach(l => l.classList.remove('is-on', 'is-done'));
-    setCount(0);
-  };
-
-  measure();
-  new ResizeObserver(() => { measure(); draw(performance.now()); }).observe(stage);
-  if (calm) {
-    nodes.forEach(n => n.classList.add('is-done'));
-    lines.forEach(l => l.classList.add('is-done'));
-    setCount(nodes.length);
-  } else {
-    setInterval(tick, 2100);
+  light(0);
+  new IntersectionObserver(([e]) => { inView = e.isIntersecting; }, { threshold: 0.3 }).observe(intg);
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    setInterval(() => { if (inView) light(at = (at + 1) % tiles.length); }, 1800);
   }
-  new IntersectionObserver(([e]) => {
-    inView = e.isIntersecting;
-    if (inView && !raf && !calm) raf = requestAnimationFrame(frame);
-  }, { threshold: 0.3 }).observe(intg);
-  draw(performance.now());
 }
 
 // ── Swap diagram ─────────────────────────────────────────────
