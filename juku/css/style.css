@@ -2,7 +2,7 @@
 
 :root {
   --font: 'Libre Baskerville', Georgia, serif;
-  --bg: #ffffff;
+  --bg: #fcfbf9;
   --bg-card: #efe9e0;
   --bg-hover: #e8e0d4;
   --accent: #ff8800;
@@ -43,7 +43,7 @@ nav {
   border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
-  background: rgba(255,255,255,0.92);
+  background: rgba(252,251,249,0.92);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   z-index: 100;
