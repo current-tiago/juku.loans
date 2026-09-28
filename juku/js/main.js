@@ -97,54 +97,50 @@ if (walk) {
 }
 
 // ── Done by the book ─────────────────────────────────────────
-// A stack of five documents, one per point in the list. Every few seconds (while
-// the section is on screen and not hovered) the top one flips away to reveal the
-// next. Clicking a point shows its document; clicking the stack flips to the next.
-// Either click stops the automatic flipping.
+// The section pins below the menu, and scrolling through it moves through the
+// documents: the page's scroll is split into equal slices, one per document.
+// Clicking a term scrolls to its slice.
 const legit = document.getElementById('legit');
 if (legit) {
+  const pin = legit.querySelector('.legit-pin');
   const docs = [...legit.querySelectorAll('.doc')];
-  const items = [...legit.querySelectorAll('.legit-list li')];
-  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let order = docs.map((_, i) => i);   // order[0] is the document on top
-  let auto = !calm, inView = false, hovered = false;
+  const terms = [...legit.querySelectorAll('.term')];
+  const navH = () => document.querySelector('nav').offsetHeight;
+  let current = -1;
+  legit.classList.add('is-live');
 
-  const layout = () => {
-    order.forEach((d, pos) => {
-      docs[d].dataset.pos = pos;
-      docs[d].classList.toggle('is-top', pos === 0);
+  const setDoc = i => {
+    docs.forEach((d, k) => { d.dataset.pos = k < i ? 'past' : k - i; });
+    terms.forEach((t, k) => {
+      t.classList.toggle('is-on', k === i);
+      t.setAttribute('aria-pressed', k === i);
     });
-    items.forEach((li, i) => li.classList.toggle('is-on', i === order[0]));
+    current = i;
   };
-  const show = i => {
-    if (order[0] === i) return;
-    const old = docs[order[0]];
-    old.classList.add('leaving');
-    const done = e => {   // ignore animations finishing inside the document
-      if (e.target !== old) return;
-      old.classList.remove('leaving');
-      old.removeEventListener('animationend', done);
-    };
-    old.addEventListener('animationend', done);
-    order = [i, ...order.filter(d => d !== i && d !== order[0]), order[0]];
-    layout();
+  const travel = () => legit.offsetHeight - pin.offsetHeight;   // scroll distance while pinned
+  const update = () => {
+    document.documentElement.style.setProperty('--nav-h', navH() + 'px');
+    const progress = (navH() - legit.getBoundingClientRect().top) / travel();
+    const i = Math.min(docs.length - 1, Math.max(0, Math.floor(progress * docs.length)));
+    if (i !== current) setDoc(i);
   };
-  const takeOver = () => { auto = false; };
 
-  items.forEach((li, i) => li.addEventListener('click', () => { takeOver(); show(i); }));
-  legit.querySelector('.docs').addEventListener('click', () => { takeOver(); show(order[1]); });
-  legit.addEventListener('mouseenter', () => { hovered = true; });
-  legit.addEventListener('mouseleave', () => { hovered = false; });
-  layout();
+  terms.forEach((t, k) => t.addEventListener('click', () => {
+    const top = legit.getBoundingClientRect().top + scrollY - navH() + (k + 0.5) / docs.length * travel();
+    const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    scrollTo({ top, behavior: calm ? 'auto' : 'smooth' });
+  }));
 
-  if (!calm) {
-    legit.classList.add('is-live');
-    new IntersectionObserver(([e]) => {
-      inView = e.isIntersecting;
-      if (inView) legit.classList.add('play');   // the first document plays when first seen
-    }, { threshold: 0.4 }).observe(legit);
-    setInterval(() => { if (auto && inView && !hovered) show(order[1]); }, 4500);
-  }
+  let queued = false;
+  const queue = () => {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(() => { queued = false; update(); });
+  };
+  addEventListener('scroll', queue, { passive: true });
+  addEventListener('resize', queue);
+  new ResizeObserver(queue).observe(legit);
+  update();
 }
 
 // ── Swap diagram ─────────────────────────────────────────────

@@ -192,108 +192,63 @@
   <div class="section">
     <div class="section-label">Done by the book</div>
     <div class="legit" id="legit">
-      <div class="docs" aria-hidden="true">
-        <div class="doc" data-pos="0">
-          <div class="doc-head"><div><p class="doc-title">Master Agreement</p><p class="doc-sub">Interest rate swap</p></div><span class="legit-tag fix">ISDA</span></div>
-          <div class="doc-bars"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-          <div class="doc-sigs">
-            <div class="doc-sig"><svg viewBox="0 0 100 36"><path pathLength="1" d="M4 30c6-18 14-24 17-12 2 10-8 16-4 3 4-12 12-14 14-4 2 8 6 6 10-2 4-8 8-8 8 0 0 6 4 6 10-2 6-8 12-6 16-2s8 2 14-3"/></svg><span>Party A</span></div>
-            <div class="doc-sig"><svg viewBox="0 0 100 36"><path pathLength="1" d="M4 30c4-6 8-24 18-21 8 2-4 21-10 19-4-2 8-11 16-8 6 2 4 10 10 8 6-2 10-12 16-10 4 2 2 8 8 6 6-2 14-8 22-4"/></svg><span>Party B</span></div>
-          </div>
+      <div class="legit-pin">
+        <div class="legit-side">
+          <p class="legit-intro">Interest rate swaps are regulated. These are the rules every deal follows.</p>
+          <ol class="terms">
+          <li><button type="button" class="term is-on" aria-pressed="true"><span class="term-tag">ISDA</span><span class="term-name">Master Agreement</span></button></li>
+          <li><button type="button" class="term" aria-pressed="false"><span class="term-tag">ECP</span><span class="term-name">Eligible Contract Participant</span></button></li>
+          <li><button type="button" class="term" aria-pressed="false"><span class="term-tag">LEI</span><span class="term-name">Legal Entity Identifier</span></button></li>
+          <li><button type="button" class="term" aria-pressed="false"><span class="term-tag">SDR</span><span class="term-name">Swap data repository</span></button></li>
+          <li><button type="button" class="term" aria-pressed="false"><span class="term-tag">OFAC</span><span class="term-name">Sanctions screening</span></button></li>
+          </ol>
+          <p class="legit-hint">Scroll to go through each one.</p>
         </div>
-
-        <div class="doc" data-pos="1">
-          <div class="doc-head"><div><p class="doc-title">Eligibility check</p><p class="doc-sub">Eligible Contract Participant</p></div><span class="legit-tag flt">ECP</span></div>
-          <ul class="doc-checks">
-            <li><span class="doc-box"><i class="ti ti-check"></i></span>Net worth over $1 million</li>
-            <li><span class="doc-box"><i class="ti ti-check"></i></span>Swap manages its own loan</li>
-          </ul>
-          <p class="doc-note">or total assets over $10 million</p>
-          <svg class="doc-stamp" viewBox="-50 -50 100 100">
-            <defs><path id="lg-ring" d="M-39 0a39 39 0 1 1 78 0a39 39 0 1 1-78 0"/></defs>
-            <circle r="47" class="stamp-fill"/>
-            <circle r="47"/>
-            <circle r="31" class="stamp-inner"/>
-            <text class="stamp-ring"><textPath href="#lg-ring">ELIGIBLE · CONTRACT · PARTICIPANT ·</textPath></text>
-            <text y="-2" class="stamp-big" text-anchor="middle">ECP</text>
-            <path d="M-7 10l5 5 10-11" class="stamp-tick"/>
-          </svg>
+        <div class="docs-col">
+        <div class="docs">
+        <article class="doc" data-pos="0">
+          <header class="doc-head"><span class="doc-kind">Documentation</span><span class="doc-count">1 of 5</span></header>
+          <h3 class="doc-title">ISDA Master Agreement</h3>
+          <h4>What it is</h4>
+          <p>The ISDA Master Agreement, published by the International Swaps and Derivatives Association, is the standard contract for over-the-counter derivatives, including interest rate swaps. It sets out how payments are calculated and netted, what counts as a default, and how a swap is closed out if something goes wrong.</p>
+          <h4>How we handle it</h4>
+          <p>Every swap is documented on the ISDA Master Agreement and its Schedule, with a confirmation for each deal. The terms are the market standard rather than drafted from scratch, so both businesses and their advisers are reading a contract the market already knows.</p>
+        </article>
+        <article class="doc" data-pos="1">
+          <header class="doc-head"><span class="doc-kind">Eligibility</span><span class="doc-count">2 of 5</span></header>
+          <h3 class="doc-title">Eligible Contract Participant</h3>
+          <h4>What it is</h4>
+          <p>Under the Commodity Exchange Act, swaps agreed away from an exchange are only open to Eligible Contract Participants. A business generally qualifies with total assets over $10 million, or with a net worth over $1 million where the swap manages risk in its own business, such as a loan.</p>
+          <h4>How we handle it</h4>
+          <p>Both businesses must qualify as Eligible Contract Participants, and we confirm this for each side before anything is signed. A business that doesn't qualify isn't offered a swap.</p>
+        </article>
+        <article class="doc" data-pos="2">
+          <header class="doc-head"><span class="doc-kind">Identification</span><span class="doc-count">3 of 5</span></header>
+          <h3 class="doc-title">Legal Entity Identifier</h3>
+          <h4>What it is</h4>
+          <p>A Legal Entity Identifier is a 20-character code, defined by ISO 17442 and overseen by the Global Legal Entity Identifier Foundation, that identifies a company taking part in a financial transaction. US swap reporting rules require each party to a swap to be identified by its LEI.</p>
+          <h4>How we handle it</h4>
+          <p>Each business needs an active LEI before its swap can go ahead, so it is always clear exactly who is on each side. An LEI is renewed every year.</p>
+        </article>
+        <article class="doc" data-pos="3">
+          <header class="doc-head"><span class="doc-kind">Reporting</span><span class="doc-count">4 of 5</span></header>
+          <h3 class="doc-title">Swap data repository reporting</h3>
+          <h4>What it is</h4>
+          <p>Under CFTC rules, every swap must be reported to a registered swap data repository when it is agreed, and again whenever it changes until it ends. Regulators use this data to oversee the swaps market.</p>
+          <h4>How we handle it</h4>
+          <p>Every swap arranged through juku is reported to a CFTC-registered swap data repository, and its record is kept up to date for the life of the deal.</p>
+        </article>
+        <article class="doc" data-pos="4">
+          <header class="doc-head"><span class="doc-kind">Screening</span><span class="doc-count">5 of 5</span></header>
+          <h3 class="doc-title">OFAC sanctions screening</h3>
+          <h4>What it is</h4>
+          <p>The Office of Foreign Assets Control, part of the US Treasury, administers US economic sanctions. US persons are generally prohibited from dealing with anyone on its sanctions lists, including the Specially Designated Nationals list.</p>
+          <h4>How we handle it</h4>
+          <p>Both businesses are screened against OFAC's sanctions lists before a deal goes ahead.</p>
+        </article>
         </div>
-
-        <div class="doc" data-pos="2">
-          <div class="doc-head"><div><p class="doc-title">Legal Entity Identifier</p><p class="doc-sub">The global ID for companies</p></div><span class="legit-tag">LEI</span></div>
-          <div class="doc-code">•••• •••• •••• •••• ••••</div>
-          <div class="doc-rows">
-            <div><span>Entity</span><b>Your client</b></div>
-            <div><span>Status</span><b class="doc-ok">Issued</b></div>
-            <div><span>Renewed</span><b>Every year</b></div>
-          </div>
-        </div>
-
-        <div class="doc" data-pos="3">
-          <div class="doc-head"><div><p class="doc-title">Swap report</p><p class="doc-sub">Swap data repository</p></div><span class="legit-tag">SDR</span></div>
-          <div class="doc-rows doc-rows-seq">
-            <div><span>Asset class</span><b>Interest rate</b></div>
-            <div><span>Product</span><b>Fixed for floating</b></div>
-            <div><span>Notional</span><b>$500,000</b></div>
-            <div><span>Transaction ID</span><b>•••• ••••</b></div>
-          </div>
-          <div class="doc-badge"><i class="ti ti-check"></i>Reported</div>
-        </div>
-
-        <div class="doc" data-pos="4">
-          <div class="doc-head"><div><p class="doc-title">Sanctions screening</p><p class="doc-sub">US Treasury OFAC lists</p></div><span class="legit-tag">OFAC</span></div>
-          <div class="doc-scan">
-            <div class="doc-rows">
-              <div><span>Your client</span><b class="doc-ok">No match</b></div>
-              <div><span>Other business</span><b class="doc-ok">No match</b></div>
-            </div>
-            <i class="doc-scanline"></i>
-          </div>
-          <div class="doc-badge"><i class="ti ti-shield-check"></i>Clear to proceed</div>
-        </div>
-      </div>
-
-      <div class="legit-body">
-        <p class="legit-intro">Interest rate swaps are regulated, so every deal follows the same rules the big banks work to.</p>
-        <ul class="legit-list">
-          <li class="is-on">
-            <button class="legit-tag fix" type="button" aria-label="Show the ISDA document">ISDA</button>
-            <div>
-              <h3>Standard swap paperwork</h3>
-              <p>Every swap is documented on the ISDA Master Agreement, the contract banks around the world use for interest rate swaps. No home-made terms.</p>
-            </div>
-          </li>
-          <li>
-            <button class="legit-tag flt" type="button" aria-label="Show the ECP document">ECP</button>
-            <div>
-              <h3>Only eligible businesses</h3>
-              <p>US law limits swaps like these to Eligible Contract Participants. For most businesses that means over $10 million in assets, or over $1 million in net worth and using the swap to manage its own loan. We check both sides before anything is signed.</p>
-            </div>
-          </li>
-          <li>
-            <button class="legit-tag" type="button" aria-label="Show the LEI document">LEI</button>
-            <div>
-              <h3>Every party identified</h3>
-              <p>Each business has a Legal Entity Identifier, the global ID for companies in financial deals, so it's clear exactly who is on each side of a swap.</p>
-            </div>
-          </li>
-          <li>
-            <button class="legit-tag" type="button" aria-label="Show the SDR document">SDR</button>
-            <div>
-              <h3>Reported to regulators</h3>
-              <p>Every swap is reported to a CFTC-registered swap data repository, as US rules require for all swaps, so regulators can see it.</p>
-            </div>
-          </li>
-          <li>
-            <button class="legit-tag" type="button" aria-label="Show the OFAC document">OFAC</button>
-            <div>
-              <h3>Sanctions screened</h3>
-              <p>Both businesses are screened against the US Treasury's OFAC sanctions lists before a deal goes ahead.</p>
-            </div>
-          </li>
-        </ul>
         <p class="legit-foot">A plain-English summary of the rules, not legal advice.</p>
+        </div>
       </div>
     </div>
   </div>
