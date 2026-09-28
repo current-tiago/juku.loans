@@ -71,7 +71,6 @@ nav {
 }
 .nav-logo:hover { transform: scale(1.08); opacity: 0.85; }
 .nav-logo span { color: var(--accent); }
-.nav-logo .dot { color: var(--text-primary); }
 .nav-links { display: flex; gap: 6px; }
 .nav-btn {
   background: transparent;
