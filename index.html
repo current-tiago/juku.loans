@@ -40,14 +40,18 @@
 
   <div class="section">
     <div class="section-label">Inside a swap</div>
-    <div class="swap" id="swap">
+    <div class="swap show-intro" id="swap">
       <ol class="swap-stages">
         <li class="swap-stage is-active">
-          <button class="ss-btn" type="button" aria-pressed="true"><span class="step-num">1</span>Each borrows where it's cheaper</button>
-          <div class="ss-body"><div><p>Your client wants a fixed rate, but it's offered a better deal on floating, so it borrows floating. The other business is the opposite: it wants floating but borrows fixed.</p></div></div>
+          <button class="ss-btn" type="button" aria-pressed="true"><span class="step-num">1</span>Where the saving comes from</button>
+          <div class="ss-body"><div><p>Lenders don't price every business the same way. Your client wants a fixed rate but is offered a better deal on floating, while the other business wants floating but is offered a better deal on fixed.</p></div></div>
         </li>
         <li class="swap-stage">
-          <button class="ss-btn" type="button" aria-pressed="false"><span class="step-num">2</span>When SOFR moves</button>
+          <button class="ss-btn" type="button" aria-pressed="false"><span class="step-num">2</span>Each borrows where it's cheaper</button>
+          <div class="ss-body"><div><p>So each takes the loan it's offered the better deal on: your client borrows floating, and the other business borrows fixed.</p></div></div>
+        </li>
+        <li class="swap-stage">
+          <button class="ss-btn" type="button" aria-pressed="false"><span class="step-num">3</span>When SOFR moves</button>
           <div class="ss-body"><div>
             <div class="sofr-switch" role="group" aria-label="SOFR">
               <button type="button" class="sofr-btn" data-move="up" aria-pressed="true">SOFR rises</button>
@@ -58,13 +62,41 @@
           </div></div>
         </li>
         <li class="swap-stage">
-          <button class="ss-btn" type="button" aria-pressed="false"><span class="step-num">3</span>Both pay less, and you earn</button>
+          <button class="ss-btn" type="button" aria-pressed="false"><span class="step-num">4</span>Both pay less, and you earn</button>
           <div class="ss-body"><div><p>Each business ends up with the rate it wanted, for less than it was quoted. You earn a commission from juku on the deal.</p></div></div>
         </li>
       </ol>
 
       <figure class="swap-fig">
-        <svg viewBox="0 0 344 312" role="img" aria-label="Your client and another business each borrow from their own lender. When SOFR moves, one pays the other the difference through juku, and juku pays you, the broker, a commission.">
+        <div class="sw-figs">
+        <svg class="sw-intro" viewBox="0 0 344 312" role="img" aria-label="Each business is offered a better deal on the rate type it doesn't want: your client on floating, the other business on fixed.">
+          <g class="sw-node">
+            <rect x="8" y="10" width="328" height="136" rx="10"/>
+            <text x="20" y="32" class="sw-cap">Your client</text>
+            <text x="20" y="54" class="sw-name">Wants fixed</text>
+            <text x="324" y="54" class="sw-sub" text-anchor="end">cost to borrow</text>
+            <text x="20" y="88" class="bar-label">Fixed</text>
+            <rect x="92" y="79" width="200" height="12" rx="6" class="bar-track"/>
+            <rect x="92" y="79" width="176" height="12" rx="6" class="bar fix"/>
+            <text x="20" y="122" class="bar-label">Floating</text>
+            <rect x="92" y="113" width="200" height="12" rx="6" class="bar-track"/>
+            <rect x="92" y="113" width="104" height="12" rx="6" class="bar flt"/>
+            <g class="bar-tag"><rect x="204" y="109" width="78" height="20" rx="10"/><text x="243" y="123" text-anchor="middle">better deal</text></g>
+          </g>
+          <g class="sw-node">
+            <rect x="8" y="166" width="328" height="136" rx="10"/>
+            <text x="20" y="188" class="sw-cap">Other business</text>
+            <text x="20" y="210" class="sw-name">Wants floating</text>
+            <text x="20" y="244" class="bar-label">Fixed</text>
+            <rect x="92" y="235" width="200" height="12" rx="6" class="bar-track"/>
+            <rect x="92" y="235" width="104" height="12" rx="6" class="bar fix"/>
+            <g class="bar-tag"><rect x="204" y="231" width="78" height="20" rx="10"/><text x="243" y="245" text-anchor="middle">better deal</text></g>
+            <text x="20" y="278" class="bar-label">Floating</text>
+            <rect x="92" y="269" width="200" height="12" rx="6" class="bar-track"/>
+            <rect x="92" y="269" width="176" height="12" rx="6" class="bar flt"/>
+          </g>
+        </svg>
+        <svg class="sw-main" viewBox="0 0 344 312" role="img" aria-label="Your client and another business each borrow from their own lender. When SOFR moves, one pays the other the difference through juku, and juku pays you, the broker, a commission.">
           <defs>
             <marker id="ah-ink" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="ah ah-ink" d="M2 1.5 8 5 2 8.5"/></marker>
             <marker id="ah-grey" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="ah ah-grey" d="M2 1.5 8 5 2 8.5"/></marker>
@@ -113,6 +145,7 @@
             <text x="224" y="260" class="sw-name sw-name-sm">Fixed loan</text>
           </g>
         </svg>
+        </div>
       </figure>
     </div>
   </div>

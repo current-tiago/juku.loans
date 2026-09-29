@@ -195,20 +195,23 @@ if (intg) {
 }
 
 // ── Swap diagram ─────────────────────────────────────────────
-// Four states across three listed steps: step 2 has a SOFR rises / falls switch.
+// Five states across four listed steps: step 1 shows its own picture (why there's a saving),
+// and step 3 has a SOFR rises / falls switch.
 // Per state: which step it belongs to (li); which lines are lit (they build up step
 // by step, and step 3 adds whichever SOFR line was last picked); which lines carry
 // moving dots (on); which
 // boxes are dimmed or highlighted; and the two lines of status text under your
 // client and under the other business.
 const SWAP_STATES = [
-  { li: 0, lit: ['loanA', 'loanB'], on: ['loanA', 'loanB'], dim: ['juku', 'broker'],
+  { li: 0, intro: true, lit: ['loanA', 'loanB'], on: ['loanA', 'loanB'], dim: ['juku', 'broker'],
     status: ['borrows floating', 'borrows fixed'], sub: ['', ''] },
-  { li: 1, move: 'up', lit: ['loanA', 'loanB', 'payBA'], on: ['payBA'], dim: ['broker'],
+  { li: 1, lit: ['loanA', 'loanB'], on: ['loanA', 'loanB'], dim: ['juku', 'broker'],
+    status: ['borrows floating', 'borrows fixed'], sub: ['', ''] },
+  { li: 2, move: 'up', lit: ['loanA', 'loanB', 'payBA'], on: ['payBA'], dim: ['broker'],
     status: ['loan costs more', 'pays the difference'], sub: ['gets the difference', ''] },
-  { li: 1, move: 'down', lit: ['loanA', 'loanB', 'payAB'], on: ['payAB'], dim: ['broker'],
+  { li: 2, move: 'down', lit: ['loanA', 'loanB', 'payAB'], on: ['payAB'], dim: ['broker'],
     status: ['loan costs less', 'gets the difference'], sub: ['pays the difference', ''] },
-  { li: 2, lit: ['loanA', 'loanB', 'commission'], on: ['commission'], hi: ['broker'],
+  { li: 3, lit: ['loanA', 'loanB', 'commission'], on: ['commission'], hi: ['broker'],
     status: ['pays less', 'pays less'], sub: ['than its fixed quote', 'than its floating quote'], good: true },
 ];
 
@@ -218,7 +221,7 @@ const SW_LINE = { 'sw-cap': 18, 'sw-name': 22, 'sw-status': 18, 'sw-sub': 16 };
 const swap = document.getElementById('swap');
 if (swap) {
   const stages = swap.querySelectorAll('.swap-stage');
-  const svg = swap.querySelector('svg');
+  const svg = swap.querySelector('.sw-main');
 
   function centreText() {
     svg.querySelectorAll('.sw-node').forEach(n => {
@@ -235,7 +238,8 @@ if (swap) {
   function setStage(i) {
     const s = SWAP_STATES[i];
     if (s.move) sofr = s.move;
-    const lit = [...s.lit, ...(s.li === 2 ? [sofr === 'up' ? 'payBA' : 'payAB'] : [])];
+    const lit = [...s.lit, ...(s.li === 3 ? [sofr === 'up' ? 'payBA' : 'payAB'] : [])];
+    swap.classList.toggle('show-intro', !!s.intro);
     const has = (list, key) => (list || []).includes(key);
     stages.forEach((li, k) => {
       li.classList.toggle('is-active', k === s.li);
@@ -260,10 +264,10 @@ if (swap) {
   }
   centreText();
 
-  // Step 2 reopens on whichever SOFR option was last picked.
-  const firstState = k => [0, sofr === 'up' ? 1 : 2, 3][k];
+  // Step 3 reopens on whichever SOFR option was last picked.
+  const firstState = k => [0, 1, sofr === 'up' ? 2 : 3, 4][k];
   stages.forEach((li, k) => li.querySelector('.ss-btn').addEventListener('click', () => setStage(firstState(k))));
-  swap.querySelectorAll('.sofr-btn').forEach(b => b.addEventListener('click', () => setStage(b.dataset.move === 'up' ? 1 : 2)));
+  swap.querySelectorAll('.sofr-btn').forEach(b => b.addEventListener('click', () => setStage(b.dataset.move === 'up' ? 2 : 3)));
 
   if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
     // Coins that travel along each payment line at an even speed.
