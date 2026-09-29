@@ -570,9 +570,8 @@ a.nav-btn { text-decoration: none; display: inline-block; }
 .xq td span { display: inline-block; padding: 3px 8px; border-radius: 6px; border: 1px solid transparent; }
 .xq td.better span { background: rgba(31,138,76,0.1); border-color: rgba(31,138,76,0.35); color: #1f8a4c; font-weight: 700; }
 .xq-sum { display: flex; flex-direction: column; gap: 9px; margin-top: 10px; padding-top: 11px; border-top: 1px solid var(--border); }
-.xq-line { display: flex; justify-content: space-between; align-items: flex-end; gap: 10px; }
+.xq-line { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
 .xq-line span { font-size: 12.5px; color: var(--text-secondary); }
-.xq-line small { display: block; margin-top: 1px; font-size: 11px; color: var(--text-tertiary); }
 .xq-line b { font-size: 15px; font-style: italic; white-space: nowrap; }
 .xq-line.better b { color: #1f8a4c; }
 .xq-save {
