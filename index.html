@@ -15,7 +15,6 @@
   <a class="nav-logo" href="#" onclick="show('home'); return false;"><span>juku<span class="dot">.</span></span>loan</a>
   <div class="nav-links">
     <button class="nav-btn active" onclick="show('home')">Home</button>
-    <a class="nav-btn" href="portfolio.html">Risk model</a>
     <button class="nav-btn" onclick="show('form')">Get in touch</button>
   </div>
 </nav>
@@ -40,59 +39,260 @@
   </div>
 
   <div class="section">
-    <div class="section-label">The two parties</div>
-    <div class="parties">
-      <div class="party">
-        <div class="p-label">Party A</div>
-        <div class="p-name">Wants a fixed-rate loan</div>
-        <div class="p-desc">Prefers the certainty of a fixed rate — but can actually borrow more cheaply on a floating one. So it borrows floating and swaps into fixed.</div>
-        <span class="p-badge fixed-badge">Borrows floating, swaps to fixed</span>
-      </div>
-      <div class="middle-arrow">
-        <svg width="24" height="48" viewBox="0 0 24 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 4 L12 20 M12 4 L6 10 M12 4 L18 10" stroke="var(--text-tertiary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M12 44 L12 28 M12 44 L6 38 M12 44 L18 38" stroke="var(--text-tertiary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <div class="section-label">Inside a swap</div>
+    <div class="swap show-intro" id="swap">
+      <ol class="swap-stages">
+        <li class="swap-stage is-active">
+          <button class="ss-btn" type="button" aria-pressed="true"><span class="step-num">1</span>Where the saving comes from</button>
+          <div class="ss-body"><div><p>Lenders don't price every business the same way. Your client is offered a better deal on floating, and the other business on fixed. If each borrows its better deal instead of the rate it wants, together they pay less interest.</p></div></div>
+        </li>
+        <li class="swap-stage">
+          <button class="ss-btn" type="button" aria-pressed="false"><span class="step-num">2</span>Each borrows where it's cheaper</button>
+          <div class="ss-body"><div><p>So each takes the loan it's offered the better deal on: your client borrows floating, and the other business borrows fixed.</p></div></div>
+        </li>
+        <li class="swap-stage">
+          <button class="ss-btn" type="button" aria-pressed="false"><span class="step-num">3</span>When SOFR moves</button>
+          <div class="ss-body"><div>
+            <div class="sofr-switch" role="group" aria-label="SOFR">
+              <button type="button" class="sofr-btn" data-move="up" aria-pressed="true">SOFR rises</button>
+              <button type="button" class="sofr-btn" data-move="down" aria-pressed="false">SOFR falls</button>
+            </div>
+            <p class="sofr-text" data-move="up">Your client's floating loan costs more, so the other business pays it the difference through juku. Your client stays on its fixed rate.</p>
+            <p class="sofr-text" data-move="down" hidden>Your client's floating loan costs less, so it pays the other business the difference through juku. Your client stays on its fixed rate, and the other business's rate falls with SOFR.</p>
+          </div></div>
+        </li>
+        <li class="swap-stage">
+          <button class="ss-btn" type="button" aria-pressed="false"><span class="step-num">4</span>Both pay less, and you earn</button>
+          <div class="ss-body"><div><p>Each business ends up with the rate it wanted, for less than it was quoted. You earn a commission from juku on the deal.</p></div></div>
+        </li>
+      </ol>
+
+      <figure class="swap-fig">
+        <div class="sw-figs">
+        <div class="sw-intro">
+          <p class="xq-title">Example quotes</p>
+          <table class="xq">
+            <thead><tr><th></th><th>Fixed</th><th>Floating</th></tr></thead>
+            <tbody>
+              <tr><th>Your client<span>wants fixed</span></th><td><span>7.20%</span></td><td class="better"><span>SOFR + 1.20%</span></td></tr>
+              <tr><th>Other business<span>wants floating</span></th><td class="better"><span>6.80%</span></td><td><span>SOFR + 1.55%</span></td></tr>
+            </tbody>
+          </table>
+          <div class="xq-sum">
+            <div class="xq-line"><span>Each takes the rate it wants</span><b>SOFR + 8.75%</b></div>
+            <div class="xq-line better"><span>Each takes its better deal</span><b>SOFR + 8.00%</b></div>
+          </div>
+        </div>
+        <svg class="sw-main" viewBox="0 0 344 312" role="img" aria-label="Your client and another business each borrow from their own lender. When SOFR moves, one pays the other the difference through juku, and juku pays you, the broker, a commission.">
+          <defs>
+            <marker id="ah-ink" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="ah ah-ink" d="M2 1.5 8 5 2 8.5"/></marker>
+            <marker id="ah-grey" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="ah ah-grey" d="M2 1.5 8 5 2 8.5"/></marker>
+            <marker id="ah-flt" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="ah ah-flt" d="M2 1.5 8 5 2 8.5"/></marker>
+            <marker id="ah-fix" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="ah ah-fix" d="M2 1.5 8 5 2 8.5"/></marker>
+            <marker id="ah-com" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="ah ah-com" d="M2 1.5 8 5 2 8.5"/></marker>
+          </defs>
+
+          <!-- Payment lines, drawn in the direction the money moves. The two SOFR lines run behind juku. -->
+          <g class="flow ink lit on" data-flow="loanA"><path d="M174 52H209"/></g>
+          <g class="flow ink lit on" data-flow="loanB"><path d="M174 260H209"/></g>
+          <g class="flow fix" data-flow="payBA"><path d="M78 214V99"/></g>
+          <g class="flow flt" data-flow="payAB"><path d="M102 98V213"/></g>
+          <g class="flow com" data-flow="commission"><path d="M142 156H209"/></g>
+
+          <g class="sw-node" data-node="a">
+            <rect x="8" y="8" width="164" height="88" rx="10"/>
+            <text x="20" y="24" class="sw-cap">Your client</text>
+            <text x="20" y="44" class="sw-name">Wants fixed</text>
+            <text x="20" y="64" class="sw-status">borrows floating</text>
+            <text x="20" y="80" class="sw-sub sw-more"></text>
+          </g>
+          <g class="sw-node" data-node="lenderA">
+            <rect x="212" y="18" width="124" height="68" rx="10"/>
+            <text x="224" y="34" class="sw-cap">Lender</text>
+            <text x="224" y="52" class="sw-name sw-name-sm">Floating loan</text>
+          </g>
+          <g class="sw-node dim" data-node="juku">
+            <rect x="40" y="132" width="100" height="48" rx="10"/>
+            <text x="90" y="156" class="sw-name" text-anchor="middle">juku</text>
+          </g>
+          <g class="sw-node dim" data-node="broker">
+            <rect x="212" y="132" width="100" height="48" rx="10"/>
+            <text x="262" y="156" class="sw-name" text-anchor="middle">Broker</text>
+          </g>
+          <g class="sw-node" data-node="b">
+            <rect x="8" y="216" width="164" height="88" rx="10"/>
+            <text x="20" y="232" class="sw-cap">Other business</text>
+            <text x="20" y="252" class="sw-name">Wants floating</text>
+            <text x="20" y="272" class="sw-status">borrows fixed</text>
+            <text x="20" y="288" class="sw-sub sw-more"></text>
+          </g>
+          <g class="sw-node" data-node="lenderB">
+            <rect x="212" y="226" width="124" height="68" rx="10"/>
+            <text x="224" y="242" class="sw-cap">Lender</text>
+            <text x="224" y="260" class="sw-name sw-name-sm">Fixed loan</text>
+          </g>
         </svg>
-      </div>
-      <div class="party party-b">
-        <div class="p-label">Party B</div>
-        <div class="p-name">Wants a floating-rate loan</div>
-        <div class="p-desc">Prefers a floating rate — but can actually borrow more cheaply on a fixed one. So it borrows fixed and swaps into floating.</div>
-        <span class="p-badge float-badge">Borrows fixed, swaps to floating</span>
-      </div>
+        </div>
+      </figure>
     </div>
-    <p class="parties-note">Each borrows the rate type it's cheaper at, then they swap payments — so both end up with the loan they actually wanted, paying less interest between them than if each had borrowed it directly. That gap is the saving.</p>
   </div>
 
   <div class="section">
     <div class="section-label">How it works, step by step</div>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">1</div>
-        <div>
+    <div class="walk" id="walk">
+      <span class="walk-rail" aria-hidden="true"><span class="walk-fill"></span></span>
+      <ol class="walk-list">
+
+      <li class="walk-step">
+        <span class="walk-num">1</span>
+        <div class="walk-text">
           <h3>Your client chooses a loan</h3>
-          <p>A business comes to you ready to borrow and knows what it wants — a fixed or a floating rate. You find it the cheapest fixed and floating quotes on the market.</p>
+          <p>A business comes to you ready to borrow and knows what it wants: a fixed or a floating rate. You find it the cheapest fixed and floating quotes on the market.</p>
         </div>
-      </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <div>
+        <div class="walk-pic" aria-hidden="true">
+          <div class="wp-head"><span class="wp-cap">Your client</span><span class="wp-pill fix">Wants fixed</span></div>
+          <div class="wp-row"><i class="ti ti-building-bank"></i><span>Cheapest fixed quote</span><b>7.40%</b></div>
+          <div class="wp-row"><i class="ti ti-building-bank"></i><span>Cheapest floating quote</span><b>SOFR + 1.50%</b></div>
+          <div class="wp-foot">Example figures</div>
+        </div>
+      </li>
+
+      <li class="walk-step">
+        <span class="walk-num">2</span>
+        <div class="walk-text">
           <h3>You send us the details</h3>
           <p>If your client is open to saving, you forward the loan size, term and both quotes. No principal is exchanged and your client commits to nothing at this stage.</p>
         </div>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <div>
-          <h3>We find the match</h3>
-          <p>We pair your client with a business whose cheapest rates mirror theirs — one cheaper at fixed, one cheaper at floating. Each borrows the type it's cheaper at, ready to swap.</p>
+        <div class="walk-pic" aria-hidden="true">
+          <div class="wp-head"><span class="wp-cap"><i class="ti ti-send"></i>Sent to juku</span><span class="wp-pill ok"><i class="ti ti-check"></i>Received</span></div>
+          <div class="wp-row"><span>Loan size</span><b>$500,000</b></div>
+          <div class="wp-row"><span>Term</span><b>5 years</b></div>
+          <div class="wp-row"><span>Fixed quote</span><b>7.40%</b></div>
+          <div class="wp-row"><span>Floating quote</span><b>SOFR + 1.50%</b></div>
         </div>
+      </li>
+
+      <li class="walk-step">
+        <span class="walk-num">3</span>
+        <div class="walk-text">
+          <h3>We find the match</h3>
+          <p>We pair your client with a business whose cheapest rates mirror theirs: one cheaper at fixed, one cheaper at floating. Each borrows the type it's cheaper at, ready to swap.</p>
+        </div>
+        <div class="walk-pic" aria-hidden="true">
+          <div class="wp-head"><span class="wp-cap"><i class="ti ti-search"></i>Matching pool</span><span class="wp-pill ok"><i class="ti ti-check"></i>1 match</span></div>
+          <div class="wp-pool">
+            <div class="wp-cand"><span class="wp-pill fix">Wants fixed</span><span>$750k · 5 yrs</span><em>Same side</em></div>
+            <div class="wp-cand is-match"><span class="wp-pill flt">Wants floating</span><span>$500k · 5 yrs</span><em><i class="ti ti-check"></i>Match</em></div>
+            <div class="wp-cand"><span class="wp-pill flt">Wants floating</span><span>$2m · 10 yrs</span><em>Too different</em></div>
+            <div class="wp-cand"><span class="wp-pill fix">Wants fixed</span><span>$250k · 3 yrs</span><em>Same side</em></div>
+          </div>
+        </div>
+      </li>
+
+      <li class="walk-step">
+        <span class="walk-num">4</span>
+        <div class="walk-text">
+          <h3>Your client saves. You earn.</h3>
+          <p>They swap payments and each ends up with the loan it wanted, for less. You earn a commission from juku on every swap we complete, on top of your fee for arranging the loan.</p>
+        </div>
+        <div class="walk-pic" aria-hidden="true">
+          <div class="wp-row"><i class="ti ti-circle-check good"></i><span>Your client</span><b>The fixed rate it wanted, for less</b></div>
+          <div class="wp-row"><i class="ti ti-circle-check good"></i><span>Other business</span><b>The floating rate it wanted, for less</b></div>
+          <div class="wp-row wp-you"><i class="ti ti-coins good"></i><span>You</span><b>A commission on the deal</b></div>
+        </div>
+      </li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Integrations: the tools are generic categories; swap in real product names as integrations go live. -->
+  <div class="section">
+    <div class="section-label">Works with your tools</div>
+    <div class="intg" id="intg">
+      <div class="intg-copy">
+        <h3>We connect to the software you already use</h3>
+        <p>Whatever CRM or loan pipeline you run, we'll plug juku into it, allowing you to offer swaps with minimal extra effort.</p>
       </div>
-      <div class="step">
-        <div class="step-num">4</div>
-        <div>
-          <h3>Both save — and so do you</h3>
-          <p>They swap payments and each ends up with the loan they wanted, now cheaper. The saving is shared: your client keeps most of it, and you earn a commission on the deal.</p>
+      <div class="intg-device" aria-hidden="true">
+        <div class="intg-screen">
+          <svg class="intg-lines" viewBox="0 0 1600 1000">
+              <g class="intg-link" data-i="0"><path d="M800 190L800 500" vector-effect="non-scaling-stroke"/></g>
+              <g class="intg-link" data-i="1"><path d="M1270 330L800 500" vector-effect="non-scaling-stroke"/></g>
+              <g class="intg-link" data-i="2"><path d="M1270 670L800 500" vector-effect="non-scaling-stroke"/></g>
+              <g class="intg-link" data-i="3"><path d="M800 810L800 500" vector-effect="non-scaling-stroke"/></g>
+              <g class="intg-link" data-i="4"><path d="M330 670L800 500" vector-effect="non-scaling-stroke"/></g>
+              <g class="intg-link" data-i="5"><path d="M330 330L800 500" vector-effect="non-scaling-stroke"/></g>
+          </svg>
+            <div class="intg-tile intg-top" data-i="0"><i class="ti ti-address-book"></i><span>CRM</span></div>
+            <div class="intg-tile intg-tr" data-i="1"><i class="ti ti-layout-kanban"></i><span>Loan pipeline</span></div>
+            <div class="intg-tile intg-br" data-i="2"><i class="ti ti-building-bank"></i><span>Loan origination</span></div>
+            <div class="intg-tile intg-bottom" data-i="3"><i class="ti ti-table"></i><span>Spreadsheets</span></div>
+            <div class="intg-tile intg-bl" data-i="4"><i class="ti ti-mail"></i><span>Email</span></div>
+            <div class="intg-tile intg-tl" data-i="5"><i class="ti ti-folder"></i><span>Doc portal</span></div>
+          <div class="intg-hub">juku</div>
+        </div>
+        <div class="intg-stand"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Done by the book</div>
+    <div class="legit" id="legit">
+      <div class="legit-pin">
+        <div class="legit-side">
+          <p class="legit-intro">We take compliance seriously, so you and your clients are properly protected. Every deal is held to the highest standards, with no shortcuts.</p>
+          <ol class="terms">
+          <li><button type="button" class="term is-on" aria-pressed="true"><span class="term-tag">ISDA</span><span class="term-name">Master Agreement</span></button></li>
+          <li><button type="button" class="term" aria-pressed="false"><span class="term-tag">ECP</span><span class="term-name">Eligible Contract Participant</span></button></li>
+          <li><button type="button" class="term" aria-pressed="false"><span class="term-tag">LEI</span><span class="term-name">Legal Entity Identifier</span></button></li>
+          <li><button type="button" class="term" aria-pressed="false"><span class="term-tag">SDR</span><span class="term-name">Swap data repository</span></button></li>
+          <li><button type="button" class="term" aria-pressed="false"><span class="term-tag">OFAC</span><span class="term-name">Sanctions screening</span></button></li>
+          </ol>
+        </div>
+        <div class="docs-col">
+        <div class="docs">
+        <article class="doc" data-pos="0">
+          <header class="doc-head"><span class="doc-kind">Documentation</span><span class="doc-count">1 of 5</span></header>
+          <h3 class="doc-title">ISDA Master Agreement</h3>
+          <h4>What it is</h4>
+          <p>The ISDA Master Agreement, published by the International Swaps and Derivatives Association, is the standard contract for over-the-counter derivatives, including interest rate swaps. It sets out how payments are calculated and netted, what counts as a default, and how a swap is closed out if something goes wrong.</p>
+          <h4>How we handle it</h4>
+          <p>Every swap is documented on the ISDA Master Agreement and its Schedule, with a confirmation for each deal. The terms are the market standard rather than drafted from scratch, so both businesses and their advisers are reading a contract the market already knows.</p>
+        </article>
+        <article class="doc" data-pos="1">
+          <header class="doc-head"><span class="doc-kind">Eligibility</span><span class="doc-count">2 of 5</span></header>
+          <h3 class="doc-title">Eligible Contract Participant</h3>
+          <h4>What it is</h4>
+          <p>Under the Commodity Exchange Act, swaps agreed away from an exchange are only open to Eligible Contract Participants. A business generally qualifies with total assets over $10 million, or with a net worth over $1 million where the swap manages risk in its own business, such as a loan.</p>
+          <h4>How we handle it</h4>
+          <p>Both businesses must qualify as Eligible Contract Participants, and we confirm this for each side before anything is signed. A business that doesn't qualify isn't offered a swap.</p>
+        </article>
+        <article class="doc" data-pos="2">
+          <header class="doc-head"><span class="doc-kind">Identification</span><span class="doc-count">3 of 5</span></header>
+          <h3 class="doc-title">Legal Entity Identifier</h3>
+          <h4>What it is</h4>
+          <p>A Legal Entity Identifier is a 20-character code, defined by ISO 17442 and overseen by the Global Legal Entity Identifier Foundation, that identifies a company taking part in a financial transaction. US swap reporting rules require each party to a swap to be identified by its LEI.</p>
+          <h4>How we handle it</h4>
+          <p>Each business needs an active LEI before its swap can go ahead, so it is always clear exactly who is on each side. An LEI is renewed every year.</p>
+        </article>
+        <article class="doc" data-pos="3">
+          <header class="doc-head"><span class="doc-kind">Reporting</span><span class="doc-count">4 of 5</span></header>
+          <h3 class="doc-title">Swap data repository reporting</h3>
+          <h4>What it is</h4>
+          <p>Under CFTC rules, every swap must be reported to a registered swap data repository when it is agreed, and again whenever it changes until it ends. Regulators use this data to oversee the swaps market.</p>
+          <h4>How we handle it</h4>
+          <p>Every swap arranged through juku is reported to a CFTC-registered swap data repository, and its record is kept up to date for the life of the deal.</p>
+        </article>
+        <article class="doc" data-pos="4">
+          <header class="doc-head"><span class="doc-kind">Screening</span><span class="doc-count">5 of 5</span></header>
+          <h3 class="doc-title">OFAC sanctions screening</h3>
+          <h4>What it is</h4>
+          <p>The Office of Foreign Assets Control, part of the US Treasury, administers US economic sanctions. US persons are generally prohibited from dealing with anyone on its sanctions lists, including the Specially Designated Nationals list.</p>
+          <h4>How we handle it</h4>
+          <p>Both businesses are screened against OFAC's sanctions lists before a deal goes ahead.</p>
+        </article>
+        </div>
         </div>
       </div>
     </div>
@@ -102,7 +302,7 @@
     <div class="section-label">Common questions</div>
     <div class="faq-item">
       <button class="faq-q" onclick="toggleFaq(this)">Where does the saving come from? <span class="faq-icon">+</span></button>
-      <div class="faq-a">Each business can borrow more cheaply at a different rate type — one at fixed, one at floating. When each borrows where it's cheaper and they swap, the pair pays less interest in total than if each had borrowed its preferred type directly. That difference is the saving we share out.</div>
+      <div class="faq-a">Each business can borrow more cheaply at a different rate type: one at fixed, one at floating. When each borrows where it's cheaper and they swap, the pair pays less interest in total than if each had borrowed its preferred type directly. That difference is the saving we share out.</div>
     </div>
     <div class="faq-item">
       <button class="faq-q" onclick="toggleFaq(this)">Is my client exposed to the other business? <span class="faq-icon">+</span></button>
@@ -110,18 +310,18 @@
     </div>
     <div class="faq-item">
       <button class="faq-q" onclick="toggleFaq(this)">What does it cost my client? <span class="faq-icon">+</span></button>
-      <div class="faq-a">Nothing up front. We're only paid out of the saving we create — if there's no saving to be had, there's no deal and no fee. Your client keeps the majority of whatever we save them.</div>
+      <div class="faq-a">Nothing up front. We're only paid out of the saving we create. If there's no saving to be had, there's no deal and no fee. Your client keeps the majority of whatever we save them.</div>
     </div>
     <div class="faq-item">
       <button class="faq-q" onclick="toggleFaq(this)">What's in it for me as a broker? <span class="faq-icon">+</span></button>
-      <div class="faq-a">A new product to offer your clients and a commission on every completed swap — earned on details you already collect when arranging their loan. We handle the matching, structuring and paperwork.</div>
+      <div class="faq-a">A new product to offer your clients and a commission on every completed swap, earned on details you already collect when arranging their loan. We handle the matching, structuring and paperwork.</div>
     </div>
   </div>
 
   <div class="cta">
     <div class="cta-inner">
       <h2>Offer your clients cheaper loans</h2>
-      <p>We're partnering with brokers to bring interest rate swaps to everyday business loans. Register your interest and we'll be in touch as we launch — no commitment, no cost.</p>
+      <p>We're partnering with brokers to bring interest rate swaps to everyday business loans. Register your interest and we'll be in touch as we launch. There's no commitment and no cost.</p>
       <button class="cta-btn" onclick="show('form')">Get in touch →</button>
     </div>
     <div class="cta-graphic" aria-hidden="true">
@@ -135,71 +335,143 @@
 
 <!-- FORM PAGE -->
 <div class="page" id="page-form">
-
-  <div class="form-layout">
-    <div class="form-graphic" aria-hidden="true">
-      <div class="hg-dots hg-dots-tl"></div>
-      <div class="hg-circle"></div>
-      <div class="hg-dots hg-dots-br"></div>
+  <div class="contact">
+    <div class="contact-pitch">
+      <span class="hero-tag"><i class="ti ti-briefcase" aria-hidden="true" style="font-size:13px;"></i>For US commercial loan brokers</span>
+      <h1>Bring swaps to your clients<span class="dot">.</span></h1>
+      <p class="contact-sub">Tell us a little about your brokerage and the loans you arrange. Here's what happens next.</p>
+      <ol class="contact-steps">
+        <li><span class="step-num">1</span><div><h3>We get back to you</h3><p>Within two business days of you sending this form.</p></div></li>
+        <li><span class="step-num">2</span><div><h3>A short intro call</h3><p>How swaps fit the loans you already arrange, and how you earn on each one.</p></div></li>
+        <li><span class="step-num">3</span><div><h3>Try it on a live deal</h3><p>Send us a current deal and we'll check whether there's a match for it.</p></div></li>
+      </ol>
+      <ul class="contact-points">
+        <li><i class="ti ti-check" aria-hidden="true"></i>No cost to join</li>
+        <li><i class="ti ti-check" aria-hidden="true"></i>No commitment</li>
+        <li><i class="ti ti-check" aria-hidden="true"></i>Brokers only</li>
+      </ul>
     </div>
 
-  <div class="form-wrap" id="form-inner">
-    <h1>Get in touch</h1>
-    <p class="form-sub">Tell us a little about your brokerage and we'll be in touch within two business days.</p>
+    <div class="contact-card">
+      <form id="contact-form" novalidate>
+        <h2>Tell us about your brokerage</h2>
+        <div class="field-row">
+          <div class="field"><label for="c-fname">First name</label><input type="text" id="c-fname" name="fname" placeholder="James" autocomplete="given-name" required></div>
+          <div class="field"><label for="c-lname">Last name</label><input type="text" id="c-lname" name="lname" placeholder="Carter" autocomplete="family-name"></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="c-email">Work email</label><input type="email" id="c-email" name="email" placeholder="james@cartercapital.com" autocomplete="email" required></div>
+          <div class="field"><label for="c-phone">Phone <span class="opt">optional</span></label><input type="tel" id="c-phone" name="phone" placeholder="(555) 123-4567" autocomplete="tel"></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="c-company">Brokerage</label><input type="text" id="c-company" name="company" placeholder="Carter Capital Advisors" autocomplete="organization"></div>
+          <div class="field">
+            <label for="c-state">State</label>
+            <select id="c-state" name="state">
+              <option value="">Select...</option>
+                <option>Alabama</option>
+                <option>Alaska</option>
+                <option>Arizona</option>
+                <option>Arkansas</option>
+                <option>California</option>
+                <option>Colorado</option>
+                <option>Connecticut</option>
+                <option>Delaware</option>
+                <option>District of Columbia</option>
+                <option>Florida</option>
+                <option>Georgia</option>
+                <option>Hawaii</option>
+                <option>Idaho</option>
+                <option>Illinois</option>
+                <option>Indiana</option>
+                <option>Iowa</option>
+                <option>Kansas</option>
+                <option>Kentucky</option>
+                <option>Louisiana</option>
+                <option>Maine</option>
+                <option>Maryland</option>
+                <option>Massachusetts</option>
+                <option>Michigan</option>
+                <option>Minnesota</option>
+                <option>Mississippi</option>
+                <option>Missouri</option>
+                <option>Montana</option>
+                <option>Nebraska</option>
+                <option>Nevada</option>
+                <option>New Hampshire</option>
+                <option>New Jersey</option>
+                <option>New Mexico</option>
+                <option>New York</option>
+                <option>North Carolina</option>
+                <option>North Dakota</option>
+                <option>Ohio</option>
+                <option>Oklahoma</option>
+                <option>Oregon</option>
+                <option>Pennsylvania</option>
+                <option>Rhode Island</option>
+                <option>South Carolina</option>
+                <option>South Dakota</option>
+                <option>Tennessee</option>
+                <option>Texas</option>
+                <option>Utah</option>
+                <option>Vermont</option>
+                <option>Virginia</option>
+                <option>Washington</option>
+                <option>West Virginia</option>
+                <option>Wisconsin</option>
+                <option>Wyoming</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="c-loans">Loans you mostly arrange</label>
+            <select id="c-loans" name="loanFocus">
+              <option value="">Select...</option>
+                <option>SBA 7(a) or 504</option>
+                <option>Commercial real estate</option>
+                <option>Equipment finance</option>
+                <option>Term loans and credit lines</option>
+                <option>A mix</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="c-size">Typical loan size</label>
+            <select id="c-size" name="loanSize">
+              <option value="">Select...</option>
+                <option>Under $250k</option>
+                <option>$250k to $1m</option>
+                <option>$1m to $5m</option>
+                <option>Over $5m</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="c-volume">Business loans you close a year</label>
+          <select id="c-volume" name="clientVolume">
+            <option value="">Select...</option>
+                <option>Under 10</option>
+                <option>10 to 50</option>
+                <option>50 to 200</option>
+                <option>Over 200</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="c-message">Anything else? <span class="opt">optional</span></label>
+          <textarea id="c-message" name="message" placeholder="e.g. Most of my clients take SBA 7(a) loans and keep asking whether they should lock in a fixed rate..."></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Request an intro call →</button>
+        <p class="form-status" role="status" aria-live="polite"></p>
+        <p class="form-note">No commitment. No fees at this stage. Brokers only.</p>
+      </form>
 
-    <div class="field-row">
-      <div class="field"><label>First name</label><input type="text" placeholder="James" id="fname"></div>
-      <div class="field"><label>Last name</label><input type="text" placeholder="Carter" id="lname"></div>
-    </div>
-    <div class="field"><label>Brokerage name</label><input type="text" placeholder="Carter Finance Partners" id="company"></div>
-    <div class="field"><label>Email address</label><input type="email" placeholder="james@carterfinance.com" id="email"></div>
-    <div class="field-row">
-      <div class="field">
-        <label>Business loan clients you place a year</label>
-        <select id="client-volume">
-          <option value="">Select...</option>
-          <option>Under 10</option>
-          <option>10–50</option>
-          <option>50–200</option>
-          <option>Over 200</option>
-        </select>
+      <div class="contact-success" id="contact-success" hidden>
+        <div class="success-icon"><i class="ti ti-check" aria-hidden="true"></i></div>
+        <h2>Message received</h2>
+        <p>Thanks for getting in touch. We'll review your details and reach out within two business days.</p>
       </div>
-      <div class="field">
-        <label>Are you FCA authorised?</label>
-        <select id="fca-status">
-          <option value="">Select...</option>
-          <option>Directly authorised</option>
-          <option>Appointed representative</option>
-          <option>Not authorised</option>
-        </select>
-      </div>
     </div>
-    <div class="field">
-      <label>What business loans do you typically arrange?</label>
-      <select id="loan-focus">
-        <option value="">Select...</option>
-        <option>Commercial mortgages</option>
-        <option>Asset &amp; equipment finance</option>
-        <option>Working capital / term loans</option>
-        <option>A mix across types</option>
-      </select>
-    </div>
-    <div class="field">
-      <label>Anything else to add? (optional)</label>
-      <textarea placeholder="e.g. Most of my clients take commercial mortgages and often ask about switching between fixed and variable rates..."></textarea>
-    </div>
-    <div class="divider"></div>
-    <button class="submit-btn" onclick="submitForm()">Submit →</button>
-    <p class="form-note">No commitment. No fees at this stage. Brokers only.</p>
   </div>
-
-  <div class="success" id="success-msg">
-    <div class="success-icon"><i class="ti ti-check" aria-hidden="true"></i></div>
-    <h2>Message received</h2>
-    <p>Thanks for getting in touch. We'll review your details and reach out within two business days.</p>
-  </div>
-
-  </div><!-- end form-layout -->
 </div>
 
 <script src="juku/js/main.js"></script>
