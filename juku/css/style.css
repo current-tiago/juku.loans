@@ -574,28 +574,21 @@ a.nav-btn { text-decoration: none; display: inline-block; }
 .xq-line span { font-size: 12.5px; color: var(--text-secondary); }
 .xq-line b { font-size: 15px; font-style: italic; white-space: nowrap; }
 .xq-line.better b { color: #1f8a4c; }
-.xq-save {
-  display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 12px; padding: 8px 12px;
-  border-radius: 20px; background: rgba(31,138,76,0.1); border: 1px solid rgba(31,138,76,0.3);
-  font-size: 13px; font-weight: 700; color: #1f8a4c; text-align: center;
-}
 /* On step 1 the quotes, the better deals, the two sums and the saving appear in turn */
-.xq tbody tr, .xq-line, .xq-save { transition: opacity 0.4s ease, transform 0.4s ease; }
+.xq tbody tr, .xq-line { transition: opacity 0.4s ease, transform 0.4s ease; }
 .xq td.better span { transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease; }
 .xq tbody tr:nth-child(1) { transition-delay: 0.15s; }
 .xq tbody tr:nth-child(2) { transition-delay: 0.3s; }
 .xq td.better span { transition-delay: 0.7s; }
 .xq-line:nth-child(1) { transition-delay: 1.05s; }
 .xq-line:nth-child(2) { transition-delay: 1.4s; }
-.xq-save { transition-delay: 1.8s; }
-.swap:not(.show-intro) :is(.xq tbody tr, .xq-line, .xq-save) { opacity: 0; transform: translateY(6px); transition-delay: 0s; }
+.swap:not(.show-intro) :is(.xq tbody tr, .xq-line) { opacity: 0; transform: translateY(6px); transition-delay: 0s; }
 .swap:not(.show-intro) .xq td.better span { background: transparent; border-color: transparent; color: inherit; font-weight: 400; transition-delay: 0s; }
 @media (max-width: 480px) {
   .sw-intro { padding: 14px; }
   .xq tbody th { font-size: 12.5px; }
   .xq td span { padding: 3px 6px; }
   .xq-line b { font-size: 14px; }
-  .xq-save { font-size: 12px; }
 }
 .sw-node text { dominant-baseline: central; transition: opacity 0.4s ease; }
 .sw-node rect { fill: var(--bg); stroke: var(--border-strong); transition: fill 0.4s, stroke 0.4s; }
@@ -634,7 +627,7 @@ a.nav-btn { text-decoration: none; display: inline-block; }
   .swap-fig { order: -1; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .ss-btn, .ss-body, .sw-node text, .sw-node rect, .flow path, .flow .coins, .sw-figs > *, .xq tbody tr, .xq td.better span, .xq-line, .xq-save { transition: none; }
+  .ss-btn, .ss-body, .sw-node text, .sw-node rect, .flow path, .flow .coins, .sw-figs > *, .xq tbody tr, .xq td.better span, .xq-line { transition: none; }
 }
 
 /* CALCULATOR */
