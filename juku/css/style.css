@@ -563,7 +563,6 @@ a.nav-btn { text-decoration: none; display: inline-block; }
 .sw-sub { font-size: 11px; font-style: italic; fill: var(--text-tertiary); }
 .sw-status { font-size: 12px; font-style: italic; fill: var(--text-secondary); }
 .sw-status.good { fill: #1f8a4c; font-weight: 700; }
-.sw-rate { font-size: 12px; font-weight: 700; fill: var(--text-primary); font-variant-numeric: tabular-nums; }
 /* Every line is always visible: grey until its step is reached, then lit in its own colour,
    and lit lines stay lit on later steps. Moving dots only run on the current step's lines (.on). */
 .flow path { fill: none; stroke-width: 2; stroke-linecap: round; stroke: #cbc2b6; marker-end: url(#ah-grey); transition: stroke 0.3s; }
@@ -583,7 +582,6 @@ a.nav-btn { text-decoration: none; display: inline-block; }
 .ah-fix { stroke: var(--accent); }
 .ah-flt { stroke: var(--purple); }
 .ah-com { stroke: #1f8a4c; }
-.swap-foot { margin-top: 1rem; text-align: center; font-size: 11px; font-style: italic; color: var(--text-tertiary); }
 
 @media (max-width: 820px) {
   .swap { grid-template-columns: 1fr; gap: 1.5rem; padding: 1.25rem; }

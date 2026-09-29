@@ -209,11 +209,11 @@ const SWAP_STATES = [
   { li: 1, move: 'down', lit: ['loanA', 'loanB', 'payAB'], on: ['payAB'], dim: ['broker'],
     status: ['loan costs less', 'gets the difference'], sub: ['pays the difference', ''] },
   { li: 2, lit: ['loanA', 'loanB', 'commission'], on: ['commission'], hi: ['broker'],
-    status: ['pays 7.00% fixed', 'pays SOFR + 1.40%'], sub: ['instead of 7.20%', 'instead of SOFR + 1.60%'], good: true },
+    status: ['pays less', 'pays less'], sub: ['than its fixed quote', 'than its floating quote'], good: true },
 ];
 
 // Height given to each kind of text line; a box's lines are stacked and centred in it.
-const SW_LINE = { 'sw-cap': 18, 'sw-name': 22, 'sw-status': 18, 'sw-sub': 16, 'sw-rate': 18 };
+const SW_LINE = { 'sw-cap': 18, 'sw-name': 22, 'sw-status': 18, 'sw-sub': 16 };
 
 const swap = document.getElementById('swap');
 if (swap) {
